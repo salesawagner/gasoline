@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="MTPPhoto" representedClassName=".MTPPhoto" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlBig" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlMid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlSmall" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tinder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MTPTinder" inverseName="photos" inverseEntity="MTPTinder" syncable="YES"/>
+    </entity>
+    <entity name="MTPTinder" representedClassName=".MTPTinder" syncable="YES">
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="birthDay" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="isBlocked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isDisLiked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isLiked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isMatch" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isStared" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSuperLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="matchDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="matchLastActivity" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pingTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="statusCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="wasLiked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="wasSuperLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MTPPhoto" inverseName="tinder" inverseEntity="MTPPhoto" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MTPPhoto" positionX="-45" positionY="-9" width="128" height="150"/>
+        <element name="MTPTinder" positionX="-236" positionY="-52" width="128" height="345"/>
+    </elements>
+</model>
