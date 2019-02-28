@@ -44,25 +44,6 @@ class GASTabBarController: UITabBarController {
 		self.setupCollectionViews()
 		let attributedString = UIFont.attributedString(size: 11, color: .black)
 		let appearance = UITabBarItem.appearance()
-		appearance.setTitleTextAttributes(attributedString, for: UIControlState())
+		appearance.setTitleTextAttributes(attributedString, for: UIControl.State())
     }
-
-	override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-		
-		guard tabBar.subviews.count <= item.tag else {
-			return
-		}
-
-		let itemSelected = tabBar.subviews[item.tag]
-		if let view = itemSelected.subviews.compactMap({ $0 as? UIImageView }).first {
-			let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
-			pulseAnimation.duration = 0.25
-			pulseAnimation.fromValue = 1
-			pulseAnimation.toValue = 1.30
-			pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-			pulseAnimation.autoreverses = true
-			pulseAnimation.repeatCount = 0
-			view.layer.add(pulseAnimation, forKey: "animate.transform.scale.\(item.tag)")
-		}
-	}
 }

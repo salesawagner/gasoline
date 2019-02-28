@@ -56,7 +56,7 @@ class CollectionViewController: GASViewController {
 		let frame = CGRect(x: 0, y: 0, width: width, height: height)
 
 		let reloadButton = UIButton(frame: frame)
-		reloadButton.setImage(#imageLiteral(resourceName: "icn_load"), for: UIControlState())
+		reloadButton.setImage(#imageLiteral(resourceName: "icn_load"), for: UIControl.State())
 		reloadButton.addTarget(self, action: #selector(self.didTapReload), for: .touchUpInside)
 
 		let reloadButtonItem = UIBarButtonItem(customView: reloadButton)

@@ -172,9 +172,9 @@ class TinderViewController: GASViewController {
 
 		// liked
 		if self.viewModel.isLiked {
-			self.likeButton.setImage(UIImage(named: "btn_liked_big"), for: UIControlState())
+			self.likeButton.setImage(UIImage(named: "btn_liked_big"), for: UIControl.State())
 		} else {
-			self.likeButton.setImage(UIImage(named: "btn_like_big"), for: UIControlState())
+			self.likeButton.setImage(UIImage(named: "btn_like_big"), for: UIControl.State())
 		}
 
 		if !self.viewModel.canAction {
@@ -191,7 +191,7 @@ class TinderViewController: GASViewController {
 		super.viewDidLoad()
 		self.setupViewModel()
 
-		self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, self.disLikeView.frame.height, 0)
+		self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.disLikeView.frame.height, right: 0)
 
 		self.setupButtons()
 		self.setupTinder()
@@ -210,7 +210,7 @@ class TinderViewController: GASViewController {
 
 		// Button
 		let button = UIButton(frame: frame)
-		button.setImage(image, for: UIControlState())
+		button.setImage(image, for: UIControl.State())
 		button.addTarget(self, action: #selector(self.moreButtonTapped), for: .touchUpInside)
 
 		// Button Item

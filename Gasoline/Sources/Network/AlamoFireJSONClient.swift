@@ -18,7 +18,7 @@ enum AlamoFireJSONClient {
 
 		var headers = HTTPHeaders()
 		headers["platform"] = "ios"
-		if let user = MTPUser.userLogged, let token = user.tinderToken {
+		if let user = User.logged(), let token = user.token {
 			headers["X-Auth-Token"] = token
 		}
 

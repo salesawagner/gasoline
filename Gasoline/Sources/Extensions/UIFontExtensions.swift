@@ -22,8 +22,8 @@ extension UIFont {
 		return UIFont.font(name: "Avenir-Book", size: size)
 	}
 	
-	class func attributedString(size: CGFloat, color: UIColor = .white) -> [NSAttributedStringKey: Any]  {
+	class func attributedString(size: CGFloat, color: UIColor = .white) -> [NSAttributedString.Key: Any]  {
 		let font = UIFont.fontMedium(size: size)
-		return [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
+		return [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
 	}
 }

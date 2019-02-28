@@ -87,10 +87,11 @@ class GASTinder: Object {
 	convenience init?(user: JSON) {
 		guard
 			let id = user["_id"].string,
-			let logged = MTPUser.userLogged else {
+			let logged = User.logged(),
+			let loggedID = logged.ID else {
 				return nil
 		}
-		let replaced = id.replacingOccurrences(of: logged.id, with: "")
+		let replaced = id.replacingOccurrences(of: loggedID, with: "")
 		if let tinder = GASTinder.findById(id: replaced) {
 			self.init(value: tinder)
 		} else {

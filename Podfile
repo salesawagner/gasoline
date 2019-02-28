@@ -1,4 +1,4 @@
-platform :ios, "11.3"
+platform :ios, "12.0"
 use_frameworks!
 inhibit_all_warnings!
 
@@ -26,7 +26,7 @@ target 'Gasoline' do
 	pod 'FBSDKLoginKit'
 
 # Personal
-	pod 'WASKit', '0.2.0'
+	pod 'WASKit', '0.2.1'
 
 # Firebase
 	pod 'Firebase/Core'

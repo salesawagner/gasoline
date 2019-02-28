@@ -57,11 +57,11 @@ class OnboardingViewController: GASViewController {
 extension OnboardingViewController: OnboardingDelegate {
 
 	func pageControllerDidLoad(numberOfPages: Int) {
-		self.addChildViewController(self.pageViewController)
+		self.addChild(self.pageViewController)
 		self.containerView.addSubview(self.pageViewController.view)
 		self.pageViewController.view.frame = self.containerView.frame
 		self.pageControl.numberOfPages = numberOfPages
-		self.pageViewController.didMove(toParentViewController: self)
+		self.pageViewController.didMove(toParent: self)
 	}
 
 	func pageDidChange(index: Int, isLast: Bool) {

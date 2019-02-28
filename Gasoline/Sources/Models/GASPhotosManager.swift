@@ -31,7 +31,7 @@ class PhotoImage: NSObject, ASImageContainerProtocol {
 		return self.image
 	}
 	public func asdk_animatedImageData() -> Data? {
-		return UIImagePNGRepresentation(self.image)
+		return self.image.pngData()
 	}
 	private func addImageToCache(_ url: String, image: Image) {
 		let photoManager = GASPhotosManager.instance

@@ -157,8 +157,8 @@ extension GASPhoto {
 
 						}
 
-					case let .error(error):
-						Log.e(error.localizedDescription)
+					case let .error(error): break // FIXME:
+//						Log.e(error.localizedDescription)
 					}
 
 				})
@@ -175,7 +175,8 @@ extension GASPhoto {
 			
 			if photo.isNsfw {
 				fileURL = fileURL.appendingPathComponent("bikini/\(photo.id).jpg")
-				if let pngImageData = UIImageJPEGRepresentation(image, 1.0) {
+
+				if let pngImageData = image.jpegData(compressionQuality: 1) {
 					try pngImageData.write(to: fileURL, options: .atomic)
 					Log.e("------->>>>\(confidence)")
 				} else {
@@ -184,7 +185,7 @@ extension GASPhoto {
 				
 			} else if photo.nsfw < 0.5 {
 				fileURL = fileURL.appendingPathComponent("nobikini/\(photo.id).jpg")
-				if let pngImageData = UIImageJPEGRepresentation(image, 1.0) {
+				if let pngImageData = image.jpegData(compressionQuality: 1) {
 					try pngImageData.write(to: fileURL, options: .atomic)
 					Log.e("------->>>>\(confidence)")
 				} else {

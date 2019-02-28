@@ -46,7 +46,7 @@
 		A7F10D1020C7593200687F6F /* GASPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CE720C7593200687F6F /* GASPhoto.swift */; };
 		A7F10D1420C7593200687F6F /* GASTinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CEB20C7593200687F6F /* GASTinder.swift */; };
 		A7F10D1520C7593200687F6F /* GASTinderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CEC20C7593200687F6F /* GASTinderManager.swift */; };
-		A7F10D1620C7593200687F6F /* MTPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CED20C7593200687F6F /* MTPUser.swift */; };
+		A7F10D1620C7593200687F6F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CED20C7593200687F6F /* User.swift */; };
 		A7F10D1820C7593200687F6F /* UIViewController+Visible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF020C7593200687F6F /* UIViewController+Visible.swift */; };
 		A7F10D1920C7593200687F6F /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF120C7593200687F6F /* UIViewController+Utils.swift */; };
 		A7F10D1A20C7593200687F6F /* ImageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF320C7593200687F6F /* ImageDecoder.swift */; };
@@ -127,7 +127,7 @@
 		A7F10CE720C7593200687F6F /* GASPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASPhoto.swift; sourceTree = "<group>"; };
 		A7F10CEB20C7593200687F6F /* GASTinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASTinder.swift; sourceTree = "<group>"; };
 		A7F10CEC20C7593200687F6F /* GASTinderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASTinderManager.swift; sourceTree = "<group>"; };
-		A7F10CED20C7593200687F6F /* MTPUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTPUser.swift; sourceTree = "<group>"; };
+		A7F10CED20C7593200687F6F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A7F10CF020C7593200687F6F /* UIViewController+Visible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Visible.swift"; sourceTree = "<group>"; };
 		A7F10CF120C7593200687F6F /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		A7F10CF320C7593200687F6F /* ImageDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDecoder.swift; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 				A7F10CEB20C7593200687F6F /* GASTinder.swift */,
 				A7F10CEC20C7593200687F6F /* GASTinderManager.swift */,
 				A737345B2213034100DE27CB /* GASTinderManager+Lists.swift */,
-				A7F10CED20C7593200687F6F /* MTPUser.swift */,
+				A7F10CED20C7593200687F6F /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -746,7 +746,7 @@
 				A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */,
 				A7F10D2320C7593200687F6F /* GASViewController.swift in Sources */,
 				A71CD833220E080D007D2887 /* Bikini.mlmodel in Sources */,
-				A7F10D1620C7593200687F6F /* MTPUser.swift in Sources */,
+				A7F10D1620C7593200687F6F /* User.swift in Sources */,
 				A7C5F630221262F8004759AA /* TinderEndPoint.swift in Sources */,
 				A7373468221353EA00DE27CB /* PhotoViewModel.swift in Sources */,
 				A7F10D2420C7593200687F6F /* MTPTheAppViewController.swift in Sources */,
@@ -812,7 +812,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.wagnersales.GasolineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gasoline.app/Gasoline";
 			};
@@ -833,7 +833,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.wagnersales.GasolineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gasoline.app/Gasoline";
 			};
@@ -890,12 +890,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -944,11 +945,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -960,7 +962,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 5J5VQMB8P2;
+				DEVELOPMENT_TEAM = B6M4H2TQY8;
 				INFOPLIST_FILE = "$(SRCROOT)/Gasoline/Resources/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -968,7 +970,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.wagnersales.gasoline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -979,7 +981,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5J5VQMB8P2;
+				DEVELOPMENT_TEAM = B6M4H2TQY8;
 				INFOPLIST_FILE = "$(SRCROOT)/Gasoline/Resources/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -987,7 +989,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.wagnersales.gasoline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -13,7 +13,7 @@ import Fabric
 import Crashlytics
 import Firebase
 
-typealias LaunchOptions = [UIApplicationLaunchOptionsKey: Any]?
+typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// Set root view controller
 		var rootViewController: UIViewController
-		if MTPUser.userLogged == nil {
+		if User.logged() == nil {
 			rootViewController = UIViewController.login
 		} else {
 			rootViewController = GASTabBarController()

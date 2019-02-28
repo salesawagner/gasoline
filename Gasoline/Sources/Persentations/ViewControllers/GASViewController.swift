@@ -39,7 +39,7 @@ class GASViewController: UIViewController {
 			let frame = CGRect(x: 0, y: 0, width: width, height: height)
 			// Button
 			let backButton = UIButton(frame: frame)
-			backButton.setImage(#imageLiteral(resourceName: "btn_back"), for: UIControlState())
+			backButton.setImage(#imageLiteral(resourceName: "btn_back"), for: UIControl.State())
 			backButton.addTarget(self, action: #selector(self.pop), for: .touchUpInside)
 			// Button Item
 			let backButtonItem = UIBarButtonItem(customView: backButton)

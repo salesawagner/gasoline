@@ -149,7 +149,7 @@ PODS:
     - Texture/Core
   - Texture/Video (2.8):
     - Texture/Core
-  - WASKit (0.2.0)
+  - WASKit (0.2.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -166,7 +166,7 @@ DEPENDENCIES:
   - SCLAlertView
   - SwiftyJSON
   - Texture
-  - WASKit (= 0.2.0)
+  - WASKit (= 0.2.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -237,8 +237,8 @@ SPEC CHECKSUMS:
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Texture: fc6e0157201f3a6e503d364c147b1872e365cef4
-  WASKit: 0cf87554258c7327abaf08052b1e95d0804813a2
+  WASKit: b2f3d428983fa08ce88bea94f0b71e72e5754f0b
 
-PODFILE CHECKSUM: b7d5dfe4d6c9b806d06689237e1439ea85841bae
+PODFILE CHECKSUM: 4e738c169d83bdf1449260c188d46b1e6a4aa833
 
 COCOAPODS: 1.6.1

@@ -38,7 +38,7 @@ class AuthManager: NSObject {
 		}
 	}
 
-	class func loginTinder(completion: @escaping (_ sucess: Bool) -> Void) {
+	class func loginTinder(completion: @escaping CompletionSuccess) {
 		guard let facebookToken = FBSDKAccessToken.current() else {
 			completion(false)
 			return
@@ -52,7 +52,8 @@ class AuthManager: NSObject {
 		TinderJSONClient.auth(parameters: params) { result in
 			switch result {
 				case .success(let json): do {
-					if let _ = MTPUser(json: JSON(json)) {
+					if let user = User(json: JSON(json)) {
+						User.save(user: user)
 						completion(true)
 					} else {
 						completion(false)
@@ -70,6 +71,6 @@ class AuthManager: NSObject {
 
 	class func logout() {
 		FBSDKAccessToken.setCurrent(nil)
-		MTPUser.delete()
+		User.delete()
 	}
 }
