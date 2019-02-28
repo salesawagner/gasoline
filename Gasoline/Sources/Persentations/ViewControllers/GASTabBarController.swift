@@ -16,7 +16,7 @@ class GASTabBarController: UITabBarController {
 	private func setupCollectionViews() {
 
 		var viewControllers = [UIViewController]()
-//		viewControllers.append(Collection.likedMe.createViewController(inNavigationControler: true))
+		viewControllers.append(Collection.likedMe.createViewController(inNavigationControler: true))
 		viewControllers.append(Collection.browser.createViewController(inNavigationControler: true))
 		viewControllers.append(Collection.iLiked.createViewController(inNavigationControler: true))
 		viewControllers.append(Collection.matched.createViewController(inNavigationControler: true))

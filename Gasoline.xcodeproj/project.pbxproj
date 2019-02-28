@@ -121,7 +121,6 @@
 		A7F10CDC20C7593200687F6F /* MTPNotFound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTPNotFound.swift; sourceTree = "<group>"; };
 		A7F10CDF20C7593200687F6F /* PersistenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		A7F10CE020C7593200687F6F /* AuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
-		A7F10CE220C7593200687F6F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		A7F10CE420C7593200687F6F /* Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
 		A7F10CE620C7593200687F6F /* GASPhotosManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASPhotosManager.swift; sourceTree = "<group>"; };
 		A7F10CE720C7593200687F6F /* GASPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASPhoto.swift; sourceTree = "<group>"; };
@@ -334,7 +333,6 @@
 		A7F10CE120C7593200687F6F /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A7F10CE220C7593200687F6F /* Network.swift */,
 				A7C5F63522127B35004759AA /* AlamofireLogger.swift */,
 				A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */,
 				A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */,
