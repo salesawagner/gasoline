@@ -44,7 +44,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
 		self.viewModel = viewModel
 		self.photoID = viewModel.photoID
-		self.nsfwLabel.text = viewModel.nsfw
+//        self.nsfwLabel.text = viewModel.nsfw
 
 		self.start()
 		self.photoImageView.setPhoto(photoID: self.photoID, completion: {

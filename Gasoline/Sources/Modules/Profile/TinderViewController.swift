@@ -9,115 +9,130 @@
 import UIKit
 import RealmSwift
 
-struct Cell {
-	
-	private static let perLine: CGFloat = 2
-	private static let screenWidth: CGFloat = UIScreen.main.bounds.width - 1
-	
-	static let margin: CGFloat = 0
-	
-	static var width: CGFloat {
-		let perLine = Cell.perLine
-		let size = (Cell.screenWidth-(Cell.margin*(perLine+1)))
-		return size / perLine
-	}
-	
-	static var height: CGFloat {
-		return Cell.width * 1.60
-	}
-}
-
 class TinderViewController: GASViewController {
 
 	// MARK: - Properties
 
 	var viewModel: DetailTinderViewModel!
-
-	// MARK: - IBOutlets
-
-	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var collectionView: UICollectionView!
-	@IBOutlet weak var onlineLabel: UILabel!
-	@IBOutlet weak var distanceLabel: UILabel!
-	@IBOutlet weak var descriptionLabel: UILabel!
-	@IBOutlet weak var matchDateLabel: UILabel!
-	@IBOutlet weak var matchLastDateLabel: UILabel!
-	
-	// Buttons
-	@IBOutlet weak var disLikeView: UIView!
-	@IBOutlet weak var disLikeButton: UIButton!
-
-	@IBOutlet weak var superLikeView: UIView!
-	@IBOutlet weak var superLikeButton: UIButton!
-
-	@IBOutlet weak var likeView: UIView!
-	@IBOutlet weak var likeButton: UIButton!
-
-	// MARK: - Self Public Methods
-	
-	func openUrl(_ urlString: String) {
-		guard let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) else {
-			return
-		}
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-	}
-
-	@objc func moreButtonTapped() {
-
-		let sheet = UIAlertController(title: nil, message: "Escolha a opção", preferredStyle: .actionSheet)
-
-		if !self.viewModel.instagram.isEmpty {
-			let title = String(format: "Instagram")
-			sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-				let instagramHooks = String(format: "instagram://user?username=%@", self.viewModel.instagram)
-				self.openUrl(instagramHooks)
-			}))
-		}
-
-		if !self.viewModel.snapchat.isEmpty {
-			let title = String(format: "snapchat")
-			sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-				let snapHooks = String(format: "snapchat://add/%@", self.viewModel.snapchat.isEmpty)
-				self.openUrl(snapHooks)
-			}))
-		}
-
-		let title = String(format: "Delete")
-		sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-			guard let viewModel = self.viewModel else { return }
-			PersistenceManager.delete(tinderID: viewModel.tinderID)
-			self.pop()
-		}))
-
-		sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
-			(alert: UIAlertAction!) -> Void in
-		}))
-		
-		self.present(sheet, animated: true, completion: nil)
-	}
-
-	// MARK: IBActions
-
-	@IBAction func superLikeButtonTapped(_ sender: AnyObject) {
-		self.viewModel.likeButtonTapped()
-		self.pop()
-	}
-
-	@IBAction func disLikeButtonTapped(_ sender: AnyObject) {
-		self.viewModel.disLikeButtonTapped()
-		self.pop()
-	}
-
-	@IBAction func likeButtonTapped(_ sender: AnyObject) {
-		self.viewModel.likeButtonTapped()
-		self.pop()
-	}
-
     override var canBecomeFirstResponder: Bool {
         return true
     }
 
-	// MARK: Setups
+	// MARK: - IBOutlets
+
+//    @IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var descriptionEffectView: UIVisualEffectView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var superLikeButton: UIButton!
+    @IBOutlet weak var dislikeButton: UIButton!
+
+        // MARK: - Override Methods
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setups()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.setNeedsLayout()
+        self.collectionView.layoutIfNeeded()
+        self.collectionView.contentInsetAdjustmentBehavior = .never
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.complexShape()
+    }
+
+    override func setupNavigation() {
+        super.setupNavigation()
+
+        // Image
+        let image = #imageLiteral(resourceName: "btn_more")
+
+        // Frame
+        let width = image.size.width
+        let height = image.size.height
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+
+        // Button
+        let button = UIButton(frame: frame)
+        button.setImage(image, for: UIControl.State())
+        button.addTarget(self, action: #selector(self.moreButtonTapped), for: .touchUpInside)
+
+        // Button Item
+        let buttonItem = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = buttonItem
+    }
+
+    override func setupUI() {
+        super.setupUI()
+
+        self.descriptionEffectView.layer.cornerRadius = 20
+        self.descriptionEffectView.layer.masksToBounds = true
+
+    }
+
+    func setupButton(_ button: UIButton) {
+        button.layer.cornerRadius = button.frame.size.width/2
+        button.layer.masksToBounds = true
+    }
+
+    func createPath() -> CGPath {
+
+        self.setupButton(self.likeButton)
+        self.setupButton(self.dislikeButton)
+        self.setupButton(self.superLikeButton)
+
+        let height: CGFloat = 47
+        let path = UIBezierPath()
+        let centerWidth = self.descriptionEffectView.frame.size.width/2
+
+        path.move(to: CGPoint(x: 0, y: 0)) // start top left
+        path.addLine(to: CGPoint(x: (centerWidth - height * 2), y: 0)) // the beginning of the trough
+
+        // first curve down
+        path.addCurve(to: CGPoint(x: centerWidth, y: height),
+                      controlPoint1: CGPoint(x: (centerWidth - 40), y: 0),
+                      controlPoint2: CGPoint(x: centerWidth - 45, y: height))
+        // second curve up
+        path.addCurve(to: CGPoint(x: (centerWidth + height * 2), y: 0),
+                      controlPoint1: CGPoint(x: centerWidth + 45, y: height),
+                      controlPoint2: CGPoint(x: (centerWidth + 40), y: 0))
+
+        // complete the rect
+        path.addLine(to: CGPoint(x: self.descriptionEffectView.frame.width, y: 0))
+        path.addLine(to: CGPoint(x: self.descriptionEffectView.frame.width, y: self.descriptionEffectView.frame.height))
+        path.addLine(to: CGPoint(x: 0, y: self.descriptionEffectView.frame.height))
+        path.close()
+
+        return path.cgPath
+    }
+
+    func complexShape() {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = self.createPath()
+        self.descriptionEffectView.layer.mask = shapeLayer
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            self.viewModel.favorite()
+        }
+    }
+
+	// MARK: Private Methods
+
+    private func setups() {
+        self.setupViewModel()
+        self.setupTinder()
+        self.becomeFirstResponder()
+
+        self.collectionView.contentInsetAdjustmentBehavior = .never
+    }
 
 	private func setupViewModel() {
 		self.viewModel.completion = {
@@ -126,109 +141,52 @@ class TinderViewController: GASViewController {
 		self.viewModel.load()
 	}
 
-	private func prepareButton(_ view: UIView, button: UIButton, color: UIColor) {
-		button.layer.cornerRadius = button.frame.width/2
-		button.layer.borderWidth = 1
-		button.layer.borderColor = LK.cardBorderColor.cgColor
-		button.clipsToBounds = true
-
-		let shadowLayer = CAShapeLayer()
-		shadowLayer.path = UIBezierPath(roundedRect: button.frame, cornerRadius: button.frame.width/2).cgPath
-		shadowLayer.fillColor = LK.cardBorderColor.cgColor
-
-		shadowLayer.shadowColor = UIColor.black.cgColor
-		shadowLayer.shadowOpacity = 0.25
-		shadowLayer.shadowRadius = 2
-		shadowLayer.shadowPath	= shadowLayer.path
-		shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
-
-		view.layer.insertSublayer(shadowLayer, at: 0)
-		view.clipsToBounds = true
-		view.backgroundColor = UIColor.clear
-	}
-
-	private func setupButtons() {
-		self.prepareButton(self.disLikeView, button: self.disLikeButton, color: LK.redColor)
-		self.prepareButton(self.superLikeView, button: self.superLikeButton, color: LK.blueColor)
-		self.prepareButton(self.likeView, button: self.likeButton, color: LK.greenColor)
-	}
-
-	private func setupTinder() {
-
-		// name
+    private func setupTinder() {
 		self.title = self.viewModel.name
-
-		// ping time
-		self.onlineLabel.textColor = UIColor.white
-		self.onlineLabel.text = self.viewModel.online
-
-		// distance
-		self.distanceLabel.text = self.viewModel.distance
-
-		// bio
-		self.descriptionLabel.text = self.viewModel.bio
-
-		// match date
-		self.matchDateLabel.text = ""
-
-		// match last activity
-		self.matchLastDateLabel.text = ""
-
-		// liked
-		if self.viewModel.isLiked {
-			self.likeButton.setImage(UIImage(named: "btn_liked_big"), for: UIControl.State())
-		} else {
-			self.likeButton.setImage(UIImage(named: "btn_like_big"), for: UIControl.State())
-		}
-
-		if !self.viewModel.canAction {
-			self.disLikeView.isHidden = true
-			self.superLikeView.isHidden = true
-			self.likeView.isHidden = true
-		}
-		self.superLikeView.isHidden = true
 	}
 
-	// MARK: - Override Methods
+    // MARK: Internal Methods
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.setupViewModel()
-
-		self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.disLikeView.frame.height, right: 0)
-
-		self.setupButtons()
-		self.setupTinder()
-
-        self.becomeFirstResponder()
-	}
-
-	override func setupNavigation() {
-		super.setupNavigation()
-
-		// Image
-		let image = #imageLiteral(resourceName: "btn_more")
-
-		// Frame
-		let width = image.size.width
-		let height = image.size.height
-		let frame = CGRect(x: 0, y: 0, width: width, height: height)
-
-		// Button
-		let button = UIButton(frame: frame)
-		button.setImage(image, for: UIControl.State())
-		button.addTarget(self, action: #selector(self.moreButtonTapped), for: .touchUpInside)
-
-		// Button Item
-		let buttonItem = UIBarButtonItem(customView: button)
-		self.navigationItem.rightBarButtonItem = buttonItem
-	}
-
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            self.viewModel.favorite()
-            self.onlineLabel.text = "😍"
+    func openUrl(_ urlString: String) {
+        guard let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) else {
+            return
         }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    @objc
+    func moreButtonTapped() {
+
+        let sheet = UIAlertController(title: nil, message: "Escolha a opção", preferredStyle: .actionSheet)
+
+        if !self.viewModel.instagram.isEmpty {
+            let title = String(format: "Instagram")
+            sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                let instagramHooks = String(format: "instagram://user?username=%@", self.viewModel.instagram)
+                self.openUrl(instagramHooks)
+            }))
+        }
+
+        if !self.viewModel.snapchat.isEmpty {
+            let title = String(format: "snapchat")
+            sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                let snapHooks = String(format: "snapchat://add/%@", self.viewModel.snapchat.isEmpty)
+                self.openUrl(snapHooks)
+            }))
+        }
+
+        let title = String(format: "Delete")
+        sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            guard let viewModel = self.viewModel else { return }
+            PersistenceManager.delete(tinderID: viewModel.tinderID)
+            self.pop()
+        }))
+
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        }))
+
+        self.present(sheet, animated: true, completion: nil)
     }
 }
 
@@ -256,27 +214,42 @@ extension TinderViewController: UICollectionViewDataSource {
 
 		return cell
 	}
-
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension TinderViewController {
+extension TinderViewController: UICollectionViewDelegateFlowLayout {
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: Cell.width, height: self.collectionView.frame.height)
+	func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		let margin = Cell.margin
+	func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        let margin: CGFloat = 0
 		return UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return Cell.margin
+	func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		return 0
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-		return Cell.margin
+	func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+		return 0
 	}
+}
+
+
+// FIXME:
+extension CGFloat {
+    func toRadians() -> CGFloat {
+        return self * CGFloat(M_PI) / 180.0
+    }
 }

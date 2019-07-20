@@ -69,7 +69,6 @@
 		A7F10D4F20C75DE100687F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10D3B20C75DE100687F6F /* AppDelegate.swift */; };
 		A7F10D5320C75DE100687F6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F10D4120C75DE100687F6F /* LaunchScreen.storyboard */; };
 		A7F10D5520C75DE100687F6F /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F10D4520C75DE100687F6F /* Settings.storyboard */; };
-		A7F10D5720C75DE100687F6F /* TinderProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F10D4820C75DE100687F6F /* TinderProfile.storyboard */; };
 		A7F10D5820C75DE100687F6F /* Tinder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F10D4920C75DE100687F6F /* Tinder.storyboard */; };
 		A7F10D5920C75DE100687F6F /* MTPNotFound.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F10D4B20C75DE100687F6F /* MTPNotFound.xib */; };
 /* End PBXBuildFile section */
@@ -152,7 +151,6 @@
 		A7F10D3B20C75DE100687F6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7F10D4220C75DE100687F6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7F10D4620C75DE100687F6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
-		A7F10D4820C75DE100687F6F /* TinderProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TinderProfile.storyboard; sourceTree = "<group>"; };
 		A7F10D4920C75DE100687F6F /* Tinder.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tinder.storyboard; sourceTree = "<group>"; };
 		A7F10D4B20C75DE100687F6F /* MTPNotFound.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTPNotFound.xib; sourceTree = "<group>"; };
 		AB12B7E2D9EFA92EBE9A46EA /* Pods-Gasoline.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gasoline.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gasoline/Pods-Gasoline.debug.xcconfig"; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				A7F10D4120C75DE100687F6F /* LaunchScreen.storyboard */,
-				A7F10D4820C75DE100687F6F /* TinderProfile.storyboard */,
 				A7F10D4A20C75DE100687F6F /* Views */,
 			);
 			path = Presentation;
@@ -571,7 +568,6 @@
 				A7F10D5920C75DE100687F6F /* MTPNotFound.xib in Resources */,
 				A7F10D5320C75DE100687F6F /* LaunchScreen.storyboard in Resources */,
 				A7DED7ED20C9A69700C3D664 /* Filter.storyboard in Resources */,
-				A7F10D5720C75DE100687F6F /* TinderProfile.storyboard in Resources */,
 				A7F10D5520C75DE100687F6F /* Settings.storyboard in Resources */,
 				A71FFCAB20C84EDC007BFECD /* Onboarding.storyboard in Resources */,
 				A7F10D5820C75DE100687F6F /* Tinder.storyboard in Resources */,
