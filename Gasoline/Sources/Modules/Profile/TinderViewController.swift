@@ -11,7 +11,7 @@ import RealmSwift
 
 struct Cell {
 	
-	private static let perLine: CGFloat = 1
+	private static let perLine: CGFloat = 2
 	private static let screenWidth: CGFloat = UIScreen.main.bounds.width - 1
 	
 	static let margin: CGFloat = 0
@@ -113,6 +113,10 @@ class TinderViewController: GASViewController {
 		self.pop()
 	}
 
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
 	// MARK: Setups
 
 	private func setupViewModel() {
@@ -185,7 +189,7 @@ class TinderViewController: GASViewController {
 		self.superLikeView.isHidden = true
 	}
 
-	// MARK: - Override Public Methods
+	// MARK: - Override Methods
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -195,6 +199,8 @@ class TinderViewController: GASViewController {
 
 		self.setupButtons()
 		self.setupTinder()
+
+        self.becomeFirstResponder()
 	}
 
 	override func setupNavigation() {
@@ -218,6 +224,12 @@ class TinderViewController: GASViewController {
 		self.navigationItem.rightBarButtonItem = buttonItem
 	}
 
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            self.viewModel.favorite()
+            self.onlineLabel.text = "😍"
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource

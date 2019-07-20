@@ -110,8 +110,7 @@ extension GASTinderManager {
 
 	class func listHot() -> Results<GASTinder> {
 		var filter = self.baseFilter
-		filter += " AND nsfw > 0.8"
-		filter += " AND nsfw <= 1"
+		filter += " AND nsfw > 0.8 AND nsfw <= 1"
 		let result = GASTinderManager.listAll()
 		return self.order(result: result.filter(filter))
 	}

@@ -20,6 +20,11 @@ class SimpleTinderViewModel: NSObject {
 	var photoUrl: String = ""
 	var canAction: Bool = false
 
+	var isLiked: Bool = false
+	var isMatch: Bool = false
+
+	var photosURL: [[String: String]] = []
+
 	// MARK: - Constructors
 
 	init(tinderID: String) {
@@ -36,6 +41,8 @@ class SimpleTinderViewModel: NSObject {
 
 	func setupTinder(tinder: GASTinder) {
 		self.tinderID = tinder.id
+		self.isLiked = tinder.isLiked
+		self.isMatch = tinder.isMatch
 
 		// Distance
 		let kms: Float = Float(tinder.distance) * 1.609344
@@ -53,8 +60,16 @@ class SimpleTinderViewModel: NSObject {
 			self.photoUrl = photo.url
 		}
 
+		for photo in tinder.photos {
+			var photoURL: [String: String] = [:]
+			photoURL["id"] = photo.id
+			photoURL["url"] = photo.url
+
+			self.photosURL.append(photoURL)
+		}
+
 		// Actions
-		self.canAction = true// tinder.canAction && !tinder.isLiked
+		self.canAction = !tinder.isMatch // tinder.canAction && !tinder.isLiked
 	}
 
 	@objc func likeButtonTapped() {

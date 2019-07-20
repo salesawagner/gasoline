@@ -8,72 +8,102 @@
 
 import UIKit
 
+class FilterItem {
+
+	let title: String
+	let filter: String
+	var isOn: Bool = false
+
+	init(title: String, filter: String, isOn: Bool = false) {
+		self.title = title
+		self.filter = filter
+		self.isOn = isOn
+	}
+
+}
+
+class FilterTableViewCell: UITableViewCell {
+
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var filterSwitch: UISwitch!
+
+	var filter: FilterItem?
+
+	func setup(filter: FilterItem) {
+		self.filter = filter
+		self.titleLabel.text = filter.title
+		self.filterSwitch.isOn = filter.isOn
+	}
+
+	@IBAction func didChangeSwitch(_ sender: Any) {
+		self.filter?.isOn = self.filterSwitch.isOn
+	}
+}
+
 class FilterTableViewController: UITableViewController {
+
+	var collectionViewModel: CollectionViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.setups()
     }
 
-    // MARK: - Table view data source
+	// MARK: - Private Methods
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
+	private func setups() {
+		self.setupUI()
+		self.setupNavigation()
+	}
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+	private func setupUI() {
+		self.view.backgroundColor = LK.backgroundColor
+	}
 
-        // Configure the cell...
+	private func setupNavigation() {
+		guard let nav = self.navigationController else {
+			return
+		}
 
-        return cell
-    }
-    */
+		nav.navigationBar.titleTextAttributes = UIFont.attributedString(size: 17)
+		nav.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+		nav.navigationBar.shadowImage = UIImage()
+		nav.navigationBar.isTranslucent = false
+		nav.navigationBar.barTintColor = LK.redColor
+	}
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+	// MARK: - Action
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+	private func closeViewController() {
+		self.dismiss(animated: true, completion: nil)
+	}
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+	@IBAction func didTapDoneButton(_ sender: Any) {
+		self.collectionViewModel?.setFilter()
+		self.closeViewController()
+	}
 
-    }
-    */
+	@IBAction func didTapCancelButton(_ sender: Any) {
+		self.closeViewController()
+	}
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
+}
 
-    /*
-    // MARK: - Navigation
+// MARK: - Table view data source
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+extension FilterTableViewController {
 
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.collectionViewModel?.filters.count ?? 0
+	}
+
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+		if let filterCell = cell as? FilterTableViewCell, let viewModel = self.collectionViewModel {
+			filterCell.setup(filter: viewModel.filters[indexPath.row])
+		}
+
+		return cell
+	}
 }

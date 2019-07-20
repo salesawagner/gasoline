@@ -10,58 +10,16 @@ import UIKit
 import RealmSwift
 import SwiftyJSON
 
-class GASTinderManager: NSObject {
-
-	// MARK: - Properties
-
-	static var array = [[GASTinder]]()
-	static let maxRequest: Int = 7
-	static var requestCount: Int = 0
-
-	// MARK: - Private Methods
-
-	class private func clear() {
-		self.requestCount = 0
-		self.array = []
-	}
-
-	// MARK: - Internal Methods
-
-	class func discoveryMatches() {
-		
-		if self.array.count == self.maxRequest {
-
-			var likedMe = Set(GASTinderManager.listAll())
-			for list in self.array {
-				likedMe = likedMe.intersection(list)
-			}
-
-			PersistenceManager.write {
-				let tinders = List<GASTinder>()
-				tinders.append(objectsIn: likedMe)
-				tinders.setValue(true, forKey: "wasLiked")
-			}
-		}
-
-		self.clear()
-	}
-
-	class func resetLikedMe() {
-		PersistenceManager.write {
-			GASTinderManager.listLikedMe().setValue(false, forKey: "wasLiked")
-		}
-	}
-}
-
 // MARK: - Requests
 
-extension GASTinderManager {
+class GASTinderManager: NSObject {
 
 	class func recs(completion: @escaping (_ tinders: [GASTinder], _ success: Bool) -> Void) { // FIXME: - typealiase
 		TinderJSONClient.recs { result in
 			switch result {
 				case .success(let json): do {
-					let tinders = GASTinder.arrayFromResult(json)
+                    let data = JSON(json)["data"].dictionary ?? [:]
+					let tinders = GASTinder.arrayFromResult(data)
 					PersistenceManager.add(tinders, completion: { success in
 						completion(tinders, true)
 					})
@@ -75,53 +33,33 @@ extension GASTinderManager {
 	}
 	
 	class func updates() {
-		TinderJSONClient.updates { result in
-			switch result {
-				case .success(let json): do {
-					let matches = GASTinder.arrayFromJsonMatches(JSON(json))
-					PersistenceManager.add(matches)
-				}
-				case .failure(let error): do {
-					Log.e(error.localizedDescription)
-				}
-			}
-		}
+//        TinderJSONClient.updates { result in
+//            switch result {
+//                case .success(let json): do {
+//                    let matches = GASTinder.arrayFromMatches(json)
+//                    PersistenceManager.add(matches)
+//                }
+//                case .failure(let error): do {
+//                    Log.e(error.localizedDescription)
+//                }
+//            }
+//        }
 	}
 
-	class func topPicks() {
-		TinderJSONClient.topPicks { result in
-			switch result {
-				case .success(let json): do {
-					let tinders = GASTinder.arrayFromtopPicks(json)
-					PersistenceManager.add(tinders)
-				}
-				case .failure(let error): do {
-					Log.e(error.localizedDescription)
-				}
-			}
-		}
+	class func topPicks() { // FIXME: remove
+//		TinderJSONClient.topPicks { result in
+//			switch result {
+//				case .success(let json): do {
+//					let tinders = GASTinder.arrayFromtopPicks(json)
+//					PersistenceManager.add(tinders)
+//				}
+//				case .failure(let error): do {
+//					Log.e(error.localizedDescription)
+//				}
+//			}
+//		}
 	}
 
-	class func likedMe(completion: @escaping CompletionSuccess) {
-		self.recs { (tinders, success) in
-			guard success else {
-				self.clear()
-				completion(false)
-				return
-			}
-
-			self.requestCount += 1
-			self.array.append(tinders)
-
-			if self.requestCount < self.maxRequest {
-				self.likedMe(completion: completion)
-			} else {
-				self.discoveryMatches()
-				completion(true)
-			}
-
-		}
-	}
 }
 
 // MARK: - Actions
@@ -130,19 +68,35 @@ extension GASTinderManager {
 
 	// MARK: - Private Methods
 
-	private class func checkMatch(tinder: GASTinder, json: JSON) {
+	private class func checkLikeLimitExceeded(_ json: [String: Any]) -> Bool {
 
-		print(json)
-		var isMatch = false
-		if json["match"].dictionary != nil {
-			isMatch = true
+		if JSON(json)["likes_remaining"].intValue <= 0 {
 			let visible = UIViewController.visible
-			visible.showMatch()
+			visible.showError()
+			return true
 		}
 
-		PersistenceManager.write {
-			tinder.isMatch = isMatch
+		return false
+	}
+
+	private class func checkSuperLikeLimitExceeded(_ json: [String: Any]) -> Bool {
+
+		if JSON(json)["limit_exceeded"].boolValue {
+			let visible = UIViewController.visible
+			visible.showError()
+			return true
 		}
+
+		return false
+	}
+
+	private class func checkMatch(_ json: [String: Any]) -> Bool {
+
+		guard let _ = JSON(json)["match"].dictionary else { return false }
+
+		let visible = UIViewController.visible
+		visible.showMatch()
+		return true
 
 	}
 
@@ -150,45 +104,45 @@ extension GASTinderManager {
 
 	class func update(tinderID: String) {
 
-		// FIXME: - Colocar regras do can update dentro do metodo
 		guard let tinder = GASTinder.findById(id: tinderID), tinder.canUpdate else { return }
 
 		TinderJSONClient.user(tinderID: tinderID) { result in
 			switch result {
 				case .success(let json): do {
-					guard let tinder = GASTinder(update: JSON(json)) else { return }
-					tinder.lastUpdate = Date()
+					guard let tinder = GASTinder(update: JSON(json)["results"]) else { return }
 					PersistenceManager.add([tinder])
 				}
 				case .failure(let error): do {
-					Log.e(error)
 					Log.e(error.localizedDescription)
-					let newTinder = GASTinder(value: tinder)
-					newTinder.statusCode = 500
-					PersistenceManager.add([newTinder])
+					tinder.setError()
 				}
 			}
 		}
 
 	}
 
+    class func favorite(tinderID: String) {
+        guard let tinder = GASTinder.findById(id: tinderID) else { return }
+        tinder.setFavorite(!tinder.isFavorited)
+    }
+
 	class func like(tinderID: String) {
 
 		guard let tinder = GASTinder.findById(id: tinderID) else { return }
 
-		func _persist(value: Bool) {
-			PersistenceManager.write {
-				tinder.isLiked = value
-			}
-		}
-
-		_persist(value: true)
+		tinder.setLike(true)
 		TinderJSONClient.like(tinderID: tinderID) { result in
 			switch result {
-				case .success(let json): self.checkMatch(tinder: tinder, json: JSON(json))
+				case .success(let json): do {
+					if self.checkLikeLimitExceeded(json) {
+						tinder.setLike(false)
+					} else if self.checkMatch(json) {
+						tinder.setMacth(true)
+					}
+				}
 				case .failure(let error): do {
 					Log.e(error.localizedDescription)
-					_persist(value: false)
+					tinder.setLike(false)
 				}
 			}
 		}
@@ -199,20 +153,19 @@ extension GASTinderManager {
 
 		guard let tinder = GASTinder.findById(id: tinderID) else { return }
 
-		func _persist(value: Bool) {
-			PersistenceManager.write {
-				tinder.isLiked = value
-				tinder.isSuperLiked = value
-			}
-		}
-
-		_persist(value: true)
+		tinder.setSuperLike(true)
 		TinderJSONClient.superLike(tinderID: tinderID) { result in
 			switch result {
-				case .success(let json): self.checkMatch(tinder: tinder, json: JSON(json))
+				case .success(let json): do {
+					if self.checkSuperLikeLimitExceeded(json) {
+						tinder.setSuperLike(false)
+					} else if self.checkMatch(json) {
+						tinder.setMacth(true)
+					}
+				}
 				case .failure(let error): do {
 					Log.e(error.localizedDescription)
-					_persist(value: false)
+					tinder.setSuperLike(false)
 				}
 			}
 		}
@@ -222,52 +175,39 @@ extension GASTinderManager {
 	class func disLike(tinderID: String) {
 
 		guard let tinder = GASTinder.findById(id: tinderID) else { return }
-		guard !tinder.isMatch else {
-			GASTinderManager.unMatch(tinderID: tinder.id, matchID: tinder.matchId)
-			return
-		}
-		guard !tinder.isDisLiked else {
-			PersistenceManager.delete(tinderID: tinderID)
+
+		if tinder.isMatch {
+			self.unMatch(tinderID: tinder.id)
 			return
 		}
 
-		func _persist(value: Bool) {
-			PersistenceManager.write {
-				tinder.isDisLiked = value
-			}
-		}
-
-		_persist(value: true)
+		tinder.setDisLike(true)
 		TinderJSONClient.disLike(tinderID: tinderID) { result in
 			switch result {
 				case .success( _): return
 				case .failure(let error): do {
 					Log.e(error.localizedDescription)
-					_persist(value: false)
+					tinder.setDisLike(false)
 				}
 			}
 		}
 
 	}
 
-	class func unMatch(tinderID: String, matchID: String) {
+	class func unMatch(tinderID: String) {
 
-		guard let tinder = GASTinder.findById(id: tinderID) else { return }
+		guard let tinder = GASTinder.findById(id: tinderID), !tinder.matchId.isEmpty else {
+			return
+		}
 
-		func _persist(value: Bool) {
-			PersistenceManager.write {
-				tinder.isBlocked = true
-			}
+		defer {
 			PersistenceManager.delete(tinderID: tinder.id)
 		}
 
-		_persist(value: true)
-		TinderJSONClient.unMatch(matchID: matchID) { result in
+		TinderJSONClient.unMatch(matchID: tinder.matchId) { result in
 			switch result {
 				case .success( _): return
-				case .failure(let error): do {
-					Log.e(error.localizedDescription)
-				}
+				case .failure(let error): Log.e(error.localizedDescription)
 			}
 		}
 

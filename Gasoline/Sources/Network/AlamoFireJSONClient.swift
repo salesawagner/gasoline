@@ -34,28 +34,31 @@ enum AlamoFireJSONClient {
 										encoding: endPoint.encoding,
 										headers: AlamoFireJSONClient.headers)
 
-		request.logRequest(.verbose).logResponse(.simple).validate().responseJSON { response in
+		request.logRequest(.simple)
+//        request.logResponse(.verbose)
+//        debugPrint(request)
 
-			if 400..<500 ~= response.response?.statusCode ?? 0 {
-				UIViewController.goToLogin()
-			}
+        request.validate().responseJSON { response in
 
-			switch response.result {
-				case .success(let value): completionHandler(Result.success(value))
-				case .failure(let error): completionHandler(Result.failure(error))
-			}
-
+            let statusCode = request.response?.statusCode ?? 0
+            if 400..<500 ~= statusCode {
+                let error = ResponseError.fetch(statusCode)
+                completionHandler(Result.failure(error))
+                UIViewController.goToLogin()
+                return
+            } else {
+                switch response.result {
+                    case .success(let value): completionHandler(Result.success(value))
+                    case .failure(let error): completionHandler(Result.failure(error))
+                }
+            }
 		}
-
 	}
 
 	static func requestImage(url: String, completion: @escaping AlamofireImageCompletionHandler) {
-
 		let request = Alamofire.request(url)
 		request.responseImage { response in
 			completion(response.value)
 		}
-
 	}
-
 }

@@ -17,15 +17,16 @@ class GASPhoto: Object {
 	@objc dynamic var id = ""
 	@objc dynamic var created = Date()
 	@objc dynamic var url = ""
-	@objc dynamic var tinder: GASTinder?
+	@objc dynamic var instagram: Bool = false
+
 	@objc dynamic var nsfw: Float = 0
-	var isNsfw: Bool {
-		return self.nsfw > 0.8 && self.nsfw <= 1
-	}
+
+	var tinder: GASTinder? { return self.tinders.first }
+	private let tinders = LinkingObjects(fromType: GASTinder.self, property: "photos")
 
 	// MARK: - Constructors
 
-	convenience init?(photo: JSON, tinder: GASTinder) {
+	convenience init?(photo: JSON) {
 		let id = photo["id"].stringValue
 
 		guard
@@ -39,10 +40,9 @@ class GASPhoto: Object {
 		self.id = id
 		self.created = Date()
 		self.url = photo["url"].stringValue
-		self.tinder = tinder
 	}
 
-	convenience init?(instagramPhoto: JSON, tinder: GASTinder) {
+	convenience init?(instagramPhoto: JSON) {
 
 		var id = instagramPhoto["ts"].stringValue
 		if !id.isEmpty { id = "instagram_" + id }
@@ -58,8 +58,7 @@ class GASPhoto: Object {
 		self.id = id
 		self.created = Date()
 		self.url = instagramPhoto["image"].stringValue
-
-		self.tinder = tinder
+		self.instagram = true
 	}
 
 	// MARK: - Override Methods
@@ -67,32 +66,21 @@ class GASPhoto: Object {
 	override static func primaryKey() -> String? {
 		return "id"
 	}
-
 }
 
+// MARK: - Computed properties
+
 extension GASPhoto {
-	
-	class func download(photoID: String, completion: @escaping AlamofireImageCompletionHandler) {
-
-		guard let photo = GASPhoto.findById(id: photoID) else {
-			Log.e("Photo not found")
-			completion(nil)
-			return
-		}
-
-		AlamoFireJSONClient.requestImage(url: photo.url) { image in
-			guard let image = image else {
-				Log.e("Load photo")
-				PersistenceManager.delete(photoID: photoID)
-				return
-			}
-
-			GASPhoto.nsfw(photoID: photoID, image: image)
-			completion(image)
-
-		}
-
+	var isNsfw: Bool {
+		return self.nsfw > 0.8 && self.nsfw <= 1
 	}
+}
+
+// MARK: - Static Methods
+
+extension GASPhoto {
+
+	// MARK: - Internal Methods
 
 	class func findById(id: String?) -> GASPhoto? {
 		guard let realm = PersistenceManager.realm, let id = id else { return nil }
@@ -100,101 +88,88 @@ extension GASPhoto {
 		return photo
 	}
 
-//	class func nsfwAllPhotos() {
-//		guard let realm = PersistenceManager.realm else { return }
-//
-//		let photos = realm.objects(GASPhoto.self).filter { photo -> Bool in
-//			guard let tinder = photo.tinder else { return false }
-//			return photo.nsfw == 0 && tinder.isBlocked == false
-//		}
-//
-//		let photoIDs: [String] = photos.map({ photo -> String in
-//			return photo.id
-//		})
-//
-//		let count = photoIDs.count <= 100 ? photoIDs.count : 100
-//		for i in 0..<count {
-//			let photoID = photoIDs[i]
-//			GASPhoto.download(photoID: photoID) { (image) in
-//				// TODO:
-//			}
-//		}
-//	}
+	class func arrayFromJson(_ json: JSON)  -> [GASPhoto] {
+
+		var photos: [GASPhoto] = []
+		photos.append(contentsOf: self.arrayFromResult(json))
+		photos.append(contentsOf: self.arrayFromInstagram(json))
+
+		return photos
+	}
 
 	class func nsfw(photoID: String?, image: UIImage, completion: Completion? = nil) {
 
-		guard let photoID = photoID, #available(iOS 12.0, *) else {
-			Log.e("Machine Learning iOS version")
+        //        FIXME:
+//        guard let photoID = photoID, #available(iOS 12.0, *) else {
+//            Log.e("Machine Learning iOS version")
+//            return
+//        }
+//
+//        DispatchQueue(label: "background_nsfw").async {
+//            autoreleasepool {
+//
+//                Detector.shared.check(image: image, completion: { result in
+//
+//                    switch result {
+//                    case let .success(confidence: nsfw): self.setNsfw(photoID: photoID, confidence: nsfw)
+//                    case let .error(error): Log.e(error.localizedDescription)
+//                    }
+//                })
+//            }
+//        }
+	}
+
+	// MARK: - Private Methods
+
+	private class func arrayFromResult(_ json: JSON)  -> [GASPhoto] {
+
+		var photos: [GASPhoto] = []
+
+		for photo in json["photos"].arrayValue {
+			if let image = GASPhoto(photo: photo) {
+				photos.append(image)
+			}
+		}
+
+		return photos
+	}
+
+	private class func arrayFromInstagram(_ json: JSON) -> [GASPhoto] {
+
+		guard
+			let instagram = JSON(json)["instagram"].dictionary,
+			let instagramPhotos = instagram["photos"] else {
+				return []
+		}
+
+		var photos: [GASPhoto] = []
+		for photo in instagramPhotos.arrayValue {
+			guard let image = GASPhoto(instagramPhoto: photo) else { continue }
+			photos.append(image)
+		}
+
+		return photos
+	}
+
+	static func setNsfw(photoID: String, confidence: Float) {
+		guard let photo = GASPhoto.findById(id: photoID), photo.nsfw == 0 else {
 			return
 		}
 
-		DispatchQueue(label: "background_nsfw").async {
-			autoreleasepool {
+		PersistenceManager.write {
+			let nsfw = confidence <= 1 ? confidence : 0.1
+			photo.nsfw = nsfw
 
-				guard let photo = GASPhoto.findById(id: photoID) else {
-					Log.e("Photo not found")
-					return
-				}
 
-				guard photo.nsfw == 0 else {
-					return
-				}
+            if nsfw > 0.8 {
+                Log.i("BINGO \(nsfw)")
+            } else {
+                Log.i(nsfw)
+            }
 
-				let detector = Detector.shared
-				detector.check(image: image, completion: { result in
-
-					switch result {
-					case let .success(nsfwConfidence: confidence):
-
-						guard confidence > photo.nsfw  else { return }
-
-						PersistenceManager.write {
-							photo.nsfw = confidence <= 1 ? confidence : 0.1
-
-							if photo.nsfw > photo.tinder?.nsfw ?? 0 {
-								photo.tinder?.nsfw = photo.nsfw
-							}
-
-						}
-
-					case let .error(error): break // FIXME:
-//						Log.e(error.localizedDescription)
-					}
-
-				})
-
+			if photo.nsfw > photo.tinder?.nsfw ?? 0 {
+				photo.tinder?.nsfw = photo.nsfw
 			}
-
-		}
-	}
-	
-	class func createFile(photo: GASPhoto, image: UIImage, confidence: Float) {
-		do {
-			let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-			var fileURL = documentsURL.appendingPathComponent("photos/")
-			
-			if photo.isNsfw {
-				fileURL = fileURL.appendingPathComponent("bikini/\(photo.id).jpg")
-
-				if let pngImageData = image.jpegData(compressionQuality: 1) {
-					try pngImageData.write(to: fileURL, options: .atomic)
-					Log.e("------->>>>\(confidence)")
-				} else {
-					Log.e("------->>>>nao salvou o arquivo")
-				}
-				
-			} else if photo.nsfw < 0.5 {
-				fileURL = fileURL.appendingPathComponent("nobikini/\(photo.id).jpg")
-				if let pngImageData = image.jpegData(compressionQuality: 1) {
-					try pngImageData.write(to: fileURL, options: .atomic)
-					Log.e("------->>>>\(confidence)")
-				} else {
-					Log.e("------->>>>nao salvou o arquivo")
-				}
-			}
-			
-		} catch {
-			Log.e(error.localizedDescription)
 		}
 	}
 }

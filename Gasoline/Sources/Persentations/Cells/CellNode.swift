@@ -24,6 +24,7 @@ let kScreenWhidth: CGFloat = UIScreen.main.bounds.width-1
 let kNodeWidth: CGFloat	= (kScreenWhidth-(kMargin*(kNodePerLine+1)))/kNodePerLine
 let kNodeHeight: CGFloat = kNodeWidth * 1.60
 
+// FIXME:
 class CellNode: ASCellNode {
 
 	let viewModel: SimpleTinderViewModel
@@ -35,6 +36,7 @@ class CellNode: ASCellNode {
 	var buttonsNode: ASDisplayNode?
 	var likeButtonNode: ASButtonNode?
 	var superLikeButtonNode: ASButtonNode?
+	var photoIndex: Int = 0
 
 	required init(viewModel: SimpleTinderViewModel) {
 
@@ -86,6 +88,8 @@ class CellNode: ASCellNode {
 		let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeGesture))
 		leftSwipe.direction = .left
 		self.view.addGestureRecognizer(leftSwipe)
+
+//		self.imageNode.addTarget(self, action: #selector(tapGesture), forControlEvents: .touchUpInside)
 	}
 	
 	@objc func rightSwipeGesture(sender: UISwipeGestureRecognizer) {
@@ -94,6 +98,16 @@ class CellNode: ASCellNode {
 	
 	@objc func leftSwipeGesture(sender: UISwipeGestureRecognizer) {
 		self.viewModel.disLikeButtonTapped()
+	}
+
+	@objc func tapGesture(sender: UISwipeGestureRecognizer) {
+		let newIndex = self.photoIndex + 1
+		self.photoIndex = newIndex < self.viewModel.photosURL.count ? newIndex : 0
+		let photoURL = self.viewModel.photosURL[self.photoIndex]
+
+		if let id = photoURL["id"], let urlString = photoURL["url"] {
+			self.setPhoto(id: id, urlString: urlString)
+		}
 	}
 
 	// FIXME: photo id location
@@ -112,6 +126,13 @@ class CellNode: ASCellNode {
 
 		if let url = URL(string: self.viewModel.photoUrl) {
 			self.photoID = self.viewModel.photoID
+			self.imageNode.url = url
+		}
+	}
+
+	private func setPhoto(id: String, urlString: String) {
+		if let url = URL(string: urlString) {
+			self.photoID = id
 			self.imageNode.url = url
 		}
 	}
@@ -151,7 +172,7 @@ class CellNode: ASCellNode {
 
 	private func setupLikeButton() {
 
-		let imageName = "btn_like" // FIXME: viewModel.isLiked ? "btn_liked" : "btn_like"
+		let imageName = (self.viewModel.isLiked || self.viewModel.isMatch) ? "btn_liked" : "btn_like"
 		let image = UIImage(named: imageName)
 
 		let likeButtonNode = ASButtonNode()

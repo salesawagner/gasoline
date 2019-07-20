@@ -36,6 +36,14 @@ class CollectionViewController: GASViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.title = self.viewModel.collection.title
+
+
+
+		self.viewModel.filtered = {
+			self.collectionView.reloadData(completion: { [weak self] in
+				self?.setupNotification()
+			})
+		}
 	}
 	
 	override func setupUI() {
@@ -58,9 +66,19 @@ class CollectionViewController: GASViewController {
 		let reloadButton = UIButton(frame: frame)
 		reloadButton.setImage(#imageLiteral(resourceName: "icn_load"), for: UIControl.State())
 		reloadButton.addTarget(self, action: #selector(self.didTapReload), for: .touchUpInside)
-
 		let reloadButtonItem = UIBarButtonItem(customView: reloadButton)
-		self.navigationItem.rightBarButtonItem = reloadButtonItem
+
+		let filterImage = UIImage(named: "filter")!
+		let filterFrame = CGRect(x: 0, y: 0, width: filterImage.size.width, height: filterImage.size.height)
+
+		let filterButton = UIButton(frame: filterFrame)
+		filterButton.setImage(filterImage, for: UIControl.State())
+		filterButton.addTarget(self, action: #selector(self.didTapFilter), for: .touchUpInside)
+		let filterButtonItem = UIBarButtonItem(customView: filterButton)
+
+
+		self.navigationItem.leftBarButtonItem = reloadButtonItem
+		self.navigationItem.rightBarButtonItem = filterButtonItem
 
 		self.title = self.viewModel.title
 	}
@@ -98,8 +116,7 @@ class CollectionViewController: GASViewController {
 	}
 
 	private func setupNotification() {
-		let tinders = self.viewModel.tinders
-		self.notificationToken = tinders.observe { [weak self] (changes: RealmCollectionChange) in
+		self.notificationToken = self.viewModel.dataSource.observe { [weak self] (changes: RealmCollectionChange) in
 			guard let collection = self?.collectionView else { return }
 			switch changes {
 				case .initial:
@@ -107,10 +124,9 @@ class CollectionViewController: GASViewController {
 						self?.showCollectionView()
 					})
 					break
-				case .update(_, let deletions, let insertions, let modifications):
+				case .update(_, let deletions, let insertions, _):
 					collection.deleteItems(at: deletions.map { IndexPath(row: $0, section: 0) })
 					collection.insertItems(at: insertions.map { IndexPath(row: $0, section: 0) })
-					collection.reloadItems(at: modifications.map { IndexPath(row: $0, section: 0) })
 					self?.showCollectionView()
 					break
 				case .error(let error):
@@ -129,8 +145,8 @@ class CollectionViewController: GASViewController {
 	
 	private func showCollectionView() {
 		UIView.animate(withDuration: 0.25, animations: {
-			self.collectionView.alpha = (self.viewModel.tinders.count > 0 ? 1 : 0)
-			self.notFound.alpha = (self.viewModel.tinders.count <= 0 ? 1 : 0)
+			self.collectionView.alpha = (self.viewModel.dataSource.count > 0 ? 1 : 0)
+			self.notFound.alpha = (self.viewModel.dataSource.count <= 0 ? 1 : 0)
 		})
 	}
 	
@@ -141,9 +157,15 @@ class CollectionViewController: GASViewController {
 
 	@objc private func didTapReload() {
 		self.startLoading()
-		self.viewModel.forceLoad { [weak self] success in
+		self.viewModel.load { [weak self] success in
 			self?.stopLoading(hasError: !success)
 		}
+	}
+
+	@objc private func didTapFilter() {
+		let viewController = UIViewController.filter(colletionViewModel: self.viewModel)
+		let navigationController = UINavigationController(rootViewController: viewController)
+		self.navigationController?.present(navigationController, animated: true, completion: nil)
 	}
 }
 
@@ -152,13 +174,13 @@ class CollectionViewController: GASViewController {
 extension CollectionViewController: ASCollectionDataSource {
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.viewModel.tinders.count
+		return self.viewModel.dataSource.count
 	}
 
 	func collectionNode(_ collectionNode: ASCollectionNode, 
 	                    nodeBlockForItemAt indexPath: IndexPath) -> AsyncDisplayKit.ASCellNodeBlock {
 
-		let tinder = self.viewModel.tinders[indexPath.row]
+		let tinder = self.viewModel.dataSource[indexPath.row]
 		let tinderID = tinder.id
 
 		return {
@@ -173,7 +195,7 @@ extension CollectionViewController: ASCollectionDataSource {
 
 extension CollectionViewController: ASCollectionDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let tinder = self.viewModel.tinders[indexPath.row]
+		let tinder = self.viewModel.dataSource[indexPath.row]
 		self.goToTinder(tinder: tinder)
 	}
 }

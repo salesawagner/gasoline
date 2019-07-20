@@ -69,6 +69,7 @@ extension UIViewController {
 			self.goTo(viewController: self.login)
 		}
 	}
+
 	class func tinder(tinder: GASTinder) -> TinderViewController {
 		let storyboard = self.storyboardWith(identifier: kTinderStoryboard)
 		let viewController = storyboard.instantiateInitialViewController()
@@ -77,6 +78,19 @@ extension UIViewController {
 			return tinderViewController
 		}
 		return TinderViewController()
+	}
+
+	class func filter(colletionViewModel viewModel: CollectionViewModel) -> FilterTableViewController {
+
+		let storyboard = self.storyboardWith(identifier: "Filter")
+		let viewController = storyboard.instantiateInitialViewController()
+
+		if let tinderViewController = viewController as? FilterTableViewController {
+			tinderViewController.collectionViewModel = viewModel
+			return tinderViewController
+		}
+
+		return FilterTableViewController()
 	}
 }
 extension UIWindow {

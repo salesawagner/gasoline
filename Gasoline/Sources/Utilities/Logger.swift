@@ -17,13 +17,13 @@ import Foundation
 /// - warning: Log type warning
 /// - severe: Log type severe
 enum LogEvent: String {
-	case e = "[‼️]" // error
-	case i = "[ℹ️]" // info
-	case d = "[💬]" // debug
-	case v = "[🔬]" // verbose
-	case w = "[⚠️]" // warning
-	case s = "[🔥]" // severe
-	case n = "[📍]" // network
+	case e = " ‼️ " // error
+	case i = " ℹ️ " // info
+	case d = " 💬 " // debug
+	case v = " 🔬 " // verbose
+	case w = " ⚠️ " // warning
+	case s = " 🔥 " // severe
+	case n = " 📍 " // network
 }
 
 /// Wrapping Swift.print() within DEBUG flag

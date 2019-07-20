@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-/// Models the Planets endpoint from the StarWars API.
+
 enum TinderEndPoint: AlamofireEndPoint {
 
 	case auth(parameters: Parameters)
@@ -30,7 +30,7 @@ enum TinderEndPoint: AlamofireEndPoint {
 		switch self {
 
 			case .auth(let parameters):
-				let url = baseURL + "/auth"
+				let url = baseURL + "/v2/auth/login/facebook"
 				return (url: url, httpMethod: .post, parameters: parameters, encoding: JSONEncoding.default)
 
 			case .like(let tinderID):
@@ -58,7 +58,7 @@ enum TinderEndPoint: AlamofireEndPoint {
 				return (url: url, httpMethod: .post, parameters: parameters, encoding: JSONEncoding.default)
 
 			case .recs:
-				let url = baseURL + "/user/recs"
+				let url = baseURL + "/v2/recs/core"
 				return (url: url, httpMethod: .get, parameters: nil, encoding: URLEncoding.default)
 
 			case .updates:
@@ -68,9 +68,6 @@ enum TinderEndPoint: AlamofireEndPoint {
 			case .topPicks:
 				let url = baseURL + "/v2/top-picks/preview"
 				return (url: url, httpMethod: .get, parameters: nil, encoding: URLEncoding.default)
-
 		}
-
 	}
-
 }

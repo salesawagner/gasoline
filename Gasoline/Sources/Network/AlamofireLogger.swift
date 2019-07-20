@@ -43,7 +43,7 @@ extension DataRequest {
 	}
 	
 	/// Log the request at the specified `level`.
-	public func logRequest(_ level: RequestLogLevel = .simple) -> Self {
+	@discardableResult public func logRequest(_ level: RequestLogLevel = .simple) -> Self {
 		guard let method = request?.httpMethod, let path = request?.url?.absoluteString else {
 			return self
 		}
@@ -72,7 +72,7 @@ extension DataRequest {
 	}
 	
 	/// Log the response at the specified `level`.
-	public func logResponse(_ level: ResponseLogLevel = .simple) -> Self {
+	@discardableResult public func logResponse(_ level: ResponseLogLevel = .simple) -> Self {
 		return response { response in
 			guard let code = response.response?.statusCode, let path = response.request?.url?.absoluteString else {
 				return

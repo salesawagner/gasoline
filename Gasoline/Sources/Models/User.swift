@@ -15,6 +15,7 @@ private let kUserDefaults = "br.com.gasoline.User"
 private let kTinderToken = "br.com.gasoline.tinderToken"
 private let kTinderId = "br.com.gasoline.tinderId"
 private let kTinderName = "br.com.gasoline.tinderName"
+private let kTinderRefreshToken = "br.com.gasoline.tinderRefreshToken"
 
 // MARK: - Class
 
@@ -25,22 +26,24 @@ class User: NSObject, NSCoding {
 	var ID: String?
 	var token: String?
 	var name: String?
+	var refreshToken: String?
 
 	// MARK: - Constructors
 
 	init?(json: JSON) {
 
 		guard
-			let token = json["token"].string,
-			let user = json["user"].dictionary,
-			let id = user["_id"],
-			let name = user["name"] else {
+			let data = json["data"].dictionary,
+			let token = data["api_token"],
+			let id = data["_id"],
+			let refreshToken = data["refresh_token"] else {
 				return nil
 		}
 
-		self.token = token
+		self.token = token.stringValue
 		self.ID = id.stringValue
-		self.name = name.stringValue
+		self.name = "" // FIXME: remove
+		self.refreshToken = refreshToken.stringValue
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -48,13 +51,15 @@ class User: NSObject, NSCoding {
 		guard
 			let ID = aDecoder.decodeObject(forKey: kTinderId) as? String,
 			let token = aDecoder.decodeObject(forKey: kTinderToken) as? String,
-			let name = aDecoder.decodeObject(forKey: kTinderName) as? String else {
+			let name = aDecoder.decodeObject(forKey: kTinderName) as? String,
+			let refreshToken = aDecoder.decodeObject(forKey: kTinderRefreshToken) as? String else {
 				return nil
 		}
 
 		self.ID = ID
 		self.token = token
 		self.name = name
+		self.refreshToken = refreshToken
 	}
 
 	// MARK: - Internal Methods
@@ -63,6 +68,7 @@ class User: NSObject, NSCoding {
 		aCoder.encode(self.ID, forKey: kTinderId)
 		aCoder.encode(self.token, forKey: kTinderToken)
 		aCoder.encode(self.name, forKey: kTinderName)
+		aCoder.encode(self.refreshToken, forKey: kTinderRefreshToken)
 	}
 
 }

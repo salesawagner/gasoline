@@ -45,11 +45,11 @@ class AuthManager: NSObject {
 		}
 
 		// Params
-		var params = [String: Any]()
-		params["facebook_token"] = facebookToken.tokenString
-		params["facebook_id"] = facebookToken.userID
+		var parameters: [String: Any] = [:]
+		parameters["token"] = facebookToken.tokenString
+		parameters["id"] = facebookToken.userID
 
-		TinderJSONClient.auth(parameters: params) { result in
+		TinderJSONClient.auth(parameters: parameters) { result in
 			switch result {
 				case .success(let json): do {
 					if let user = User(json: JSON(json)) {

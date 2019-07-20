@@ -17,7 +17,6 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 	var bio: String = ""
 	var instagram: String = ""
 	var snapchat: String = ""
-	var isLiked: Bool = false
 
 	var photos: Results<GASPhoto>!
 	
@@ -33,13 +32,12 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 		super.setupTinder(tinder: tinder)
 
 		// Online
-		self.online = tinder.statusCode == 500 ? "🤕 Deactivated" : ""
+		self.online = tinder.isFavorited ? "😍" : ""
 
 		// Bio
 		self.bio = tinder.bio
 
 		// Others
-		self.isLiked = tinder.isLiked
 		self.instagram = tinder.bio.instagram
 		self.snapchat = tinder.bio.snapchat
 
@@ -61,7 +59,9 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 
 	func load() {
 		GASTinderManager.update(tinderID: self.tinderID)
-		// TODO: - colocar realm reativo
 	}
 
+    func favorite() {
+        GASTinderManager.favorite(tinderID: self.tinderID)
+    }
 }

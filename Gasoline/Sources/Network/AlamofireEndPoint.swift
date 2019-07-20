@@ -9,16 +9,13 @@
 import Foundation
 import Alamofire
 
-typealias AlamofireProvider = (url: String, httpMethod: HTTPMethod, parameters: [String: Any]?, encoding: ParameterEncoding)
+typealias AlamofireProvider = (url: String,
+							   httpMethod: HTTPMethod,
+							   parameters: [String: Any]?,
+							   encoding: ParameterEncoding)
 
 protocol AlamofireEndPoint {
-
 	func provideValues() -> AlamofireProvider
-
-	var url: URLConvertible { get }
-	var httpMethod: HTTPMethod { get }
-	var parameters: [String: Any]? { get }
-	var encoding: ParameterEncoding { get }
 }
 
 extension AlamofireEndPoint {

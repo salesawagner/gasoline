@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dZe-jE-kn9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dZe-jE-kn9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Filter Table View Controller-->
+        <!--Filter-->
         <scene sceneID="ZHU-Rh-zeE">
             <objects>
                 <tableViewController id="dZe-jE-kn9" customClass="FilterTableViewController" customModule="Gasoline" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="auH-FJ-fdl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="auH-FJ-fdl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" rowHeight="60" id="leQ-0J-ybe">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" rowHeight="60" id="leQ-0J-ybe" customClass="FilterTableViewCell" customModule="Gasoline" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="leQ-0J-ybe" id="7ev-pc-jbI">
@@ -38,6 +36,9 @@
                                                 <constraint firstAttribute="width" constant="47" id="1wR-5N-YZT"/>
                                                 <constraint firstAttribute="height" constant="31" id="rS8-qb-d0I"/>
                                             </constraints>
+                                            <connections>
+                                                <action selector="didChangeSwitch:" destination="leQ-0J-ybe" eventType="valueChanged" id="mnq-kM-iX1"/>
+                                            </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -49,6 +50,10 @@
                                         <constraint firstAttribute="bottom" secondItem="SLZ-k9-MgP" secondAttribute="bottom" id="ONn-db-qCJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="filterSwitch" destination="7Sw-lF-q9G" id="Ygx-lT-Omt"/>
+                                    <outlet property="titleLabel" destination="SLZ-k9-MgP" id="6QV-G9-Dsj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,10 +61,23 @@
                             <outlet property="delegate" destination="dZe-jE-kn9" id="57e-5f-9Sy"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Filter" id="NpX-Hu-JSR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nL2-yh-T8V">
+                            <connections>
+                                <action selector="didTapCancelButton:" destination="dZe-jE-kn9" id="fho-yc-tGo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="YUZ-0b-ReD">
+                            <connections>
+                                <action selector="didTapDoneButton:" destination="dZe-jE-kn9" id="Emj-pe-1CG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2r-S7-WlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="200"/>
+            <point key="canvasLocation" x="423" y="194"/>
         </scene>
     </scenes>
 </document>

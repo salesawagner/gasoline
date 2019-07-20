@@ -77,15 +77,15 @@ class SettingsTableViewController: UITableViewController {
 		var viewController: UIViewController!
 		
 		switch row {
-			case 0: viewController = Collection.all.createViewController()
-			case 1: viewController = Collection.superLiked.createViewController()
-			case 2: viewController = Collection.disliked.createViewController()
-			case 3: viewController = Collection.blocks.createViewController()
-			case 4: viewController = Collection.removed.createViewController()
-			case 5: viewController = Collection.instagram.createViewController()
-			case 6: viewController = Collection.snapchat.createViewController()
-			case 7: viewController = Collection.hot.createViewController()
-			default: viewController = Collection.browser.createViewController()
+			case 0: viewController = CollectionConfig.all.createViewController()
+			case 1: viewController = CollectionConfig.superLiked.createViewController()
+			case 2: viewController = CollectionConfig.disliked.createViewController()
+			case 3: viewController = CollectionConfig.blocks.createViewController()
+			case 4: viewController = CollectionConfig.removed.createViewController()
+			case 5: viewController = CollectionConfig.instagram.createViewController()
+			case 6: viewController = CollectionConfig.snapchat.createViewController()
+			case 7: viewController = CollectionConfig.hot.createViewController()
+			default: viewController = CollectionConfig.browser.createViewController()
 		}
 
 		navigationController.pushViewController(viewController, animated: true)
@@ -96,7 +96,10 @@ class SettingsTableViewController: UITableViewController {
 		var listToDelete: Results<GASTinder>?
 		
 		switch row {
-			case 0: listToDelete = GASTinderManager.listLikedMe()
+			case 0:
+                GASPhotosManager.shared.nsfwAll()
+                return
+                // listToDelete = GASTinderManager.listLikedMe()
 			case 1: listToDelete = GASTinderManager.listBrowser()
 			case 2: listToDelete = GASTinderManager.listILiked()
 			case 3: listToDelete = GASTinderManager.listIDisLiked()
@@ -113,8 +116,8 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func logout() {
-		PersistenceManager.clear()
 		AuthManager.logout()
+        UIViewController.goToLogin()
 	}
 }
 

@@ -8,63 +8,63 @@
 
 import Foundation
 
-enum TinderJSONClient: HandlerJSONProtocol {
+enum TinderJSONClient: APIHandlerProtocol {
 
-	static func auth(parameters: [String: Any], _ completionHandler: @escaping JSONCompletionHandler) {
+	static func auth(parameters: [String: Any], _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.auth(parameters: parameters)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func like(tinderID: String, _ completionHandler: @escaping JSONCompletionHandler) {
+	static func like(tinderID: String, _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.like(tinderID: tinderID)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func superLike(tinderID: String, _ completionHandler: @escaping JSONCompletionHandler) {
+	static func superLike(tinderID: String, _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.superLike(tinderID: tinderID)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func disLike(tinderID: String, _ completionHandler: @escaping JSONCompletionHandler) {
+	static func disLike(tinderID: String, _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.disLike(tinderID: tinderID)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func unMatch(matchID: String, _ completionHandler: @escaping JSONCompletionHandler) {
+	static func unMatch(matchID: String, _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.unMatch(matchID: matchID)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func user(tinderID: String, _ completionHandler: @escaping JSONCompletionHandler) {
+	static func user(tinderID: String, _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.user(tinderID: tinderID)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func profile(parameters: [String: Any], _ completionHandler: @escaping JSONCompletionHandler) {
+	static func profile(parameters: [String: Any], _ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.profile(parameters: parameters)) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func recs(_ completionHandler: @escaping JSONCompletionHandler) {
+	static func recs(_ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.recs) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func updates(_ completionHandler: @escaping JSONCompletionHandler) {
+	static func updates(_ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.updates) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}
 	}
 
-	static func topPicks(_ completionHandler: @escaping JSONCompletionHandler) {
+	static func topPicks(_ completionHandler: @escaping APICompletionHandler) {
 		AlamoFireJSONClient.makeAPICall(to: TinderEndPoint.topPicks) { result in
 			self.handle(result: result, completionHandler: completionHandler)
 		}

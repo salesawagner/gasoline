@@ -47,23 +47,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 		self.nsfwLabel.text = viewModel.nsfw
 
 		self.start()
-
-		GASPhoto.download(photoID: self.photoID) { [weak self] image in
-
-			defer {
-				self?.stop()
-			}
-
-			guard let image = image else {
-				return
-			}
-
-			DispatchQueue.main.async {
-				self?.photoImageView.image = image
-			}
-
-		}
-
+		self.photoImageView.setPhoto(photoID: self.photoID, completion: {
+			self.stop()
+		})
 	}
-
 }

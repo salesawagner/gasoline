@@ -8,25 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		610F1A0030D7B99EA41BBE7B /* Pods_Gasoline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */; };
+		6FDE25CE22E22358004863D9 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CD22E22358004863D9 /* ResponseError.swift */; };
 		A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7024EA5220B3EFD00A425DC /* MachineLearning.swift */; };
+		A70758AB223C24870006D451 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70758AA223C24870006D451 /* UIImageView+Download.swift */; };
 		A71CD833220E080D007D2887 /* Bikini.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A71CD832220E080D007D2887 /* Bikini.mlmodel */; };
 		A71FFCAB20C84EDC007BFECD /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A71FFCAA20C84EDC007BFECD /* Onboarding.storyboard */; };
 		A71FFCAD20C84EFB007BFECD /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FFCAC20C84EFB007BFECD /* OnboardingViewController.swift */; };
 		A71FFCAF20C84F50007BFECD /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FFCAE20C84F50007BFECD /* OnboardingViewModel.swift */; };
-		A71FFCB520C84FDD007BFECD /* TemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FFCB120C84FDD007BFECD /* TemplateData.swift */; };
-		A71FFCB620C84FDD007BFECD /* TemplateDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FFCB220C84FDD007BFECD /* TemplateDataViewController.swift */; };
-		A71FFCB720C84FDD007BFECD /* TemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FFCB320C84FDD007BFECD /* TemplateViewController.xib */; };
-		A71FFCB820C84FDD007BFECD /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71FFCB420C84FDD007BFECD /* TemplateViewController.swift */; };
 		A737345C2213034100DE27CB /* GASTinderManager+Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737345B2213034100DE27CB /* GASTinderManager+Lists.swift */; };
 		A7373462221330DA00DE27CB /* SimpleTinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7373461221330DA00DE27CB /* SimpleTinderViewModel.swift */; };
 		A73734642213379C00DE27CB /* DetailTinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73734632213379C00DE27CB /* DetailTinderViewModel.swift */; };
 		A7373468221353EA00DE27CB /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7373467221353EA00DE27CB /* PhotoViewModel.swift */; };
 		A737346A22136D3C00DE27CB /* String+Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737346922136D3C00DE27CB /* String+Social.swift */; };
 		A75B464420C9E802002C2B6C /* GasolineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B464320C9E802002C2B6C /* GasolineTests.swift */; };
+		A7BE582A22416A8600DBF26A /* TemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582622416A8600DBF26A /* TemplateData.swift */; };
+		A7BE582B22416A8600DBF26A /* TemplateDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582722416A8600DBF26A /* TemplateDataViewController.swift */; };
+		A7BE582C22416A8600DBF26A /* TemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7BE582822416A8600DBF26A /* TemplateViewController.xib */; };
+		A7BE582D22416A8600DBF26A /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582922416A8600DBF26A /* TemplateViewController.swift */; };
+		A7BE583022416E1400DBF26A /* CollectionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582F22416E1400DBF26A /* CollectionConfig.swift */; };
 		A7C5F62822125FC8004759AA /* AlamofireEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */; };
 		A7C5F62A2212608E004759AA /* AlamoFireJSONClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */; };
 		A7C5F62C2212612F004759AA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62B2212612F004759AA /* NetworkError.swift */; };
-		A7C5F62E221261BC004759AA /* HandlerJSONProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62D221261BC004759AA /* HandlerJSONProtocol.swift */; };
+		A7C5F62E221261BC004759AA /* APIHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62D221261BC004759AA /* APIHandlerProtocol.swift */; };
 		A7C5F630221262F8004759AA /* TinderEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62F221262F8004759AA /* TinderEndPoint.swift */; };
 		A7C5F632221264C5004759AA /* TinderJSONClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F631221264C5004759AA /* TinderJSONClient.swift */; };
 		A7C5F63422127A8A004759AA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F63322127A8A004759AA /* Logger.swift */; };
@@ -83,16 +86,14 @@
 
 /* Begin PBXFileReference section */
 		34DEB3C803EF939C5596589F /* Pods-Gasoline.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gasoline.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gasoline/Pods-Gasoline.release.xcconfig"; sourceTree = "<group>"; };
+		6FDE25CD22E22358004863D9 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gasoline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7024EA5220B3EFD00A425DC /* MachineLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLearning.swift; sourceTree = "<group>"; };
+		A70758AA223C24870006D451 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		A71CD832220E080D007D2887 /* Bikini.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Bikini.mlmodel; sourceTree = "<group>"; };
 		A71FFCAA20C84EDC007BFECD /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		A71FFCAC20C84EFB007BFECD /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		A71FFCAE20C84F50007BFECD /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
-		A71FFCB120C84FDD007BFECD /* TemplateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateData.swift; sourceTree = "<group>"; };
-		A71FFCB220C84FDD007BFECD /* TemplateDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateDataViewController.swift; sourceTree = "<group>"; };
-		A71FFCB320C84FDD007BFECD /* TemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateViewController.xib; sourceTree = "<group>"; };
-		A71FFCB420C84FDD007BFECD /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		A737345B2213034100DE27CB /* GASTinderManager+Lists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GASTinderManager+Lists.swift"; sourceTree = "<group>"; };
 		A7373461221330DA00DE27CB /* SimpleTinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTinderViewModel.swift; sourceTree = "<group>"; };
 		A73734632213379C00DE27CB /* DetailTinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTinderViewModel.swift; sourceTree = "<group>"; };
@@ -103,10 +104,15 @@
 		A75B464520C9E802002C2B6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A75D860620C756DF0086FF4A /* Gasoline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gasoline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A75D861520C756E00086FF4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7BE582622416A8600DBF26A /* TemplateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateData.swift; sourceTree = "<group>"; };
+		A7BE582722416A8600DBF26A /* TemplateDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateDataViewController.swift; sourceTree = "<group>"; };
+		A7BE582822416A8600DBF26A /* TemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateViewController.xib; sourceTree = "<group>"; };
+		A7BE582922416A8600DBF26A /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		A7BE582F22416E1400DBF26A /* CollectionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConfig.swift; sourceTree = "<group>"; };
 		A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireEndPoint.swift; sourceTree = "<group>"; };
 		A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoFireJSONClient.swift; sourceTree = "<group>"; };
 		A7C5F62B2212612F004759AA /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		A7C5F62D221261BC004759AA /* HandlerJSONProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerJSONProtocol.swift; sourceTree = "<group>"; };
+		A7C5F62D221261BC004759AA /* APIHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandlerProtocol.swift; sourceTree = "<group>"; };
 		A7C5F62F221262F8004759AA /* TinderEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderEndPoint.swift; sourceTree = "<group>"; };
 		A7C5F631221264C5004759AA /* TinderJSONClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderJSONClient.swift; sourceTree = "<group>"; };
 		A7C5F63322127A8A004759AA /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -191,6 +197,8 @@
 		A71FFCA920C84E81007BFECD /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				A7BE582E22416B5600DBF26A /* Collection */,
+				A7BE582522416A8600DBF26A /* TemplateViewController */,
 				A7A0BDA220CC8C2E00230F1E /* Profile */,
 				A7D7009B20CB2A3A00942A46 /* Settings */,
 				A7DED7EB20C9A68300C3D664 /* Filter */,
@@ -198,17 +206,6 @@
 				A7024EA5220B3EFD00A425DC /* MachineLearning.swift */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		A71FFCB020C84FDD007BFECD /* TemplateViewController */ = {
-			isa = PBXGroup;
-			children = (
-				A71FFCB120C84FDD007BFECD /* TemplateData.swift */,
-				A71FFCB220C84FDD007BFECD /* TemplateDataViewController.swift */,
-				A71FFCB320C84FDD007BFECD /* TemplateViewController.xib */,
-				A71FFCB420C84FDD007BFECD /* TemplateViewController.swift */,
-			);
-			path = TemplateViewController;
 			sourceTree = "<group>";
 		};
 		A75B464220C9E802002C2B6C /* GasolineTests */ = {
@@ -258,6 +255,27 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		A7BE582522416A8600DBF26A /* TemplateViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A7BE582622416A8600DBF26A /* TemplateData.swift */,
+				A7BE582722416A8600DBF26A /* TemplateDataViewController.swift */,
+				A7BE582822416A8600DBF26A /* TemplateViewController.xib */,
+				A7BE582922416A8600DBF26A /* TemplateViewController.swift */,
+			);
+			path = TemplateViewController;
+			sourceTree = "<group>";
+		};
+		A7BE582E22416B5600DBF26A /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				A7F10CD720C7593200687F6F /* CollectionViewModel.swift */,
+				A7F10D0320C7593200687F6F /* CollectionViewController.swift */,
+				A7BE582F22416E1400DBF26A /* CollectionConfig.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
 		A7D7009B20CB2A3A00942A46 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,9 +307,7 @@
 		A7F10CD420C7593200687F6F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A71FFCB020C84FDD007BFECD /* TemplateViewController */,
 				A71FFCA920C84E81007BFECD /* Modules */,
-				A7F10CD520C7593200687F6F /* ViewModels */,
 				A7F10CD820C7593200687F6F /* Classes */,
 				A7F10CDD20C7593200687F6F /* Managers */,
 				A7F10CE120C7593200687F6F /* Network */,
@@ -302,14 +318,6 @@
 				A7F10CF820C7593200687F6F /* Persentations */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		A7F10CD520C7593200687F6F /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				A7F10CD720C7593200687F6F /* CollectionViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		A7F10CD820C7593200687F6F /* Classes */ = {
@@ -337,9 +345,10 @@
 				A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */,
 				A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */,
 				A7C5F62B2212612F004759AA /* NetworkError.swift */,
-				A7C5F62D221261BC004759AA /* HandlerJSONProtocol.swift */,
+				A7C5F62D221261BC004759AA /* APIHandlerProtocol.swift */,
 				A7C5F62F221262F8004759AA /* TinderEndPoint.swift */,
 				A7C5F631221264C5004759AA /* TinderJSONClient.swift */,
+				6FDE25CD22E22358004863D9 /* ResponseError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -373,6 +382,7 @@
 				A7E7B4B220C7A6A400C15035 /* UIFontExtensions.swift */,
 				A7EEF201220CE18E00B0681B /* UIImage+Coreml.swift */,
 				A737346922136D3C00DE27CB /* String+Social.swift */,
+				A70758AA223C24870006D451 /* UIImageView+Download.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -417,7 +427,6 @@
 				A7F10CFF20C7593200687F6F /* GASViewController.swift */,
 				A7F10D0020C7593200687F6F /* MTPTheAppViewController.swift */,
 				A7F10D0220C7593200687F6F /* GASTabBarController.swift */,
-				A7F10D0320C7593200687F6F /* CollectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -520,6 +529,11 @@
 					};
 					A75D860520C756DF0086FF4A = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -559,10 +573,10 @@
 				A7DED7ED20C9A69700C3D664 /* Filter.storyboard in Resources */,
 				A7F10D5720C75DE100687F6F /* TinderProfile.storyboard in Resources */,
 				A7F10D5520C75DE100687F6F /* Settings.storyboard in Resources */,
-				A71FFCB720C84FDD007BFECD /* TemplateViewController.xib in Resources */,
 				A71FFCAB20C84EDC007BFECD /* Onboarding.storyboard in Resources */,
 				A7F10D5820C75DE100687F6F /* Tinder.storyboard in Resources */,
 				A7F10D4E20C75DE100687F6F /* GoogleService-Info.plist in Resources */,
+				A7BE582C22416A8600DBF26A /* TemplateViewController.xib in Resources */,
 				A7F10D4C20C75DE100687F6F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +726,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A70758AB223C24870006D451 /* UIImageView+Download.swift in Sources */,
 				A7F10D0520C7593200687F6F /* CollectionViewModel.swift in Sources */,
 				A7C5F62A2212608E004759AA /* AlamoFireJSONClient.swift in Sources */,
 				A7F10D1C20C7593200687F6F /* Definitions.swift in Sources */,
@@ -719,7 +734,7 @@
 				A7F10D0B20C7593200687F6F /* PersistenceManager.swift in Sources */,
 				A7F10D1A20C7593200687F6F /* ImageDecoder.swift in Sources */,
 				A7F10D0F20C7593200687F6F /* GASPhotosManager.swift in Sources */,
-				A71FFCB820C84FDD007BFECD /* TemplateViewController.swift in Sources */,
+				A7BE582A22416A8600DBF26A /* TemplateData.swift in Sources */,
 				A7F10D4F20C75DE100687F6F /* AppDelegate.swift in Sources */,
 				A7F10D0920C7593200687F6F /* MTPNotFound.swift in Sources */,
 				A737345C2213034100DE27CB /* GASTinderManager+Lists.swift in Sources */,
@@ -730,16 +745,17 @@
 				A7F10D2720C7593200687F6F /* CollectionViewController.swift in Sources */,
 				A7F10D1420C7593200687F6F /* GASTinder.swift in Sources */,
 				A7F10D1B20C7593200687F6F /* AttributedTextNode.swift in Sources */,
-				A71FFCB520C84FDD007BFECD /* TemplateData.swift in Sources */,
-				A71FFCB620C84FDD007BFECD /* TemplateDataViewController.swift in Sources */,
 				A7EEF202220CE18E00B0681B /* UIImage+Coreml.swift in Sources */,
+				A7BE582B22416A8600DBF26A /* TemplateDataViewController.swift in Sources */,
 				A7373462221330DA00DE27CB /* SimpleTinderViewModel.swift in Sources */,
 				A71FFCAF20C84F50007BFECD /* OnboardingViewModel.swift in Sources */,
 				A7C5F63422127A8A004759AA /* Logger.swift in Sources */,
 				A7F10D1020C7593200687F6F /* GASPhoto.swift in Sources */,
 				A7C5F62822125FC8004759AA /* AlamofireEndPoint.swift in Sources */,
+				A7BE582D22416A8600DBF26A /* TemplateViewController.swift in Sources */,
+				6FDE25CE22E22358004863D9 /* ResponseError.swift in Sources */,
 				A73734642213379C00DE27CB /* DetailTinderViewModel.swift in Sources */,
-				A7C5F62E221261BC004759AA /* HandlerJSONProtocol.swift in Sources */,
+				A7C5F62E221261BC004759AA /* APIHandlerProtocol.swift in Sources */,
 				A7DED7F120C9A70C00C3D664 /* FilterTableViewController.swift in Sources */,
 				A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */,
 				A7F10D2320C7593200687F6F /* GASViewController.swift in Sources */,
@@ -754,6 +770,7 @@
 				A7C5F63622127B35004759AA /* AlamofireLogger.swift in Sources */,
 				A7F10D0C20C7593200687F6F /* AuthManager.swift in Sources */,
 				A7F10D0820C7593200687F6F /* GASLayoutKit.swift in Sources */,
+				A7BE583022416E1400DBF26A /* CollectionConfig.swift in Sources */,
 				A7F10D2120C7593200687F6F /* PhotoCollectionViewCell.swift in Sources */,
 				A7F10D0E20C7593200687F6F /* Localized.swift in Sources */,
 				A7D7009D20CB2A6400942A46 /* SettingsTableViewController.swift in Sources */,
