@@ -18,6 +18,7 @@ class TinderViewController: GASViewController {
 
 	// MARK: - IBOutlets
 
+    @IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: CHIPageControlJaloro!
     @IBOutlet weak var likeButton: UIButton!
@@ -28,7 +29,7 @@ class TinderViewController: GASViewController {
     @IBOutlet weak var hotButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var instagramButton: UIButton!
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
 
@@ -91,6 +92,36 @@ class TinderViewController: GASViewController {
         self.setupButton(self.superLikeButton)
     }
 
+    // MARK: Private Methods
+
+    private func setups() {
+        self.setupViewModel()
+        self.setupTinder()
+        self.setupTap()
+
+        self.becomeFirstResponder()
+        self.scrollView.contentInsetAdjustmentBehavior = .never
+    }
+
+	private func setupViewModel() {
+		self.viewModel.completion = {
+			self.setupTinder()
+		}
+		self.viewModel.load()
+	}
+
+    private func setupTinder() {
+        self.nameLabel.text = self.viewModel.name
+        self.descriptionLabel.text = self.viewModel.bio
+
+        self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
+        self.favoriteButton.isHidden = !self.viewModel.isFavorite
+        self.hotButton.isHidden = !self.viewModel.isHot
+
+        self.pageControl.numberOfPages = self.viewModel.photos.count
+        self.collectionView.reloadData()
+	}
+
     private func setupButton(_ button: UIButton) {
         button.layer.cornerRadius = button.frame.size.width/2
         button.layer.masksToBounds = true
@@ -133,37 +164,6 @@ class TinderViewController: GASViewController {
 
         self.collectionView.scrollRectToVisible(rect, animated: true)
     }
-
-    // MARK: Private Methods
-
-    private func setups() {
-        self.setupViewModel()
-        self.setupTinder()
-        self.becomeFirstResponder()
-
-//        self.collectionView.contentInsetAdjustmentBehavior = .never
-        self.setupTap()
-    }
-
-	private func setupViewModel() {
-		self.viewModel.completion = {
-			self.setupTinder()
-		}
-		self.viewModel.load()
-	}
-
-    private func setupTinder() {
-		self.title = self.viewModel.name
-        self.nameLabel.text = self.viewModel.name
-        self.descriptionLabel.text = self.viewModel.bio
-
-        self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
-        self.favoriteButton.isHidden = !self.viewModel.isFavorite
-        self.hotButton.isHidden = !self.viewModel.isHot
-
-        self.pageControl.numberOfPages = self.viewModel.photos.count
-        self.collectionView.reloadData()
-	}
 
     private func openUrl(_ urlString: String) { // FIXME: Colocar em extension
         guard let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) else {

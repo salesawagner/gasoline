@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CJp-uv-o8m">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CJp-uv-o8m">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,6 +12,10 @@
         <scene sceneID="b2L-Cb-0zO">
             <objects>
                 <viewController storyboardIdentifier="MTPUserViewControllerIdentifier" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CJp-uv-o8m" customClass="TinderViewController" customModule="Gasoline" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hfm-EM-Xu7"/>
+                        <viewControllerLayoutGuide type="bottom" id="z7v-6f-Xsh"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hBC-s1-jZf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOF-IQ-zLh">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="740.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="658.5"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXm-5B-bUc">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="480"/>
@@ -194,7 +197,7 @@
                                             <constraint firstItem="UH1-R2-JXc" firstAttribute="trailing" secondItem="C1l-vt-fcy" secondAttribute="trailing" id="a22-tL-nhX"/>
                                             <constraint firstAttribute="trailing" secondItem="UH1-R2-JXc" secondAttribute="trailing" constant="16" id="aKC-tC-HLR"/>
                                             <constraint firstItem="C1l-vt-fcy" firstAttribute="leading" secondItem="pOF-IQ-zLh" secondAttribute="leading" constant="16" id="oho-3Q-c6l"/>
-                                            <constraint firstAttribute="bottom" secondItem="C1l-vt-fcy" secondAttribute="bottom" constant="82" id="tDD-dh-WXZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="C1l-vt-fcy" secondAttribute="bottom" id="tDD-dh-WXZ"/>
                                             <constraint firstItem="gXm-5B-bUc" firstAttribute="leading" secondItem="pOF-IQ-zLh" secondAttribute="leading" id="ujP-y5-2Fj"/>
                                             <constraint firstItem="gXm-5B-bUc" firstAttribute="top" secondItem="pOF-IQ-zLh" secondAttribute="top" id="xK9-Eo-iOu"/>
                                         </constraints>
@@ -259,7 +262,6 @@
                             <constraint firstItem="XRT-BM-8ob" firstAttribute="centerX" secondItem="hBC-s1-jZf" secondAttribute="centerX" id="jQx-VT-U6D"/>
                             <constraint firstItem="zot-HQ-L6B" firstAttribute="top" secondItem="hBC-s1-jZf" secondAttribute="top" id="m4u-Dy-i0e"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="RsQ-q0-vGV"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -273,13 +275,14 @@
                         <outlet property="likeButton" destination="2dw-yO-uWi" id="rvz-lf-ypW"/>
                         <outlet property="nameLabel" destination="9iK-s2-siR" id="2qe-XA-92F"/>
                         <outlet property="pageControl" destination="dRj-46-VuV" id="Jla-3Q-hdB"/>
+                        <outlet property="scrollView" destination="zot-HQ-L6B" id="Jfc-v7-dLc"/>
                         <outlet property="superLikeButton" destination="U3z-fp-xwi" id="PvH-JA-B3X"/>
                         <outlet property="tagEffectView" destination="UH1-R2-JXc" id="rCQ-cX-IG2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k5r-zY-3Ea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1620.289855072464" y="-619.41964285714278"/>
+            <point key="canvasLocation" x="726" y="-657"/>
         </scene>
     </scenes>
     <resources>
