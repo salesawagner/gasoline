@@ -40,6 +40,7 @@ class SimpleTinderViewModel: NSObject {
 	// MARK: - Internal Methods
 
 	func setupTinder(tinder: GASTinder) {
+
 		self.tinderID = tinder.id
 		self.isLiked = tinder.isLiked
 		self.isMatch = tinder.isMatch
@@ -49,9 +50,8 @@ class SimpleTinderViewModel: NSObject {
 		self.distance = String(format: "%.0f km", kms)
 
 		// Name
-		let nsfw = tinder.isNsfw == true ? "🔥 " : ""
 		let years = " \(Date().WASyears(from: tinder.birthDay))"
-		self.name = nsfw + tinder.name + years
+		self.name = (tinder.name + ", " + years).WAStrimmed
 
 		// Photo
 		let photos = tinder.photos.sorted(byKeyPath: "nsfw", ascending: false)

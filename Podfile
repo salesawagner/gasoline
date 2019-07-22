@@ -12,6 +12,7 @@ target 'Gasoline' do
 # UI
 	pod 'SCLAlertView'
 	pod 'EAIntroView'
+  pod 'CHIPageControl/Jaloro'
 
 # Database
 	pod 'RealmSwift'

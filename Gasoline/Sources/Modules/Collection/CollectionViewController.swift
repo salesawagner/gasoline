@@ -152,7 +152,9 @@ class CollectionViewController: GASViewController {
 	
 	private func goToTinder(tinder: GASTinder) {
 		let viewController = UIViewController.tinder(tinder: tinder)
-		self.navigationController?.pushViewController(viewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        self.present(navigationController, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(viewController, animated: true)
 	}
 
 	@objc private func didTapReload() {

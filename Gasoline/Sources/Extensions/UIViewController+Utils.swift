@@ -56,18 +56,27 @@ extension UIViewController {
 		}
 		SCLAlertView().showTitle(title, subTitle: subtitle, style: style, colorStyle: colorStyle)
 	}
-	@objc func pop() {
-		guard let nav = self.navigationController else {
-			return
-		}
-		if let loading = self.loading {
-			loading.setDismissBlock {
-				nav.popViewController(animated: true)
-			}
-		} else {
-			nav.popViewController(animated: true)
-		}
-	}
+    @objc func pop() {
+        guard let nav = self.navigationController else {
+            return
+        }
+        if let loading = self.loading {
+            loading.setDismissBlock {
+                nav.popViewController(animated: true)
+            }
+        } else {
+            nav.popViewController(animated: true)
+        }
+    }
+    @objc func dismiss() {
+        if let loading = self.loading {
+            loading.setDismissBlock {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 	func preloadView() {
 		let _ = view
 	}

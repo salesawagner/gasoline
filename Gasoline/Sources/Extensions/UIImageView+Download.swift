@@ -17,13 +17,13 @@ extension UIImageView {
 			return
 		}
 
-		AlamoFireJSONClient.requestImage(url: photo.url) { image in
+		let request = AlamoFireJSONClient.requestImage(url: photo.url) { image in
 			guard let image = image else {
 				Log.e("Load photo")
 				completion()
 				return
 			}
-
+            Log.i(photo.url)
 			GASPhoto.nsfw(photoID: photoID, image: image)
 
 			DispatchQueue.main.async { [weak self] in
@@ -31,6 +31,9 @@ extension UIImageView {
 				completion()
 			}
 		}
+
+
+
 	}
 
 }

@@ -36,7 +36,7 @@ enum AlamoFireJSONClient {
 
 		request.logRequest(.simple)
 //        request.logResponse(.verbose)
-//        debugPrint(request)
+        debugPrint(request)
 
         request.validate().responseJSON { response in
 

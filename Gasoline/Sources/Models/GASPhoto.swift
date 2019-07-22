@@ -99,24 +99,23 @@ extension GASPhoto {
 
 	class func nsfw(photoID: String?, image: UIImage, completion: Completion? = nil) {
 
-        //        FIXME:
-//        guard let photoID = photoID, #available(iOS 12.0, *) else {
-//            Log.e("Machine Learning iOS version")
-//            return
-//        }
-//
-//        DispatchQueue(label: "background_nsfw").async {
-//            autoreleasepool {
-//
-//                Detector.shared.check(image: image, completion: { result in
-//
-//                    switch result {
-//                    case let .success(confidence: nsfw): self.setNsfw(photoID: photoID, confidence: nsfw)
-//                    case let .error(error): Log.e(error.localizedDescription)
-//                    }
-//                })
-//            }
-//        }
+        guard let photoID = photoID, #available(iOS 12.0, *) else {
+            Log.e("Machine Learning iOS version")
+            return
+        }
+
+        DispatchQueue(label: "background_nsfw").async {
+            autoreleasepool {
+
+                Detector.shared.check(image: image, completion: { result in
+
+                    switch result {
+                    case let .success(confidence: nsfw): self.setNsfw(photoID: photoID, confidence: nsfw)
+                    case let .error(error): Log.e(error.localizedDescription)
+                    }
+                })
+            }
+        }
 	}
 
 	// MARK: - Private Methods

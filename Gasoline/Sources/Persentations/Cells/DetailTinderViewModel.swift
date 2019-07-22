@@ -18,6 +18,9 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 	var instagram: String = ""
 	var snapchat: String = ""
 
+    var isHot: Bool = false
+    var isFavorite: Bool = false
+
 	var photos: Results<GASPhoto>!
 	
 	var completion: Completion?
@@ -31,15 +34,14 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 	override func setupTinder(tinder: GASTinder) {
 		super.setupTinder(tinder: tinder)
 
-		// Online
-		self.online = tinder.isFavorited ? "😍" : ""
-
-		// Bio
-		self.bio = tinder.bio
+        // Bio
+		self.bio = tinder.bio.WAStrimmed
 
 		// Others
-		self.instagram = tinder.bio.instagram
-		self.snapchat = tinder.bio.snapchat
+		self.instagram = tinder.bio.instagram.WAStrimmed
+		self.snapchat = tinder.bio.snapchat.WAStrimmed
+        self.isHot = tinder.isNsfw
+        self.isFavorite = tinder.isFavorited
 
 		// Photos
 		self.photos = tinder.photos.sorted(byKeyPath: "nsfw", ascending: false)
