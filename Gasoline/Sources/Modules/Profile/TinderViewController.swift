@@ -18,7 +18,6 @@ class TinderViewController: GASViewController {
 
 	// MARK: - IBOutlets
 
-//    @IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: CHIPageControlJaloro!
     @IBOutlet weak var likeButton: UIButton!
@@ -92,19 +91,58 @@ class TinderViewController: GASViewController {
         self.setupButton(self.superLikeButton)
     }
 
-    func setupButton(_ button: UIButton) {
+    private func setupButton(_ button: UIButton) {
         button.layer.cornerRadius = button.frame.size.width/2
         button.layer.masksToBounds = true
     }
 
-	// MARK: Private Methods
+    private func setupTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollectionView(_:)))
+        self.collectionView.addGestureRecognizer(tap)
+    }
+
+    @objc
+    private func didTapCollectionView(_ sender: UITapGestureRecognizer? = nil) {
+        guard let tap = sender?.location(in: self.view) else { return }
+
+        let cellSize = CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+        let contentOffset = self.collectionView.contentOffset
+
+        var contentOffsetX:CGFloat = 0
+        if tap.x < (self.view.frame.width / 2) {
+            contentOffsetX = contentOffset.x - cellSize.width
+        } else {
+            contentOffsetX = contentOffset.x + cellSize.width
+        }
+
+        let rect = CGRect(x: contentOffsetX,
+                          y: contentOffset.y,
+                          width: cellSize.width,
+                          height: cellSize.height)
+
+        self.collectionView.scrollRectToVisible(rect, animated: true)
+    }
+
+    private func scrollNext() {
+        let cellSize = CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+        let contentOffset = self.collectionView.contentOffset
+        let rect = CGRect(x: contentOffset.x + cellSize.width,
+                          y: contentOffset.y,
+                          width: cellSize.width,
+                          height: cellSize.height)
+
+        self.collectionView.scrollRectToVisible(rect, animated: true)
+    }
+
+    // MARK: Private Methods
 
     private func setups() {
         self.setupViewModel()
         self.setupTinder()
         self.becomeFirstResponder()
 
-        self.collectionView.contentInsetAdjustmentBehavior = .never
+//        self.collectionView.contentInsetAdjustmentBehavior = .never
+        self.setupTap()
     }
 
 	private func setupViewModel() {
