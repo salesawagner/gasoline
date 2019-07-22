@@ -14,6 +14,8 @@ import UIKit
 //**************************************************************************************************
 private let kLoginStoryboard = "Onboarding"
 private let kTinderStoryboard = "Tinder"
+private let kFilterStoryboard = "Filter"
+
 //**************************************************************************************************
 //
 // MARK: - Definitions -
@@ -71,18 +73,21 @@ extension UIViewController {
 	}
 
 	class func tinder(tinder: GASTinder) -> TinderViewController {
+
 		let storyboard = self.storyboardWith(identifier: kTinderStoryboard)
 		let viewController = storyboard.instantiateInitialViewController()
-		if let tinderViewController = viewController as? TinderViewController {
+
+        if let tinderViewController = viewController as? TinderViewController {
 			tinderViewController.viewModel = DetailTinderViewModel(tinderID: tinder.id)
 			return tinderViewController
 		}
+
 		return TinderViewController()
 	}
 
 	class func filter(colletionViewModel viewModel: CollectionViewModel) -> FilterTableViewController {
 
-		let storyboard = self.storyboardWith(identifier: "Filter")
+		let storyboard = self.storyboardWith(identifier: kFilterStoryboard)
 		let viewController = storyboard.instantiateInitialViewController()
 
 		if let tinderViewController = viewController as? FilterTableViewController {

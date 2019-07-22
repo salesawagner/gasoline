@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import CHIPageControl
+import PullToDismissTransition
 
 class TinderViewController: GASViewController {
 
@@ -38,6 +39,17 @@ class TinderViewController: GASViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setups()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setupPullToDismiss()
+        self.pullToDismissTransition.monitorActiveScrollView(scrollView: self.scrollView)
+    }
+
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        self.setupPullToDismiss()
     }
 
     override func setupNavigation() {
@@ -95,12 +107,13 @@ class TinderViewController: GASViewController {
     // MARK: Private Methods
 
     private func setups() {
+        self.setupScrollView()
         self.setupViewModel()
         self.setupTinder()
-        self.setupTap()
+//        self.setupPanGesture()
+        self.setupTapGesture()
 
         self.becomeFirstResponder()
-        self.scrollView.contentInsetAdjustmentBehavior = .never
     }
 
 	private func setupViewModel() {
@@ -109,6 +122,11 @@ class TinderViewController: GASViewController {
 		}
 		self.viewModel.load()
 	}
+
+    private func setupScrollView() {
+        self.scrollView.contentInsetAdjustmentBehavior = .never
+        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
+    }
 
     private func setupTinder() {
         self.nameLabel.text = self.viewModel.name
@@ -127,31 +145,14 @@ class TinderViewController: GASViewController {
         button.layer.masksToBounds = true
     }
 
-    private func setupTap() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollectionView(_:)))
-        self.collectionView.addGestureRecognizer(tap)
+    private func setupPanGesture() {
+        self.setupPullToDismiss()
+        self.pullToDismissTransition.monitorActiveScrollView(scrollView: scrollView)
     }
 
-    @objc
-    private func didTapCollectionView(_ sender: UITapGestureRecognizer? = nil) {
-        guard let tap = sender?.location(in: self.view) else { return }
-
-        let cellSize = CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
-        let contentOffset = self.collectionView.contentOffset
-
-        var contentOffsetX:CGFloat = 0
-        if tap.x < (self.view.frame.width / 2) {
-            contentOffsetX = contentOffset.x - cellSize.width
-        } else {
-            contentOffsetX = contentOffset.x + cellSize.width
-        }
-
-        let rect = CGRect(x: contentOffsetX,
-                          y: contentOffset.y,
-                          width: cellSize.width,
-                          height: cellSize.height)
-
-        self.collectionView.scrollRectToVisible(rect, animated: true)
+    private func setupTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollectionView(_:)))
+        self.collectionView.addGestureRecognizer(tap)
     }
 
     private func scrollNext() {
@@ -177,11 +178,38 @@ class TinderViewController: GASViewController {
         self.openUrl(instagramHooks)
     }
 
+    private func close() {
+        self.isPullToDismissEnabled = false
+        self.dismiss()
+    }
+
     // MARK: Internal Methods
 
     @objc
+    func didTapCollectionView(_ sender: UITapGestureRecognizer? = nil) {
+        guard let tap = sender?.location(in: self.view) else { return }
+
+        let cellSize = CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+        let contentOffset = self.collectionView.contentOffset
+
+        var contentOffsetX:CGFloat = 0
+        if tap.x < (self.view.frame.width / 2) {
+            contentOffsetX = contentOffset.x - cellSize.width
+        } else {
+            contentOffsetX = contentOffset.x + cellSize.width
+        }
+
+        let rect = CGRect(x: contentOffsetX,
+                          y: contentOffset.y,
+                          width: cellSize.width,
+                          height: cellSize.height)
+
+        self.collectionView.scrollRectToVisible(rect, animated: true)
+    }
+
+    @objc
     func didTapCloseButton() {
-        self.dismiss()
+        self.close()
     }
 
     @objc
@@ -205,14 +233,10 @@ class TinderViewController: GASViewController {
         }
 
         let title = String(format: "Delete")
-        sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        sheet.addAction(UIAlertAction(title: title, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
             guard let viewModel = self.viewModel else { return }
             PersistenceManager.delete(tinderID: viewModel.tinderID)
             self.pop()
-        }))
-
-        sheet.addAction(UIAlertAction(title: "Close", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.dismiss()
         }))
 
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -234,18 +258,22 @@ class TinderViewController: GASViewController {
 
     @IBAction func didTapLikeButton(_ sender: Any) {
         self.viewModel.likeButtonTapped()
-        self.dismiss()
+        self.close()
     }
 
     @IBAction func didTapDislikeButton(_ sender: Any) {
         self.viewModel.disLikeButtonTapped()
-        self.dismiss()
+        self.close()
     }
 
     @IBAction func didTapSuperlikeButton(_ sender: Any) {
         self.viewModel.superLikeButtonTapped()
-        self.dismiss()
+        self.close()
     }
+
+    // MARK: - PullToDismissable Prorpeties
+
+    private(set) lazy var pullToDismissTransition = PullToDismissTransition(viewController: self)
 }
 
 // MARK: - Shake
@@ -319,8 +347,31 @@ extension TinderViewController: UICollectionViewDelegateFlowLayout {
 	}
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension TinderViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         self.pageControl.set(progress: indexPath.row, animated: true)
+    }
+}
+
+// MARK: - PullToDismissable
+
+extension TinderViewController: PullToDismissable { }
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension TinderViewController: UIViewControllerTransitioningDelegate {
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard isPullToDismissEnabled else { return nil }
+        return pullToDismissTransition
+    }
+
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        guard isPullToDismissEnabled else { return nil }
+        return pullToDismissTransition
     }
 }

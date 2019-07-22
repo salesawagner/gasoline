@@ -137,22 +137,28 @@ class CollectionViewController: GASViewController {
 	}
 	
 	private func setupNotFound() {
-		self.notFound.frame = self.view.frame
-		self.notFound.information = "Sorry... I can not found anyone."
-		self.notFound.alpha = 0
-		self.view.addSubview(self.notFound)
+        self.notFound.frame = self.view.frame
+        self.notFound.information = "Sorry... I can not found anyone."
+        self.notFound.alpha = 0
+        self.view.addSubview(self.notFound)
 	}
 	
 	private func showCollectionView() {
 		UIView.animate(withDuration: 0.25, animations: {
 			self.collectionView.alpha = (self.viewModel.dataSource.count > 0 ? 1 : 0)
-			self.notFound.alpha = (self.viewModel.dataSource.count <= 0 ? 1 : 0)
+//            self.notFound.alpha = (self.viewModel.dataSource.count <= 0 ? 1 : 0)
 		})
 	}
 	
 	private func goToTinder(tinder: GASTinder) {
-		let viewController = UIViewController.tinder(tinder: tinder)
+
+        let viewController = UIViewController.tinder(tinder: tinder)
+        viewController.isPullToDismissEnabled = true
+
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationCapturesStatusBarAppearance = true
+//        navigationController.modalPresentationStyle = .overFullScreen
+
         self.present(navigationController, animated: true, completion: nil)
 	}
 

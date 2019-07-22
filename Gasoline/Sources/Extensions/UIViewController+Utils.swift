@@ -69,12 +69,20 @@ extension UIViewController {
         }
     }
     @objc func dismiss() {
+
+        var viewController: UIViewController = self
+        if let nav = self.navigationController {
+            viewController = nav
+        }
+
+//        if view
+
         if let loading = self.loading {
             loading.setDismissBlock {
-                self.dismiss(animated: true, completion: nil)
+                viewController.dismiss(animated: true, completion: nil)
             }
         } else {
-            self.dismiss(animated: true, completion: nil)
+            viewController.dismiss(animated: true, completion: nil)
         }
     }
 	func preloadView() {
