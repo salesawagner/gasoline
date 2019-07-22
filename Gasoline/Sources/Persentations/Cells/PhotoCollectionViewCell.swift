@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialActivityIndicator
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
@@ -18,7 +19,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
 	// MARK: - IBOutlets
 
-	@IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var indicatorView: MDCActivityIndicator!
 	@IBOutlet weak var photoImageView: UIImageView!
 	@IBOutlet weak var nsfwLabel: UILabel!
 
@@ -28,14 +29,20 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 		self.photoImageView.image = nil
 	}
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.indicatorView.backgroundColor = .clear
+        self.indicatorView.cycleColors = [.red]
+    }
+
 	// MARK: - Private Methods
 
 	private func start() {
-		self.indicator.startAnimating()
+        self.indicatorView.startAnimating()
 	}
 
 	private func stop() {
-		self.indicator.stopAnimating()
+        self.indicatorView.stopAnimating()
 	}
 
 	// MARK: - Public Methods

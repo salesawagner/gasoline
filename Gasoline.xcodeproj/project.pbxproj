@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		610F1A0030D7B99EA41BBE7B /* Pods_Gasoline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */; };
+		6F79479222E5720500AEFAAD /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F79479122E5720500AEFAAD /* UIView+Utils.swift */; };
+		6F79479422E5842800AEFAAD /* URL+Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F79479322E5842800AEFAAD /* URL+Social.swift */; };
 		6FDE25CE22E22358004863D9 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CD22E22358004863D9 /* ResponseError.swift */; };
 		6FDE25D022E34522004863D9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CF22E34522004863D9 /* CardView.swift */; };
 		A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7024EA5220B3EFD00A425DC /* MachineLearning.swift */; };
@@ -86,6 +88,8 @@
 
 /* Begin PBXFileReference section */
 		34DEB3C803EF939C5596589F /* Pods-Gasoline.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gasoline.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gasoline/Pods-Gasoline.release.xcconfig"; sourceTree = "<group>"; };
+		6F79479122E5720500AEFAAD /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
+		6F79479322E5842800AEFAAD /* URL+Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Social.swift"; sourceTree = "<group>"; };
 		6FDE25CD22E22358004863D9 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		6FDE25CF22E34522004863D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gasoline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,6 +388,8 @@
 				A7EEF201220CE18E00B0681B /* UIImage+Coreml.swift */,
 				A737346922136D3C00DE27CB /* String+Social.swift */,
 				A70758AA223C24870006D451 /* UIImageView+Download.swift */,
+				6F79479122E5720500AEFAAD /* UIView+Utils.swift */,
+				6F79479322E5842800AEFAAD /* URL+Social.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -696,6 +702,7 @@
 				A7F10D4F20C75DE100687F6F /* AppDelegate.swift in Sources */,
 				A7F10D0920C7593200687F6F /* MTPNotFound.swift in Sources */,
 				A737345C2213034100DE27CB /* GASTinderManager+Lists.swift in Sources */,
+				6F79479422E5842800AEFAAD /* URL+Social.swift in Sources */,
 				A737346A22136D3C00DE27CB /* String+Social.swift in Sources */,
 				A7F10D1820C7593200687F6F /* UIViewController+Visible.swift in Sources */,
 				A7F10D1E20C7593200687F6F /* ImageRequest.swift in Sources */,
@@ -716,6 +723,7 @@
 				A73734642213379C00DE27CB /* DetailTinderViewModel.swift in Sources */,
 				A7C5F62E221261BC004759AA /* APIHandlerProtocol.swift in Sources */,
 				A7DED7F120C9A70C00C3D664 /* FilterTableViewController.swift in Sources */,
+				6F79479222E5720500AEFAAD /* UIView+Utils.swift in Sources */,
 				A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */,
 				A7F10D2320C7593200687F6F /* GASViewController.swift in Sources */,
 				A71CD833220E080D007D2887 /* Bikini.mlmodel in Sources */,

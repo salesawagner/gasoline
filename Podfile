@@ -14,6 +14,7 @@ target 'Gasoline' do
 	pod 'EAIntroView'
   pod 'CHIPageControl/Jaloro'
   pod 'PullToDismissTransition'
+  pod 'MaterialComponents/ActivityIndicator'
 
 # Database
 	pod 'RealmSwift'

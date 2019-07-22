@@ -10,6 +10,8 @@ import UIKit
 import RealmSwift
 import CHIPageControl
 import PullToDismissTransition
+import SCLAlertView
+import WASKit
 
 class TinderViewController: GASViewController {
 
@@ -30,7 +32,8 @@ class TinderViewController: GASViewController {
     @IBOutlet weak var hotButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var instagramButton: UIButton!
-    
+    @IBOutlet weak var snapButton: UIButton!
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
 
@@ -73,12 +76,14 @@ class TinderViewController: GASViewController {
         let moreButton = UIButton(frame: frame)
         moreButton.setImage(moreImage, for: UIControl.State())
         moreButton.addTarget(self, action: #selector(self.didTapMoreButton), for: .touchUpInside)
+        moreButton.setShadow()
 
         // Close button
         let closeImage = UIImage(named: "btn_back")
         let closeButton = UIButton(frame: frame)
         closeButton.setImage(closeImage, for: UIControl.State())
         closeButton.addTarget(self, action: #selector(self.didTapCloseButton), for: .touchUpInside)
+        closeButton.setShadow()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: moreButton)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
@@ -99,9 +104,9 @@ class TinderViewController: GASViewController {
         self.pageControl.radius = self.pageControl.elementHeight / 2
         self.pageControl.clipsToBounds = true
 
-        self.setupButton(self.likeButton)
-        self.setupButton(self.dislikeButton)
-        self.setupButton(self.superLikeButton)
+        self.likeButton.setCircle()
+        self.dislikeButton.setCircle()
+        self.superLikeButton.setCircle()
     }
 
     // MARK: Private Methods
@@ -110,7 +115,6 @@ class TinderViewController: GASViewController {
         self.setupScrollView()
         self.setupViewModel()
         self.setupTinder()
-//        self.setupPanGesture()
         self.setupTapGesture()
 
         self.becomeFirstResponder()
@@ -133,17 +137,13 @@ class TinderViewController: GASViewController {
         self.descriptionLabel.text = self.viewModel.bio
 
         self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
+        self.snapButton.isHidden = self.viewModel.snapchat.isEmpty
         self.favoriteButton.isHidden = !self.viewModel.isFavorite
         self.hotButton.isHidden = !self.viewModel.isHot
 
         self.pageControl.numberOfPages = self.viewModel.photos.count
         self.collectionView.reloadData()
 	}
-
-    private func setupButton(_ button: UIButton) {
-        button.layer.cornerRadius = button.frame.size.width/2
-        button.layer.masksToBounds = true
-    }
 
     private func setupPanGesture() {
         self.setupPullToDismiss()
@@ -164,18 +164,6 @@ class TinderViewController: GASViewController {
                           height: cellSize.height)
 
         self.collectionView.scrollRectToVisible(rect, animated: true)
-    }
-
-    private func openUrl(_ urlString: String) { // FIXME: Colocar em extension
-        guard let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-
-    private func openInstagram() { // FIXME: Colocar em extension
-        let instagramHooks = String(format: "instagram://user?username=%@", self.viewModel.instagram)
-        self.openUrl(instagramHooks)
     }
 
     private func close() {
@@ -215,35 +203,19 @@ class TinderViewController: GASViewController {
     @objc
     func didTapMoreButton() {
 
-        let sheet = UIAlertController(title: nil, message: "Escolha a opção", preferredStyle: .actionSheet)
-
-        if !self.viewModel.instagram.isEmpty {
-            let title = String(format: "Instagram")
-            sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                let instagramHooks = String(format: "instagram://user?username=%@", self.viewModel.instagram)
-                self.openUrl(instagramHooks)
-            }))
+        let alert = SCLAlertView()
+        alert.addButton("Sim") { [weak self] in
+            PersistenceManager.delete(tinderID: self?.viewModel.tinderID ?? "")
+            self?.close()
         }
 
-        if !self.viewModel.snapchat.isEmpty {
-            let title = String(format: "snapchat")
-            sheet.addAction(UIAlertAction(title: title, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                self.openInstagram()
-            }))
-        }
-
-        let title = String(format: "Delete")
-        sheet.addAction(UIAlertAction(title: title, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-            guard let viewModel = self.viewModel else { return }
-            PersistenceManager.delete(tinderID: viewModel.tinderID)
-            self.pop()
-        }))
-
-        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        }))
-
-        self.present(sheet, animated: true, completion: nil)
+        alert.showTitle("Cuidado",
+                        subTitle: "Você deseja remover esse usuário?",
+                        timeout: nil,
+                        completeText: "Cancelar",
+                        style: .warning,
+                        colorStyle: UInt(LK.redColor.WAStoUInt),
+                        animationStyle: .bottomToTop)
     }
 
     // MARK: - Actions
@@ -253,7 +225,11 @@ class TinderViewController: GASViewController {
     }
 
     @IBAction func didTapInstagramButton(_ sender: Any) {
-        self.openInstagram()
+        URL.openInstagram(self.viewModel.instagram)
+    }
+
+    @IBAction func didTapSnapButton(_ sender: Any) {
+        URL.openSnap(self.viewModel.snapchat)
     }
 
     @IBAction func didTapLikeButton(_ sender: Any) {

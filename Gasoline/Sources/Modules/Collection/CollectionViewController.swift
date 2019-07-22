@@ -146,7 +146,7 @@ class CollectionViewController: GASViewController {
 	private func showCollectionView() {
 		UIView.animate(withDuration: 0.25, animations: {
 			self.collectionView.alpha = (self.viewModel.dataSource.count > 0 ? 1 : 0)
-//            self.notFound.alpha = (self.viewModel.dataSource.count <= 0 ? 1 : 0)
+            self.notFound.alpha = (self.viewModel.dataSource.count <= 0 ? 1 : 0)
 		})
 	}
 	
@@ -157,7 +157,7 @@ class CollectionViewController: GASViewController {
 
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationCapturesStatusBarAppearance = true
-//        navigationController.modalPresentationStyle = .overFullScreen
+        navigationController.modalPresentationStyle = .overFullScreen
 
         self.present(navigationController, animated: true, completion: nil)
 	}
