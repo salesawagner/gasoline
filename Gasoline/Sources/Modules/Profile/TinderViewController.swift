@@ -138,8 +138,13 @@ class TinderViewController: GASViewController {
 
         self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
         self.snapButton.isHidden = self.viewModel.snapchat.isEmpty
-        self.favoriteButton.isHidden = !self.viewModel.isFavorite
         self.hotButton.isHidden = !self.viewModel.isHot
+
+        self.setIsFavorite(!self.viewModel.isFavorite)
+        self.setIsLiked(self.viewModel.isLiked)
+        self.setIsSuperLiked(self.viewModel.isSuperLiked)
+        self.setIsMatch(self.viewModel.isMatch)
+        self.setIsHot(self.viewModel.isHot)
 
         self.pageControl.numberOfPages = self.viewModel.photos.count
         self.collectionView.reloadData()
@@ -255,7 +260,6 @@ class TinderViewController: GASViewController {
 // MARK: - Shake
 
 extension TinderViewController {
-
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -349,5 +353,33 @@ extension TinderViewController: UIViewControllerTransitioningDelegate {
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         guard isPullToDismissEnabled else { return nil }
         return pullToDismissTransition
+    }
+}
+
+extension TinderViewController {
+
+    func setIsFavorite(_ isFavorite: Bool) {
+        self.favoriteButton.isHidden = !isFavorite
+    }
+
+    func setIsHot(_ isHot: Bool) {
+        self.hotButton.isHidden = !isHot
+    }
+
+    func setIsLiked(_ isLiked: Bool) {
+        let imageName = isLiked ? "btn_liked_big" : "btn_like_big"
+        let image = UIImage(named: imageName)
+        self.likeButton.setImage(image, for: .normal)
+    }
+
+    func setIsSuperLiked(_ isLiked: Bool) {
+        let imageName = isLiked ? "btn_superliked_big" : "btn_superlike_big"
+        let image = UIImage(named: imageName)
+        self.superLikeButton.setImage(image, for: .normal)
+    }
+
+    func setIsMatch(_ isMatch: Bool) {
+        self.likeButton.isEnabled = !isMatch
+        self.superLikeButton.isEnabled = !isMatch
     }
 }

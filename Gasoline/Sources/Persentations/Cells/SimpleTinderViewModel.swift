@@ -7,23 +7,28 @@
 //
 
 import Foundation
+import RealmSwift
 
 class SimpleTinderViewModel: NSObject {
 
 	// MARK: - Properties
 
-	var tinderID: String = ""
+    var tinder: GASTinder!
+	var tinderID: String {
+        return self.tinder.id
+    }
 	var photoID: String = ""
 
 	var name: String = ""
-	var distance: String = ""
 	var photoUrl: String = ""
-	var canAction: Bool = false
 
 	var isLiked: Bool = false
+    var isSuperLiked: Bool = false
 	var isMatch: Bool = false
 
 	var photosURL: [[String: String]] = []
+
+    var token: NotificationToken?
 
 	// MARK: - Constructors
 
@@ -34,45 +39,39 @@ class SimpleTinderViewModel: NSObject {
 			return
 		}
 
-		self.setupTinder(tinder: tinder)
+        self.tinder = tinder
+		self.setupTinder()
 	}
 
 	// MARK: - Internal Methods
 
-	func setupTinder(tinder: GASTinder) {
+	func setupTinder() {
 
-		self.tinderID = tinder.id
-		self.isLiked = tinder.isLiked
-		self.isMatch = tinder.isMatch
+		self.isLiked = self.tinder.isLiked
+		self.isMatch = self.tinder.isMatch
+        self.isSuperLiked = self.tinder.isSuperLiked
 
-		// Distance
-		let kms: Float = Float(tinder.distance) * 1.609344
-		self.distance = String(format: "%.0f km", kms)
-
-		// Name
-		let years = " \(Date().WASyears(from: tinder.birthDay))"
-		self.name = (tinder.name + ", " + years).WAStrimmed
+        // Name
+		let years = " \(Date().WASyears(from: self.tinder.birthDay))"
+		self.name = (self.tinder.name + ", " + years).WAStrimmed
 
 		// Photo
-		let photos = tinder.photos.sorted(byKeyPath: "nsfw", ascending: false)
+		let photos = self.tinder.photos.sorted(byKeyPath: "nsfw", ascending: false)
 		if let photo = photos.first {
 			self.photoID = photo.id
 			self.photoUrl = photo.url
 		}
 
-		for photo in tinder.photos {
+		for photo in self.tinder.photos {
 			var photoURL: [String: String] = [:]
 			photoURL["id"] = photo.id
 			photoURL["url"] = photo.url
 
 			self.photosURL.append(photoURL)
 		}
-
-		// Actions
-		self.canAction = !tinder.isMatch // tinder.canAction && !tinder.isLiked
 	}
 
-	@objc func likeButtonTapped() {
+    @objc func likeButtonTapped() {
 		GASTinderManager.like(tinderID: self.tinderID)
 	}
 
@@ -83,5 +82,4 @@ class SimpleTinderViewModel: NSObject {
 	@objc func disLikeButtonTapped() {
 		GASTinderManager.disLike(tinderID: self.tinderID)
 	}
-
 }

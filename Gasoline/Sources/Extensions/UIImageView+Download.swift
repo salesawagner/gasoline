@@ -17,7 +17,7 @@ extension UIImageView {
 			return
 		}
 
-		let request = AlamoFireJSONClient.requestImage(url: photo.url) { image in
+		AlamoFireJSONClient.requestImage(url: photo.url) { image in
 			guard let image = image else {
 				Log.e("Load photo")
 				completion()

@@ -61,7 +61,6 @@ class CellNode: ASCellNode {
 		self.setupBackground()
 		self.setupView()
 		self.setupImage()
-		self.setupDistance()
 		self.setupDisLikeButton()
 		self.setupButtons()
 		self.setupName()
@@ -137,14 +136,7 @@ class CellNode: ASCellNode {
 		}
 	}
 
-	private func setupDistance() {
-		let text = viewModel.distance
-		self.distanceNode.configure(text, size: 12)
-		self.distanceNode.backgroundColor = kColor
-		self.addSubnode(self.distanceNode)
-	}
-
-	private func setupDisLikeButton() {
+    private func setupDisLikeButton() {
 		let image = #imageLiteral(resourceName: "btn_close")
 		self.disLikeButtonNode.setImage(image, for: .normal)
 		let selector = #selector(viewModel.disLikeButtonTapped)
@@ -153,9 +145,6 @@ class CellNode: ASCellNode {
 	}
 
 	private func setupButtons() {
-		guard viewModel.canAction else {
-			return
-		}
 		let buttonsNode = ASDisplayNode()
 		self.buttonsNode = buttonsNode
 		self.addSubnode(buttonsNode)

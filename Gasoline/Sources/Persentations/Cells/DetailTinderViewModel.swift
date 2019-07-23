@@ -13,7 +13,8 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 
 	// MARK: - Properties
 
-	var online: String = ""
+    weak var parent: TinderViewController!
+
 	var bio: String = ""
 	var instagram: String = ""
 	var snapchat: String = ""
@@ -27,12 +28,18 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 
 	// MARK: - Constructors
 
-	override init(tinderID: String) {
+    private override init(tinderID: String) {
 		super.init(tinderID: tinderID)
+        self.setupToken()
 	}
 
-	override func setupTinder(tinder: GASTinder) {
-		super.setupTinder(tinder: tinder)
+    convenience init(parent: TinderViewController, tinderID: String) {
+        self.init(tinderID: tinderID)
+        self.parent = parent
+    }
+
+	override func setupTinder() {
+		super.setupTinder()
 
         // Bio
 		self.bio = tinder.bio.WAStrimmed
@@ -50,7 +57,28 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 		self.callCompletion()
 	}
 
-	// MARK: - Private Methods
+    private func setupToken() {
+        self.token = self.tinder.observe { change in
+            switch change {
+            case .change(let properties): properties.forEach{ self.propertyChange($0) }
+            case .error(let error): Log.e("An error occurred: \(error)")
+            case .deleted: Log.i("The object was deleted.")
+            }
+        }
+    }
+
+    func propertyChange(_ property: PropertyChange) {
+        switch property.name {
+            case "isFavorited": self.parent.setIsFavorite(self.tinder.isFavorited)
+            case "isMatch": self.parent.setIsFavorite(self.tinder.isMatch)
+            case "isLiked": self.parent.setIsLiked(self.tinder.isLiked)
+            case "isNsfw": self.parent.setIsHot(self.tinder.isNsfw)
+            case "isSuperLiked": self.parent.setIsSuperLiked(self.tinder.isSuperLiked)
+        default: break
+        }
+    }
+
+    // MARK: - Private Methods
 
 	private func callCompletion() {
 		guard let completion = self.completion else { return }
