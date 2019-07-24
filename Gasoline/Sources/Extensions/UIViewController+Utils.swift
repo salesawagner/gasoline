@@ -8,6 +8,7 @@
 
 import UIKit
 import SCLAlertView
+import MaterialComponents.MaterialCollections
 
 private var kLoadingAssociationKey: UInt8 = 0
 
@@ -74,6 +75,7 @@ extension UIViewController {
             nav.popViewController(animated: true)
         }
     }
+
     @objc func dismiss() {
 
         var viewController: UIViewController = self
@@ -89,7 +91,27 @@ extension UIViewController {
             viewController.dismiss(animated: true, completion: nil)
         }
     }
+
 	func preloadView() {
 		let _ = view
 	}
+}
+
+// MARK: - UI
+
+import MaterialComponents.MaterialNavigationBar
+
+extension MDCCollectionViewController {
+    func setupNavigationBar() {
+        guard let navigationController = self.navigationController else {
+            return
+        }
+
+        let navigationBar = navigationController.navigationBar
+        navigationBar.titleTextAttributes = UIFont.attributedString(size: 17)
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = false
+        navigationBar.barTintColor = LK.redColor
+    }
 }

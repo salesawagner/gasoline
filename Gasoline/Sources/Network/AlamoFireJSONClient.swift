@@ -55,9 +55,10 @@ enum AlamoFireJSONClient {
 		}
 	}
 
-	static func requestImage(url: String, completion: @escaping AlamofireImageCompletionHandler) {
+    @discardableResult
+	static func requestImage(url: String, completion: @escaping AlamofireImageCompletionHandler) -> DataRequest {
 		let request = Alamofire.request(url)
-		request.responseImage { response in
+		return request.responseImage { response in
 			completion(response.value)
 		}
 	}
