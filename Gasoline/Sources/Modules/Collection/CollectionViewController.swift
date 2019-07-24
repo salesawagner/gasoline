@@ -37,9 +37,7 @@ class CollectionViewController: GASViewController {
 		super.viewDidLoad()
 		self.title = self.viewModel.collection.title
 
-
-
-		self.viewModel.filtered = {
+        self.viewModel.filtered = {
 			self.collectionView.reloadData(completion: { [weak self] in
 				self?.setupNotification()
 			})

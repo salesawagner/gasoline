@@ -48,7 +48,7 @@ class CollectionViewModel: NSObject {
             FilterItem(title: "😍 Favorited", filter: "isFavorited = true"),
 		]
 
-		self.collection.didLoadBlock?()
+        self.collection.didLoadBlock?()
 	}
 
 

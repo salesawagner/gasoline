@@ -16,11 +16,7 @@ class DetailTinderViewModel: SimpleTinderViewModel {
     weak var parent: TinderViewController!
 
 	var bio: String = ""
-	var instagram: String = ""
 	var snapchat: String = ""
-
-    var isHot: Bool = false
-    var isFavorite: Bool = false
 
 	var photos: Results<GASPhoto>!
 	
@@ -45,7 +41,6 @@ class DetailTinderViewModel: SimpleTinderViewModel {
 		self.bio = tinder.bio.WAStrimmed
 
 		// Others
-		self.instagram = tinder.bio.instagram.WAStrimmed
 		self.snapchat = tinder.bio.snapchat.WAStrimmed
         self.isHot = tinder.isNsfw
         self.isFavorite = tinder.isFavorited

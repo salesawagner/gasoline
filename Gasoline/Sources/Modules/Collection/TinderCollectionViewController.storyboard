@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rLw-KJ-nfk">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tinder Collection View Controller-->
+        <scene sceneID="LUW-yq-9i7">
+            <objects>
+                <viewController id="rLw-KJ-nfk" customClass="TinderCollectionViewController" customModule="Gasoline" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BPt-OS-3kT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oNp-x1-IfL">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="YHp-jb-22t">
+                                    <size key="itemSize" width="187.5" height="300"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rLw-KJ-nfk" id="6CD-VC-5Zc"/>
+                                    <outlet property="delegate" destination="rLw-KJ-nfk" id="WsX-3L-BDC"/>
+                                    <outlet property="dragDelegate" destination="rLw-KJ-nfk" id="Pes-mD-IUR"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oNp-x1-IfL" firstAttribute="leading" secondItem="oKp-TG-snj" secondAttribute="leading" id="0a2-df-ijf"/>
+                            <constraint firstItem="oKp-TG-snj" firstAttribute="trailing" secondItem="oNp-x1-IfL" secondAttribute="trailing" id="UXh-86-stK"/>
+                            <constraint firstAttribute="bottom" secondItem="oNp-x1-IfL" secondAttribute="bottom" id="cUT-Q1-FaM"/>
+                            <constraint firstItem="oNp-x1-IfL" firstAttribute="top" secondItem="oKp-TG-snj" secondAttribute="top" id="mdQ-MR-b2z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oKp-TG-snj"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="collectionView" destination="oNp-x1-IfL" id="QCA-og-AnS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1cE-B0-r6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="226" y="-125"/>
+        </scene>
+    </scenes>
+</document>

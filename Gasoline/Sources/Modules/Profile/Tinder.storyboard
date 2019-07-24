@@ -301,7 +301,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Artboard" width="414" height="480"/>
+        <image name="Artboard" width="150" height="140"/>
         <image name="btn_dislike_big" width="60" height="60"/>
         <image name="btn_like_big" width="60" height="60"/>
         <image name="btn_superlike_big" width="60" height="60"/>

@@ -9,6 +9,41 @@
 import UIKit
 
 @IBDesignable
+class Test: UIButton {
+    @IBInspectable
+    var cornerRadius: CGFloat = 10.0 {
+        didSet {
+            self.layer.cornerRadius = self.cornerRadius
+            self.clipsToBounds = self.cornerRadius > 0
+        }
+    }
+
+    // MARK: - Lifecycle
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.setupView()
+    }
+
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.setupView()
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setupView()
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        self.layer.cornerRadius = self.cornerRadius
+        self.clipsToBounds = self.cornerRadius > 0
+    }
+}
+
+@IBDesignable
 class CardView: UIView {
 
     // MARK: - Internal Properties
@@ -62,6 +97,13 @@ class CardView: UIView {
         }
     }
 
+    @IBInspectable
+    var clips: Bool = false {
+        didSet {
+            self.clipsToBounds = self.clips
+        }
+    }
+
     // MARK: - Private Properties
 
     private var bezierPath: UIBezierPath {
@@ -89,7 +131,7 @@ class CardView: UIView {
     // MARK: - Private Methods
 
     private func setupView() {
-        self.clipsToBounds = false
+        self.clipsToBounds = self.clips
         self.layer.cornerRadius = self.cornerRadius
         self.layer.shadowOffset = self.shadowOffset
         self.layer.shadowRadius = self.shadowRadius

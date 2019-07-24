@@ -21,10 +21,13 @@ class SimpleTinderViewModel: NSObject {
 
 	var name: String = ""
 	var photoUrl: String = ""
+    var instagram: String = ""
 
 	var isLiked: Bool = false
     var isSuperLiked: Bool = false
 	var isMatch: Bool = false
+    var isHot: Bool = false
+    var isFavorite: Bool = false
 
 	var photosURL: [[String: String]] = []
 
@@ -50,6 +53,7 @@ class SimpleTinderViewModel: NSObject {
 		self.isLiked = self.tinder.isLiked
 		self.isMatch = self.tinder.isMatch
         self.isSuperLiked = self.tinder.isSuperLiked
+        self.instagram = self.tinder.bio.instagram.WAStrimmed
 
         // Name
 		let years = " \(Date().WASyears(from: self.tinder.birthDay))"

@@ -98,7 +98,7 @@ struct CollectionConfig {
 	func createViewController(inNavigationControler: Bool = false) -> UIViewController {
 
 		let viewModel = CollectionViewModel(collection: self)
-		let viewController = CollectionViewController(viewModel: viewModel)
+		let viewController = UIViewController() //CollectionViewController(viewModel: viewModel)
 		viewController.tabBarItem = self.tabBarItem
 
 		if inNavigationControler {

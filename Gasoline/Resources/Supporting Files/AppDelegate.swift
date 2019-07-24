@@ -29,13 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Realm migration
 		self.realmMigration()
 
-		// Set root view controller
-		var rootViewController: UIViewController
-		if User.logged() == nil {
-			rootViewController = UIViewController.login
-		} else {
-			rootViewController = GASTabBarController()
-		}
+//        let storyboard = UIStoryboard(name: "TinderCollectionViewController", bundle: nil)
+        let viewController = UIViewController.collection()
+        let rootViewController = UINavigationController(rootViewController: viewController)
+
+//        // Set root view controller
+//        var rootViewController: UIViewController
+//        if User.logged() == nil {
+//            rootViewController = UIViewController.login
+//        } else {
+//            rootViewController = GASTabBarController()
+//        }
 
 		// Setup window
 		let window = UIWindow(frame: UIScreen.main.bounds)

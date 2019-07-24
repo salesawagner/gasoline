@@ -63,14 +63,24 @@ extension UIViewController {
 		}
 		window.rootViewController = viewController
 	}
+
 	class func goToMain() {
 		self.goTo(viewController: GASTabBarController())
 	}
+
 	class func goToLogin() {
 		if !(self.visible is OnboardingViewController) {
 			self.goTo(viewController: self.login)
 		}
 	}
+
+    class func collection() -> TinderCollectionViewController {
+
+        let viewController = TinderCollectionViewController()
+        viewController.viewModel = CollectionViewModel()
+
+        return viewController
+    }
 
 	class func tinder(tinder: GASTinder) -> TinderViewController {
 
