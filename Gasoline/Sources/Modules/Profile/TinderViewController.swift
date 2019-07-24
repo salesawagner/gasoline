@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import RealmSwift
 import CHIPageControl
-import PullToDismissTransition
 import SCLAlertView
 import WASKit
+import MaterialComponents.MDCCard
 
 class TinderViewController: GASViewController {
 
@@ -24,6 +23,11 @@ class TinderViewController: GASViewController {
     @IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: CHIPageControlJaloro!
+
+    @IBOutlet weak var cardView: MDCCard!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var superLikeButton: UIButton!
     @IBOutlet weak var dislikeButton: UIButton!
@@ -32,10 +36,6 @@ class TinderViewController: GASViewController {
     @IBOutlet weak var hotButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var instagramButton: UIButton!
-    @IBOutlet weak var snapButton: UIButton!
-
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
 
     // MARK: - Override Methods
 
@@ -44,49 +44,28 @@ class TinderViewController: GASViewController {
         self.setups()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.setupPullToDismiss()
-        self.pullToDismissTransition.monitorActiveScrollView(scrollView: self.scrollView)
-    }
-
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-        self.setupPullToDismiss()
-    }
-
     override func setupNavigation() {
         super.setupNavigation()
 
-        guard let nav = self.navigationController else {
+        guard let navigationController = self.navigationController else {
             return
         }
 
-        // Navigation
-        nav.navigationBar.isTranslucent = true
-        nav.navigationBar.barTintColor = .clear
+        // Navigation Bar
+        let navigationBar = navigationController.navigationBar
+        navigationBar.isTranslucent = true
+        navigationBar.barTintColor = .clear
 
-        // Frame
-        let width = 30
-        let height = 30
-        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .stop,
+                                              target: self,
+                                              action: #selector(self.didTapCloseButton))
 
-        // More button
-        let moreImage = UIImage(named: "btn_more")
-        let moreButton = UIButton(frame: frame)
-        moreButton.setImage(moreImage, for: UIControl.State())
-        moreButton.addTarget(self, action: #selector(self.didTapMoreButton), for: .touchUpInside)
-        moreButton.setShadow()
+        let trashButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
+                                              target: self,
+                                              action: #selector(self.didTapTrashButton))
 
-        // Close button
-        let closeImage = UIImage(named: "btn_back")
-        let closeButton = UIButton(frame: frame)
-        closeButton.setImage(closeImage, for: UIControl.State())
-        closeButton.addTarget(self, action: #selector(self.didTapCloseButton), for: .touchUpInside)
-        closeButton.setShadow()
-
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: moreButton)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
+        self.navigationItem.leftBarButtonItem = closeButtonItem
+        self.navigationItem.rightBarButtonItem = trashButtonItem
     }
 
     override func setupUI() {
@@ -112,8 +91,9 @@ class TinderViewController: GASViewController {
     // MARK: Private Methods
 
     private func setups() {
-        self.setupScrollView()
         self.setupViewModel()
+        self.setupScrollView()
+        self.setupCard()
         self.setupTinder()
         self.setupTapGesture()
 
@@ -132,12 +112,18 @@ class TinderViewController: GASViewController {
         self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
     }
 
+    private func setupCard() {
+        self.cardView.cornerRadius = 10
+        self.cardView.setShadowElevation(.cardResting, for: .normal)
+        self.cardView.clipsToBounds = false
+        self.cardView.layer.masksToBounds = false
+    }
+
     private func setupTinder() {
         self.nameLabel.text = self.viewModel.name
         self.descriptionLabel.text = self.viewModel.bio
 
         self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
-        self.snapButton.isHidden = self.viewModel.snapchat.isEmpty
         self.hotButton.isHidden = !self.viewModel.isHot
 
         self.setIsFavorite(!self.viewModel.isFavorite)
@@ -149,11 +135,6 @@ class TinderViewController: GASViewController {
         self.pageControl.numberOfPages = self.viewModel.photos.count
         self.collectionView.reloadData()
 	}
-
-    private func setupPanGesture() {
-        self.setupPullToDismiss()
-        self.pullToDismissTransition.monitorActiveScrollView(scrollView: scrollView)
-    }
 
     private func setupTapGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollectionView(_:)))
@@ -171,12 +152,11 @@ class TinderViewController: GASViewController {
         self.collectionView.scrollRectToVisible(rect, animated: true)
     }
 
-    private func close() {
-        self.isPullToDismissEnabled = false
+    private func close() { // FIXME: remove?
         self.dismiss()
     }
 
-    // MARK: Internal Methods
+    // MARK: - Internal Methods
 
     @objc
     func didTapCollectionView(_ sender: UITapGestureRecognizer? = nil) {
@@ -206,7 +186,7 @@ class TinderViewController: GASViewController {
     }
 
     @objc
-    func didTapMoreButton() {
+    func didTapTrashButton() {
 
         let alert = SCLAlertView()
         alert.addButton("Sim") { [weak self] in
@@ -233,10 +213,6 @@ class TinderViewController: GASViewController {
         URL.openInstagram(self.viewModel.instagram)
     }
 
-    @IBAction func didTapSnapButton(_ sender: Any) {
-        URL.openSnap(self.viewModel.snapchat)
-    }
-
     @IBAction func didTapLikeButton(_ sender: Any) {
         self.viewModel.likeButtonTapped()
         self.close()
@@ -251,10 +227,6 @@ class TinderViewController: GASViewController {
         self.viewModel.superLikeButtonTapped()
         self.close()
     }
-
-    // MARK: - PullToDismissable Prorpeties
-
-    private(set) lazy var pullToDismissTransition = PullToDismissTransition(viewController: self)
 }
 
 // MARK: - Shake
@@ -299,7 +271,7 @@ extension TinderViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension TinderViewController: UICollectionViewDelegateFlowLayout {
+extension TinderViewController: UICollectionViewDelegateFlowLayout { // FIXME
 
 	func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -334,25 +306,6 @@ extension TinderViewController: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         self.pageControl.set(progress: indexPath.row, animated: true)
-    }
-}
-
-// MARK: - PullToDismissable
-
-extension TinderViewController: PullToDismissable { }
-
-// MARK: - UIViewControllerTransitioningDelegate
-
-extension TinderViewController: UIViewControllerTransitioningDelegate {
-
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard isPullToDismissEnabled else { return nil }
-        return pullToDismissTransition
-    }
-
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        guard isPullToDismissEnabled else { return nil }
-        return pullToDismissTransition
     }
 }
 

@@ -8,16 +8,7 @@
 
 import UIKit
 
-extension UIView { // FIXME
-
-    func setShadow() {
-        self.clipsToBounds = false
-        self.layer.shadowOffset = CGSize(width: 1.5, height: 1.5)
-        self.layer.shadowRadius = 0.5
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowColor = UIColor.black.cgColor
-    }
-
+extension UIView {
     func setCircle() {
         guard self.frame.size.width == self.frame.size.height else { return }
 

@@ -76,7 +76,8 @@ extension UIViewController {
 
     class func collection() -> TinderCollectionViewController {
 
-        let viewController = TinderCollectionViewController()
+        let storyboard = UIStoryboard(name: "TinderCollectionViewController", bundle: nil)
+        let viewController = storyboard.instantiateInitialViewController() as! TinderCollectionViewController
         viewController.viewModel = CollectionViewModel()
 
         return viewController

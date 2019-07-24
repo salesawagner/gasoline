@@ -86,7 +86,6 @@ class FilterTableViewController: UITableViewController {
 	@IBAction func didTapCancelButton(_ sender: Any) {
 		self.closeViewController()
 	}
-
 }
 
 // MARK: - Table view data source

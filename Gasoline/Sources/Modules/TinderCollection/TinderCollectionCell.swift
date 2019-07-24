@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import MaterialComponents.MaterialActivityIndicator
+import MaterialComponents.MDCCardCollectionCell
 
 class TinderCollectionCell: MDCCardCollectionCell {
 
@@ -35,19 +36,8 @@ class TinderCollectionCell: MDCCardCollectionCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.setupUI()
 
-        self.backgroundColor = .white
-
-        self.contentView.layer.masksToBounds = true
-        self.layer.masksToBounds = false
-
-        self.contentView.layer.cornerRadius = 10
-        self.cornerRadius = self.contentView.layer.cornerRadius
-
-        self.setShadowElevation(.cardResting, for: .normal)
-
-        self.indicatorView.backgroundColor = .clear
-        self.indicatorView.cycleColors = [.red]
     }
 
     override func prepareForReuse() {
@@ -62,6 +52,29 @@ class TinderCollectionCell: MDCCardCollectionCell {
     }
 
     // MARK: - Private Methods
+
+    private func setupUI() {
+        self.setupCell()
+        self.setupCard()
+        self.setupIndicator()
+    }
+
+    private func setupCell() {
+        self.backgroundColor = .white
+        self.layer.masksToBounds = false
+    }
+
+    private func setupCard() {
+        self.contentView.layer.masksToBounds = true
+        self.contentView.layer.cornerRadius = 10
+        self.cornerRadius = self.contentView.layer.cornerRadius
+        self.setShadowElevation(.cardResting, for: .normal)
+    }
+
+    private func setupIndicator() {
+        self.indicatorView.backgroundColor = .clear
+        self.indicatorView.cycleColors = [.red]
+    }
 
     private func startAnimating() {
         self.indicatorView.startAnimating()

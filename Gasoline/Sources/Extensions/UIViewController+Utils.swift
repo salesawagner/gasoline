@@ -96,22 +96,3 @@ extension UIViewController {
 		let _ = view
 	}
 }
-
-// MARK: - UI
-
-import MaterialComponents.MaterialNavigationBar
-
-extension MDCCollectionViewController {
-    func setupNavigationBar() {
-        guard let navigationController = self.navigationController else {
-            return
-        }
-
-        let navigationBar = navigationController.navigationBar
-        navigationBar.titleTextAttributes = UIFont.attributedString(size: 17)
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = false
-        navigationBar.barTintColor = LK.redColor
-    }
-}

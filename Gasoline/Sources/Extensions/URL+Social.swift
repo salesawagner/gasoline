@@ -20,9 +20,4 @@ extension URL {
         let instagramHooks = String(format: "instagram://user?username=%@", userName)
         self.openUrl(instagramHooks)
     }
-
-    static func openSnap(_ userName: String) {
-        let snapHooks = String(format: " snapchat://add/[%@", userName)
-        self.openUrl(snapHooks)
-    }
 }

@@ -9,31 +9,32 @@ target 'Gasoline' do
 	pod 'Fabric'
 	pod 'Crashlytics'
 
-# UI
+  # UI
 	pod 'SCLAlertView'
 	pod 'EAIntroView'
   pod 'CHIPageControl/Jaloro'
   pod 'PullToDismissTransition'
+  pod 'Hero'
 
   # Material
   pod 'MaterialComponents'
 
-# Database
+  # Database
 	pod 'RealmSwift'
 
-# Server
+  # Server
 	pod 'AlamofireImage'
 	pod 'Alamofire'
 	pod 'SwiftyJSON'
 
-# Facebook
+  # Facebook
 	pod 'FBSDKCoreKit'
 	pod 'FBSDKLoginKit'
 
-# Personal
+  # Personal
 	pod 'WASKit', '0.2.1'
 
-# Firebase
+  # Firebase
 	pod 'Firebase/Core'
 	pod 'Firebase/Performance'
 	pod 'Firebase/Storage'

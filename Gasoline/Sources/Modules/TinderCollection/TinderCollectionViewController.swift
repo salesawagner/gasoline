@@ -8,26 +8,29 @@
 
 import UIKit
 import RealmSwift
-import MaterialComponents.MaterialCollections
 
-class TinderCollectionViewController: MDCCollectionViewController {
+class TinderCollectionViewController: GASViewController {
 
-    // MARK: - Instance Properties
+    // MARK: - IBOutlet Properties
 
-    var viewModel: CollectionViewModel! {
-        didSet {
-            self.setups()
-        }
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    // MARK: - Private Properties
+
     private var notificationToken: NotificationToken?
     private var dataSource: Results<GASTinder> {
         return self.viewModel.dataSource
     }
 
+    // MARK: - Internal Properties
+
+    var viewModel: CollectionViewModel!
+
     // MARK: - Life Cicle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setups()
     }
 
     // MARK: - Private Cicle
@@ -61,9 +64,38 @@ class TinderCollectionViewController: MDCCollectionViewController {
         }
     }
 
-    private func setupNavigation() {
-        self.setupNavigationBar()
-        self.title = self.viewModel.collection.title
+    override func setupUI() {
+        super.setupUI()
+        self.setupTitle(title: self.viewModel.collection.title)
+    }
+
+    override func setupNavigation() {
+        super.setupNavigation()
+
+        let refreshButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                target: self,
+                                                action: #selector(self.didTapRefresh))
+        let searchButtonItem = UIBarButtonItem(barButtonSystemItem: .search,
+                                               target: self,
+                                               action: #selector(self.didTapFilter))
+
+        self.navigationItem.leftBarButtonItem = refreshButtonItem
+        self.navigationItem.rightBarButtonItem = searchButtonItem
+    }
+
+    @objc
+    private func didTapRefresh() {
+        self.startLoading()
+        self.viewModel.load { [weak self] success in
+            self?.stopLoading(hasError: !success)
+        }
+    }
+
+    @objc
+    private func didTapFilter() {
+        let viewController = UIViewController.filter(colletionViewModel: self.viewModel)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        self.navigationController?.present(navigationController, animated: true, completion: nil)
     }
 
     private func setupCollectionView() {
@@ -71,15 +103,13 @@ class TinderCollectionViewController: MDCCollectionViewController {
             return
         }
 
+        // Cell
         let cellNib = UINib(nibName: TinderCollectionCell.ID, bundle: nil)
+
+        // Setup
         collection.register(cellNib, forCellWithReuseIdentifier: TinderCollectionCell.ID)
         collection.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-
-        self.styler.cellStyle = .card
-        self.styler.cellLayoutType = .grid
-        self.styler.gridPadding = 8
-        self.styler.gridColumnCount = 2
-        self.styler.cardBorderRadius = 10
+        collection.collectionViewLayout = UICollectionViewFlowLayout.cards
     }
 
     private func showCollectionView() {
@@ -89,13 +119,13 @@ class TinderCollectionViewController: MDCCollectionViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension TinderCollectionViewController {
+extension TinderCollectionViewController: UICollectionViewDataSource {
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.dataSource.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TinderCollectionCell.ID, for: indexPath) as! TinderCollectionCell
         let tinder = self.dataSource[indexPath.row]
         let viewModel = SimpleTinderViewModel(tinderID: tinder.id)
@@ -106,16 +136,15 @@ extension TinderCollectionViewController {
 
 // MARK: - UICollectionViewDelegate
 
-extension TinderCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, cellHeightAt indexPath: IndexPath) -> CGFloat {
+extension TinderCollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellHeightAt indexPath: IndexPath) -> CGFloat {
         return self.collectionView.frame.width / 2 * 1.5
     }
 
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tinder = self.viewModel.dataSource[indexPath.row]
 
         let viewController = UIViewController.tinder(tinder: tinder)
-        viewController.isPullToDismissEnabled = true
 
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationCapturesStatusBarAppearance = true
