@@ -20,18 +20,6 @@ extension String {
 
 		return username
 	}
-
-	var snapchat: String {
-
-		var username = ""
-		for string in String.snapchatArray {
-			guard let match = self.matches(for: String.createPattern(string: string)).first else { continue }
-			username = match.replacingOccurrences(of: string, with: "")
-			break
-		}
-
-		return username
-	}
 }
 
 extension String {
@@ -109,41 +97,8 @@ extension String {
 		
 		return regArray
 	}
-	
-	static var snapchatArray: [String] {
-		
-		var regArray = [String]()
-		
-		regArray.append("snap ")
-		regArray.append("snap:")
-		regArray.append("snap: ")
-		regArray.append("snap : ")
-		
-		regArray.append("snap👻 ")
-		regArray.append("snap👻:")
-		regArray.append("snap👻: ")
-		regArray.append("snap👻 : ")
-		
-		regArray.append("snapchat ")
-		regArray.append("snapchat:")
-		regArray.append("snapchat: ")
-		regArray.append("snapchat : ")
-		
-		regArray.append("snapchat👻 ")
-		regArray.append("snapchat👻:")
-		regArray.append("snapchat👻: ")
-		regArray.append("snapchat👻 : ")
-		
-		regArray.append("👻")
-		regArray.append("👻 ")
-		regArray.append("👻:")
-		regArray.append("👻: ")
-		regArray.append("👻 : ")
-		
-		return regArray
-	}
-	
-	static func createPattern(string: String) -> String {
+
+    static func createPattern(string: String) -> String {
 		return "(?:\(string))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?)"
 	}
 }

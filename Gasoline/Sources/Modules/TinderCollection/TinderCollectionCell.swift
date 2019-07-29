@@ -37,21 +37,26 @@ class TinderCollectionCell: MDCCardCollectionCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupUI()
-
+        self.resetValues()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.imageView.image = UIImage(named: "Artboard")
-        self.nameLabel.text = nil
-
-        self.favoriteLabel.text = nil
-        self.hotLabel.text = nil
-        self.instagramLabel.text = nil
-        self.request?.cancel()
+        self.resetValues()
     }
 
     // MARK: - Private Methods
+
+    private func resetValues() {
+        self.imageView.image = UIImage(named: "Artboard")
+        self.nameLabel.text = nil
+
+        self.setIsHot(false)
+        self.setIsFavorite(false)
+        self.setIsInstagram(false)
+        self.request?.cancel()
+        self.stopAnimating()
+    }
 
     private func setupUI() {
         self.setupCell()
@@ -84,20 +89,21 @@ class TinderCollectionCell: MDCCardCollectionCell {
         self.indicatorView.stopAnimating()
     }
 
+    private func setImage(_ photoID: String) {
+        self.startAnimating()
+        self.request = self.imageView.setPhoto(photoID: photoID, completion: {
+            self.stopAnimating()
+        })
+    }
+
     // MARK: - Internal Methods
 
     func setup(viewModel: SimpleTinderViewModel) {
+        self.resetValues()
         self.viewModel = viewModel
-
         self.nameLabel.text = self.viewModel.name
-
         self.setImage(self.viewModel.photoID)
-        self.setIsLiked(self.viewModel.isLiked)
-        self.setIsMatch(self.viewModel.isMatch)
-
-        self.setIsFavorite(self.viewModel.isFavorite)
-        self.setIsHot(self.viewModel.isHot)
-        self.setIsInstagram(self.viewModel.instagram.isEmpty)
+        self.viewModel.setupTinder()
     }
 
     // MARK: - Actions
@@ -115,14 +121,9 @@ class TinderCollectionCell: MDCCardCollectionCell {
     }
 }
 
-extension TinderCollectionCell {
+// Mark: - TinderDelegate
 
-    func setImage(_ photoID: String) {
-        self.startAnimating()
-        self.request = self.imageView.setPhoto(photoID: photoID, completion: {
-            self.stopAnimating()
-        })
-    }
+extension TinderCollectionCell: TinderDelegate {
 
     func setIsFavorite(_ isFavorite: Bool) {
         self.favoriteLabel.isHidden = !isFavorite
@@ -133,11 +134,18 @@ extension TinderCollectionCell {
     }
 
     func setIsInstagram(_ isInstagram: Bool) {
-        self.instagramLabel.isHidden = isInstagram
+        self.instagramLabel.isHidden = !isInstagram
     }
 
     func setIsLiked(_ isLiked: Bool) {
         let imageName = isLiked ? "btn_liked_big" : "btn_like_big"
+        let image = UIImage(named: imageName)
+        self.likeButton.setImage(image, for: .normal)
+    }
+
+    func setIsSuperLiked(_ isLiked: Bool) {
+        guard isLiked else { return }
+        let imageName = "btn_superliked_big"
         let image = UIImage(named: imageName)
         self.likeButton.setImage(image, for: .normal)
     }

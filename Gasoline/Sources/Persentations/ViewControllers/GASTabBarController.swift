@@ -15,11 +15,16 @@ class GASTabBarController: UITabBarController {
 
 	private func setupCollectionViews() {
 
+        let viewController = UIViewController.collection()
+        let rootViewController = UINavigationController(rootViewController: viewController)
+        rootViewController.hero.isEnabled = true // FIXME: - remove?
+
+
 		var viewControllers = [UIViewController]()
 //		viewControllers.append(Collection.likedMe.createViewController(inNavigationControler: true))
-		viewControllers.append(CollectionConfig.browser.createViewController(inNavigationControler: true))
+		viewControllers.append(rootViewController)
 //		viewControllers.append(CollectionConfig.iLiked.createViewController(inNavigationControler: true))
-		viewControllers.append(CollectionConfig.matched.createViewController(inNavigationControler: true))
+//        viewControllers.append(CollectionConfig.matched.createViewController(inNavigationControler: true))
 		viewControllers.append(self.getSettings())
 
 		self.setViewControllers(viewControllers, animated: false)

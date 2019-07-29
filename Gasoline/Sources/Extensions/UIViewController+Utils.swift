@@ -8,7 +8,6 @@
 
 import UIKit
 import SCLAlertView
-import MaterialComponents.MaterialCollections
 
 private var kLoadingAssociationKey: UInt8 = 0
 
@@ -96,3 +95,5 @@ extension UIViewController {
 		let _ = view
 	}
 }
+
+

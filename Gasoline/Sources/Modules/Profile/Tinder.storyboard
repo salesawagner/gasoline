@@ -80,13 +80,13 @@
                                                 </connections>
                                             </collectionView>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UH1-R2-JXc">
-                                                <rect key="frame" x="255" y="380" width="143" height="30"/>
+                                                <rect key="frame" x="290" y="380" width="108" height="30"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zis-Pr-FHT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CbO-Qj-ylJ">
-                                                            <rect key="frame" x="4" y="0.0" width="135" height="30"/>
+                                                            <rect key="frame" x="4" y="0.0" width="100" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8f-th-OQC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -117,14 +117,6 @@
                                                                     <connections>
                                                                         <action selector="didTapInstagramButton:" destination="CJp-uv-o8m" eventType="touchUpInside" id="a2U-zq-sov"/>
                                                                     </connections>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Mz-qP-bDC">
-                                                                    <rect key="frame" x="105" y="0.0" width="30" height="30"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="30" id="OrZ-nK-gVn"/>
-                                                                    </constraints>
-                                                                    <state key="normal" title="👻"/>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -273,7 +265,7 @@
                         <outlet property="favoriteButton" destination="N3a-sX-TOj" id="Pvs-xb-2w4"/>
                         <outlet property="hotButton" destination="z8f-th-OQC" id="Rpw-UM-ktO"/>
                         <outlet property="instagramButton" destination="ZhH-HO-HIz" id="cWH-25-1KF"/>
-                        <outlet property="likeButton" destination="2dw-yO-uWi" id="rvz-lf-ypW"/>
+                        <outlet property="likeButton" destination="2dw-yO-uWi" id="O1a-1g-mzk"/>
                         <outlet property="nameLabel" destination="9iK-s2-siR" id="2qe-XA-92F"/>
                         <outlet property="pageControl" destination="dRj-46-VuV" id="Jla-3Q-hdB"/>
                         <outlet property="scrollView" destination="zot-HQ-L6B" id="Jfc-v7-dLc"/>

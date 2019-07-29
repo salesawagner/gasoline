@@ -83,7 +83,7 @@ class SettingsTableViewController: UITableViewController {
 			case 3: viewController = CollectionConfig.blocks.createViewController()
 			case 4: viewController = CollectionConfig.removed.createViewController()
 			case 5: viewController = CollectionConfig.instagram.createViewController()
-			case 6: viewController = CollectionConfig.snapchat.createViewController()
+			case 6: viewController = CollectionConfig.instagram.createViewController()
 			case 7: viewController = CollectionConfig.hot.createViewController()
 			default: viewController = CollectionConfig.browser.createViewController()
 		}

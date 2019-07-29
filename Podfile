@@ -13,11 +13,11 @@ target 'Gasoline' do
 	pod 'SCLAlertView'
 	pod 'EAIntroView'
   pod 'CHIPageControl/Jaloro'
-  pod 'PullToDismissTransition'
   pod 'Hero'
 
   # Material
-  pod 'MaterialComponents'
+  pod 'MaterialComponents/ActivityIndicator'
+  pod 'MaterialComponents/Cards'
 
   # Database
 	pod 'RealmSwift'

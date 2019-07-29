@@ -87,9 +87,7 @@ extension GASPhotosManager: ASImageCacheProtocol {
 
                     switch result {
                         case let .success(confidence: nsfw): GASPhoto.setNsfw(photoID: photo.id, confidence: nsfw)
-                        case let .error(error):
-                            Log.i(photo.url)
-                            Log.e(error.localizedDescription)
+                        case let .error(_): GASPhoto.setNsfw(photoID: photo.id, confidence: -1)
                     }
 
 //                    group.leave()

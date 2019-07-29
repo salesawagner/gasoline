@@ -101,13 +101,6 @@ extension GASTinderManager {
 		return self.order(result: result.filter(filter))
 	}
 
-	class func listSnapChat() -> Results<GASTinder> {
-		var filter = self.baseFilter
-		filter += " AND snapchat != ''"
-		let result = GASTinderManager.listAll()
-		return self.order(result: result.filter(filter))
-	}
-
 	class func listHot() -> Results<GASTinder> {
 		var filter = self.baseFilter
 		filter += " AND nsfw > 0.8 AND nsfw <= 1"

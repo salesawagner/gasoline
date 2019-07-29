@@ -85,10 +85,6 @@ struct CollectionConfig {
 		return CollectionConfig(title: "With Instagram", icon: "icn_star", dataSource: GASTinderManager.listInstagram())
 	}
 
-	static var snapchat: CollectionConfig {
-		return CollectionConfig(title: "With Instagram", icon: "icn_star", dataSource: GASTinderManager.listSnapChat())
-	}
-
 	static var hot: CollectionConfig {
 		return CollectionConfig(title: "Hot", icon: "icn_star", dataSource: GASTinderManager.listHot())
 	}

@@ -30,8 +30,14 @@ extension UIImageView {
 			GASPhoto.nsfw(photoID: photoID, image: image)
 
 			DispatchQueue.main.async { [weak self] in
-				self?.image = image
-				completion()
+                guard let imageView = self else { return }
+
+                UIView.transition(with: imageView,
+                                  duration: 0.25,
+                                  options: .transitionCrossDissolve,
+                                  animations: { imageView.image = image },
+                                  completion: { completed in if completed { completion() } })
+
 			}
 		}
 	}

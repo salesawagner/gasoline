@@ -30,16 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.realmMigration()
 
 //        let storyboard = UIStoryboard(name: "TinderCollectionViewController", bundle: nil)
-        let viewController = UIViewController.collection()
-        let rootViewController = UINavigationController(rootViewController: viewController)
-
-//        // Set root view controller
-//        var rootViewController: UIViewController
-//        if User.logged() == nil {
-//            rootViewController = UIViewController.login
-//        } else {
-//            rootViewController = GASTabBarController()
-//        }
+//        let viewController = UIViewController.collection()
+//        let rootViewController = UINavigationController(rootViewController: viewController)
+//        rootViewController.hero.isEnabled = true // FIXME: - remove?
+        // Set root view controller
+        var rootViewController: UIViewController
+        if User.logged() == nil {
+            rootViewController = UIViewController.login
+        } else {
+            rootViewController = GASTabBarController()
+        }
 
 		// Setup window
 		let window = UIWindow(frame: UIScreen.main.bounds)
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let config = Realm.Configuration(
 			// Set the new schema version. This must be greater than the previously used
 			// version (if you've never set a schema version before, the version is 0).
-			schemaVersion: 216,
+			schemaVersion: 217,
 			// Set the block which will be called automatically when opening a Realm with
 			// a schema version lower than the one set above
 			migrationBlock: { migration, oldSchemaVersion in

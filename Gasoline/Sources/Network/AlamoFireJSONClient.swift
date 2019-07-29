@@ -36,12 +36,12 @@ enum AlamoFireJSONClient {
 
 		request.logRequest(.simple)
 //        request.logResponse(.verbose)
-        debugPrint(request)
+//        debugPrint(request)
 
         request.validate().responseJSON { response in
 
             let statusCode = request.response?.statusCode ?? 0
-            if 400..<500 ~= statusCode {
+            if 400 ..< 500 ~= statusCode {
                 let error = ResponseError.fetch(statusCode)
                 completionHandler(Result.failure(error))
                 UIViewController.goToLogin()

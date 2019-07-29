@@ -128,7 +128,7 @@
                 <outlet property="likeButton" destination="Spr-9w-Ql2" id="ckD-r0-g6o"/>
                 <outlet property="nameLabel" destination="Q4t-Ts-8kf" id="oM6-lz-vFF"/>
             </connections>
-            <point key="canvasLocation" x="-748" y="-467"/>
+            <point key="canvasLocation" x="-625" y="-473"/>
         </collectionViewCell>
     </objects>
     <resources>

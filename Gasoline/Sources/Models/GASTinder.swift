@@ -22,7 +22,6 @@ class GASTinder: Object {
 	@objc dynamic var bio: String = ""
 	@objc dynamic var name: String = ""
 	@objc dynamic var instagram: String = ""
-	@objc dynamic var snapchat: String = ""
 
 	// User Others
 	@objc dynamic var distance: Int = 0
@@ -88,7 +87,6 @@ class GASTinder: Object {
 
 		// Social
 		self.instagram = self.bio.instagram
-		self.snapchat = self.bio.snapchat
 	}
 
 	convenience init?(match: JSON) {

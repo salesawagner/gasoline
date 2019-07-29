@@ -38,8 +38,8 @@ class CollectionViewModel: NSObject {
 		self.collection = collection
 
 		self.filters = [
-			FilterItem(title: "No Action", filter: "isLiked = false AND isDisLiked = false AND isSuperLiked = false AND isMatch = false AND wasLiked = false AND wasSuperLiked = false", isOn: true),
-			FilterItem(title: "I Liked", filter: "(isLiked = true OR isSuperLiked = true)"),
+			FilterItem(title: "No Action", filter: "isLiked = false AND isDisLiked = false AND isMatch = false", isOn: true),
+			FilterItem(title: "I Liked", filter: "isLiked = true OR isSuperLiked = true"),
 			FilterItem(title: "I Super Liked", filter: "isSuperLiked = true"),
 			FilterItem(title: "Matches", filter: "isMatch = true"),
 			FilterItem(title: "I Disliked", filter: "isDisLiked = true"),

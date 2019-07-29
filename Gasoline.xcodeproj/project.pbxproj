@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		610F1A0030D7B99EA41BBE7B /* Pods_Gasoline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */; };
+		6F05C62F22EA225C00D9650C /* UICollection+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05C62E22EA225C00D9650C /* UICollection+Reactive.swift */; };
 		6F0EFCA922E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0EFCA822E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift */; };
 		6F0EFD4022E8F5B400C09459 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0EFD3F22E8F5B400C09459 /* UIView+Shadow.swift */; };
 		6F1BDD7022E69E11003737B2 /* TinderCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BDD6F22E69E11003737B2 /* TinderCollectionViewController.storyboard */; };
@@ -18,6 +19,7 @@
 		6FC0F43222E7723A0084C42A /* TinderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0F43122E7723A0084C42A /* TinderCollectionCell.xib */; };
 		6FDE25CE22E22358004863D9 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CD22E22358004863D9 /* ResponseError.swift */; };
 		6FDE25D022E34522004863D9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CF22E34522004863D9 /* CardView.swift */; };
+		6FFE8C2D22EE177000B09871 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE8C2C22EE177000B09871 /* FlowLayout.swift */; };
 		A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7024EA5220B3EFD00A425DC /* MachineLearning.swift */; };
 		A70758AB223C24870006D451 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70758AA223C24870006D451 /* UIImageView+Download.swift */; };
 		A71CD833220E080D007D2887 /* Bikini.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A71CD832220E080D007D2887 /* Bikini.mlmodel */; };
@@ -93,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		34DEB3C803EF939C5596589F /* Pods-Gasoline.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gasoline.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gasoline/Pods-Gasoline.release.xcconfig"; sourceTree = "<group>"; };
+		6F05C62E22EA225C00D9650C /* UICollection+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollection+Reactive.swift"; sourceTree = "<group>"; };
 		6F0EFCA822E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+Cards.swift"; sourceTree = "<group>"; };
 		6F0EFCFD22E8ED2D00C09459 /* Gasoline copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Gasoline copy-Info.plist"; path = "/Users/u002474/Documents/Projects/WAS/gasoline/Gasoline copy-Info.plist"; sourceTree = "<absolute>"; };
 		6F0EFD3F22E8F5B400C09459 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		6FC0F43122E7723A0084C42A /* TinderCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCollectionCell.xib; sourceTree = "<group>"; };
 		6FDE25CD22E22358004863D9 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		6FDE25CF22E34522004863D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		6FFE8C2C22EE177000B09871 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gasoline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7024EA5220B3EFD00A425DC /* MachineLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLearning.swift; sourceTree = "<group>"; };
 		A70758AA223C24870006D451 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 				A7F10CDB20C7593200687F6F /* GASLayoutKit.swift */,
 				A7F10CDC20C7593200687F6F /* MTPNotFound.swift */,
 				6FDE25CF22E34522004863D9 /* CardView.swift */,
+				6FFE8C2C22EE177000B09871 /* FlowLayout.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				6F0EFCA822E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift */,
 				6F79479122E5720500AEFAAD /* UIView+Utils.swift */,
 				6F0EFD3F22E8F5B400C09459 /* UIView+Shadow.swift */,
+				6F05C62E22EA225C00D9650C /* UICollection+Reactive.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -761,6 +767,7 @@
 				A7C5F630221262F8004759AA /* TinderEndPoint.swift in Sources */,
 				A7373468221353EA00DE27CB /* PhotoViewModel.swift in Sources */,
 				A7F10D2420C7593200687F6F /* MTPTheAppViewController.swift in Sources */,
+				6F05C62F22EA225C00D9650C /* UICollection+Reactive.swift in Sources */,
 				6F1BDD7222E6A2A0003737B2 /* TinderCollectionViewController.swift in Sources */,
 				A7F10D2020C7593200687F6F /* CellNode.swift in Sources */,
 				A7F10D2520C7593200687F6F /* TinderViewController.swift in Sources */,
@@ -768,6 +775,7 @@
 				A7C5F63622127B35004759AA /* AlamofireLogger.swift in Sources */,
 				A7F10D0C20C7593200687F6F /* AuthManager.swift in Sources */,
 				A7F10D0820C7593200687F6F /* GASLayoutKit.swift in Sources */,
+				6FFE8C2D22EE177000B09871 /* FlowLayout.swift in Sources */,
 				A7BE583022416E1400DBF26A /* CollectionConfig.swift in Sources */,
 				A7F10D2120C7593200687F6F /* PhotoCollectionViewCell.swift in Sources */,
 				6F0EFCA922E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift in Sources */,

@@ -11,12 +11,18 @@ import CHIPageControl
 import SCLAlertView
 import WASKit
 import MaterialComponents.MDCCard
+import Hero
 
 class TinderViewController: GASViewController {
 
-	// MARK: - Properties
+    // MARK: - Private Properties
 
-	var viewModel: DetailTinderViewModel!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
+    private var dismissBool: Bool = true
+
+    // MARK: - Internal Properties
+
+    var viewModel: DetailTinderViewModel!
 
 	// MARK: - IBOutlets
 
@@ -25,23 +31,25 @@ class TinderViewController: GASViewController {
     @IBOutlet weak var pageControl: CHIPageControlJaloro!
 
     @IBOutlet weak var cardView: MDCCard!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel?
+    @IBOutlet weak var descriptionLabel: UILabel?
 
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var superLikeButton: UIButton!
-    @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton?
+    @IBOutlet weak var superLikeButton: UIButton?
+    @IBOutlet weak var dislikeButton: UIButton?
 
     @IBOutlet weak var tagEffectView: UIVisualEffectView!
-    @IBOutlet weak var hotButton: UIButton!
-    @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet weak var instagramButton: UIButton!
+    @IBOutlet weak var hotButton: UIButton?
+    @IBOutlet weak var favoriteButton: UIButton?
+    @IBOutlet weak var instagramButton: UIButton?
 
     // MARK: - Override Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setups()
+        self.hero.isEnabled = true
+        self.viewModel.load()
     }
 
     override func setupNavigation() {
@@ -83,29 +91,28 @@ class TinderViewController: GASViewController {
         self.pageControl.radius = self.pageControl.elementHeight / 2
         self.pageControl.clipsToBounds = true
 
-        self.likeButton.setCircle()
-        self.dislikeButton.setCircle()
-        self.superLikeButton.setCircle()
+        self.likeButton?.setCircle()
+        self.dislikeButton?.setCircle()
+        self.superLikeButton?.setCircle()
+
+        self.setIsFavorite(false)
+        self.setIsLiked(false)
+        self.setIsSuperLiked(false)
+        self.setIsMatch(false)
+        self.setIsHot(false)
     }
 
     // MARK: Private Methods
 
     private func setups() {
-        self.setupViewModel()
         self.setupScrollView()
         self.setupCard()
         self.setupTinder()
         self.setupTapGesture()
+        self.setupPanGesture()
 
         self.becomeFirstResponder()
     }
-
-	private func setupViewModel() {
-		self.viewModel.completion = {
-			self.setupTinder()
-		}
-		self.viewModel.load()
-	}
 
     private func setupScrollView() {
         self.scrollView.contentInsetAdjustmentBehavior = .never
@@ -120,16 +127,11 @@ class TinderViewController: GASViewController {
     }
 
     private func setupTinder() {
-        self.nameLabel.text = self.viewModel.name
-        self.descriptionLabel.text = self.viewModel.bio
+        self.collectionView.hero.id = self.viewModel.tinderID
+        self.nameLabel?.text = self.viewModel.name
+        self.setBio(self.viewModel.bio)
 
-        self.instagramButton.isHidden = self.viewModel.instagram.isEmpty
-        self.hotButton.isHidden = !self.viewModel.isHot
-
-        self.setIsFavorite(!self.viewModel.isFavorite)
-        self.setIsLiked(self.viewModel.isLiked)
-        self.setIsSuperLiked(self.viewModel.isSuperLiked)
-        self.setIsMatch(self.viewModel.isMatch)
+        self.instagramButton?.isHidden = self.viewModel.instagram.isEmpty
         self.setIsHot(self.viewModel.isHot)
 
         self.pageControl.numberOfPages = self.viewModel.photos.count
@@ -152,8 +154,8 @@ class TinderViewController: GASViewController {
         self.collectionView.scrollRectToVisible(rect, animated: true)
     }
 
-    private func close() { // FIXME: remove?
-        self.dismiss()
+    private func close() {
+        hero.dismissViewController()
     }
 
     // MARK: - Internal Methods
@@ -309,30 +311,79 @@ extension TinderViewController: UICollectionViewDelegate {
     }
 }
 
-extension TinderViewController {
+// MARK: - TinderDelegate
+
+extension TinderViewController: TinderDelegate {
+
+    func setIsInstagram(_ isInstagram: Bool) {
+        self.instagramButton?.isHidden = !isInstagram
+    }
+
+    func setBio(_ text: String) {
+        self.descriptionLabel?.text = text
+    }
 
     func setIsFavorite(_ isFavorite: Bool) {
-        self.favoriteButton.isHidden = !isFavorite
+        self.favoriteButton?.isHidden = !isFavorite
     }
 
     func setIsHot(_ isHot: Bool) {
-        self.hotButton.isHidden = !isHot
+        self.hotButton?.isHidden = !isHot
     }
 
     func setIsLiked(_ isLiked: Bool) {
         let imageName = isLiked ? "btn_liked_big" : "btn_like_big"
         let image = UIImage(named: imageName)
-        self.likeButton.setImage(image, for: .normal)
+        self.likeButton?.setImage(image, for: .normal)
     }
 
     func setIsSuperLiked(_ isLiked: Bool) {
         let imageName = isLiked ? "btn_superliked_big" : "btn_superlike_big"
         let image = UIImage(named: imageName)
-        self.superLikeButton.setImage(image, for: .normal)
+        self.superLikeButton?.setImage(image, for: .normal)
     }
 
     func setIsMatch(_ isMatch: Bool) {
-        self.likeButton.isEnabled = !isMatch
-        self.superLikeButton.isEnabled = !isMatch
+        self.likeButton?.isEnabled = !isMatch
+        self.superLikeButton?.isEnabled = !isMatch
+    }
+}
+
+// MARK: - Gesture
+
+extension TinderViewController {
+
+    private func setupPanGesture() {
+        self.panGestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                           action: #selector(handlePan(gestureRecognizer:)))
+        self.view.addGestureRecognizer(self.panGestureRecognizer)
+        self.scrollView.bouncesZoom = false
+    }
+
+    @objc
+    func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
+
+        let recognizer = gestureRecognizer
+        let translation = recognizer.translation(in: nil)
+        let isRight = recognizer.velocity(in: view).x > 0
+
+        if isRight && self.dismissBool && translation.x > 0 {
+            hero.dismissViewController()
+            hero.modalAnimationType = .cover(direction: .right)
+            self.dismissBool = false
+            recognizer.setTranslation(.zero, in: view)
+        }
+
+        switch recognizer.state {
+            case .began: Log.i("began")
+            case .changed:
+                guard translation.x > self.view.frame.width/4 else { return }
+
+                let currentPos = CGPoint(x: view.center.x + translation.x, y: view.center.y)
+                Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
+            default:
+                self.dismissBool = true
+                Hero.shared.finish()
+        }
     }
 }

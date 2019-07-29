@@ -100,13 +100,13 @@ class CellNode: ASCellNode {
 	}
 
 	@objc func tapGesture(sender: UISwipeGestureRecognizer) {
-		let newIndex = self.photoIndex + 1
-		self.photoIndex = newIndex < self.viewModel.photosURL.count ? newIndex : 0
-		let photoURL = self.viewModel.photosURL[self.photoIndex]
-
-		if let id = photoURL["id"], let urlString = photoURL["url"] {
-			self.setPhoto(id: id, urlString: urlString)
-		}
+//        let newIndex = self.photoIndex + 1
+//        self.photoIndex = newIndex < self.viewModel.photosURL.count ? newIndex : 0
+//        let photoURL = self.viewModel.photosURL[self.photoIndex]
+//
+//        if let id = photoURL["id"], let urlString = photoURL["url"] {
+//            self.setPhoto(id: id, urlString: urlString)
+//        }
 	}
 
 	// FIXME: photo id location

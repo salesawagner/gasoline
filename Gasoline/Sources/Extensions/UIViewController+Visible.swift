@@ -89,7 +89,7 @@ extension UIViewController {
 		let viewController = storyboard.instantiateInitialViewController()
 
         if let tinderViewController = viewController as? TinderViewController {
-            tinderViewController.viewModel = DetailTinderViewModel(parent: tinderViewController, tinderID: tinder.id)
+            tinderViewController.viewModel = DetailTinderViewModel(delegate: tinderViewController, tinderID: tinder.id)
 			return tinderViewController
 		}
 
