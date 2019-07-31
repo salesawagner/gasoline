@@ -13,7 +13,6 @@ class CollectionViewModel: NSObject {
 
 	// MARK: - Properties
 
-	let collection: CollectionConfig!
 	var dataSource: Results<GASTinder> {
 
 		var filter = "statusCode != 500"
@@ -24,38 +23,31 @@ class CollectionViewModel: NSObject {
 		return GASTinderManager.order(result: GASTinderManager.listAll().filter(filter))
 	}
 
-	var filters: [FilterItem]
+    lazy var filters: [FilterItem] = {
+        [
+            FilterItem(title: "No Action", filter: "isLiked = false AND isDisLiked = false AND isMatch = false", isOn: true),
+            FilterItem(title: "I Liked", filter: "isLiked = true OR isSuperLiked = true"),
+            FilterItem(title: "I Super Liked", filter: "isSuperLiked = true"),
+            FilterItem(title: "Matches", filter: "isMatch = true"),
+            FilterItem(title: "I Disliked", filter: "isDisLiked = true"),
+            FilterItem(title: "With Instagram", filter: "instagram != ''"),
+            FilterItem(title: "🔥 Hot", filter: "nsfw > 0.8"),
+            FilterItem(title: "😍 Favorited", filter: "isFavorited = true")
+        ]
+    }()
 	var filtered: Completion?
 
-	var title: String {
-		return self.collection.title
-	}
+	let title: String  = "Browser"
 
 	// MARK: - Constructors
 
-	init(collection: CollectionConfig = CollectionConfig.browser) {
-
-		self.collection = collection
-
-		self.filters = [
-			FilterItem(title: "No Action", filter: "isLiked = false AND isDisLiked = false AND isMatch = false", isOn: true),
-			FilterItem(title: "I Liked", filter: "isLiked = true OR isSuperLiked = true"),
-			FilterItem(title: "I Super Liked", filter: "isSuperLiked = true"),
-			FilterItem(title: "Matches", filter: "isMatch = true"),
-			FilterItem(title: "I Disliked", filter: "isDisLiked = true"),
-			FilterItem(title: "With Instagram", filter: "instagram != ''"),
-			FilterItem(title: "🔥 Hot", filter: "nsfw > 0.8"),
-            FilterItem(title: "😍 Favorited", filter: "isFavorited = true"),
-		]
-
-        self.collection.didLoadBlock?()
+	override init() {
+        super.init()
 	}
-
 
 	// MARK: - Internal Methods
 
 	func load(_ completion: @escaping CompletionSuccess) {
-		guard self.collection.canReload else { return }
 		GASTinderManager.recs { (_, success) in
 			completion(success)
             GASPhotosManager.shared.nsfwAll()

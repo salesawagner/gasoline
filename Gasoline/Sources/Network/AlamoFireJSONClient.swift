@@ -34,7 +34,7 @@ enum AlamoFireJSONClient {
 										encoding: endPoint.encoding,
 										headers: AlamoFireJSONClient.headers)
 
-		request.logRequest(.simple)
+//        request.logRequest(.simple)
 //        request.logResponse(.verbose)
 //        debugPrint(request)
 

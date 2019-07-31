@@ -3,10 +3,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Gasoline' do
-	
-	pod 'Texture'
 
-	pod 'Fabric'
+  pod 'Fabric'
 	pod 'Crashlytics'
 
   # UI

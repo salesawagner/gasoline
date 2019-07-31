@@ -16,7 +16,7 @@ class DetailTinderViewModel: SimpleTinderViewModel {
     var photos: Results<GASPhoto>!
     var bio: String = "" {
         didSet {
-            self.delegate.setBio?(self.bio)
+            self.delegate?.setBio?(self.bio)
         }
     }
 

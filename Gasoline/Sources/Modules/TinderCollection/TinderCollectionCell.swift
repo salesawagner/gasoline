@@ -8,17 +8,16 @@
 
 import Foundation
 import Alamofire
-import MaterialComponents.MaterialActivityIndicator
-import MaterialComponents.MDCCardCollectionCell
+import MaterialComponents
 
-class TinderCollectionCell: MDCCardCollectionCell {
+class TinderCollectionCell: PhotoCell {
+
+    // MARK: - Internal Static Properties
 
     static let ID: String = "TinderCollectionCell"
 
-    // MARK: - IBOutlets
+    // MARK: - IBOutlets Properties
 
-    @IBOutlet weak var indicatorView: MDCActivityIndicator!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var disLikeButton: UIButton!
@@ -27,12 +26,11 @@ class TinderCollectionCell: MDCCardCollectionCell {
     @IBOutlet weak var hotLabel: UILabel!
     @IBOutlet weak var instagramLabel: UILabel!
 
-    // MARK: - Instance Properties
+    // MARK: - Internal Properties
 
     var viewModel: SimpleTinderViewModel!
-    var request: DataRequest?
 
-    // MARK: - Life cicle
+    // MARK: - Life Cycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,23 +43,16 @@ class TinderCollectionCell: MDCCardCollectionCell {
         self.resetValues()
     }
 
-    // MARK: - Private Methods
-
-    private func resetValues() {
-        self.imageView.image = UIImage(named: "Artboard")
+    override func resetValues() {
+        super.resetValues()
         self.nameLabel.text = nil
-
-        self.setIsHot(false)
-        self.setIsFavorite(false)
-        self.setIsInstagram(false)
-        self.request?.cancel()
-        self.stopAnimating()
     }
+
+    // MARK: - Private Methods
 
     private func setupUI() {
         self.setupCell()
         self.setupCard()
-        self.setupIndicator()
     }
 
     private func setupCell() {
@@ -76,34 +67,28 @@ class TinderCollectionCell: MDCCardCollectionCell {
         self.setShadowElevation(.cardResting, for: .normal)
     }
 
-    private func setupIndicator() {
-        self.indicatorView.backgroundColor = .clear
-        self.indicatorView.cycleColors = [.red]
-    }
-
-    private func startAnimating() {
-        self.indicatorView.startAnimating()
-    }
-
-    private func stopAnimating() {
-        self.indicatorView.stopAnimating()
-    }
-
-    private func setImage(_ photoID: String) {
-        self.startAnimating()
-        self.request = self.imageView.setPhoto(photoID: photoID, completion: {
-            self.stopAnimating()
-        })
-    }
-
     // MARK: - Internal Methods
 
     func setup(viewModel: SimpleTinderViewModel) {
         self.resetValues()
         self.viewModel = viewModel
-        self.nameLabel.text = self.viewModel.name
-        self.setImage(self.viewModel.photoID)
+        self.setupTinder()
+    }
+
+    func setupTinder(updatePhoto: Bool = true) {
+
+        if updatePhoto {
+            self.setImage(self.viewModel.photoID)
+        }
+
         self.viewModel.setupTinder()
+        self.nameLabel.text = self.viewModel.name
+        self.setIsFavorite()
+        self.setIsHot()
+        self.setIsInstagram()
+        self.setIsLiked()
+        self.setIsSuperLiked()
+        self.setIsMatch()
     }
 
     // MARK: - Actions
@@ -123,34 +108,34 @@ class TinderCollectionCell: MDCCardCollectionCell {
 
 // Mark: - TinderDelegate
 
-extension TinderCollectionCell: TinderDelegate {
+extension TinderCollectionCell {
 
-    func setIsFavorite(_ isFavorite: Bool) {
-        self.favoriteLabel.isHidden = !isFavorite
+    private func setIsFavorite() {
+        self.favoriteLabel.isHidden = !self.viewModel.isFavorited
     }
 
-    func setIsHot(_ isHot: Bool) {
-        self.hotLabel.isHidden = !isHot
+    private func setIsHot() {
+        self.hotLabel.isHidden = !self.viewModel.isHot
     }
 
-    func setIsInstagram(_ isInstagram: Bool) {
-        self.instagramLabel.isHidden = !isInstagram
+    private func setIsInstagram() {
+        self.instagramLabel.isHidden = self.viewModel.instagram.isEmpty
     }
 
-    func setIsLiked(_ isLiked: Bool) {
-        let imageName = isLiked ? "btn_liked_big" : "btn_like_big"
+    private func setIsLiked() {
+        let imageName = self.viewModel.isLiked ? "btn_liked_big" : "btn_like_big"
         let image = UIImage(named: imageName)
         self.likeButton.setImage(image, for: .normal)
     }
 
-    func setIsSuperLiked(_ isLiked: Bool) {
-        guard isLiked else { return }
+    private func setIsSuperLiked() {
+        guard self.viewModel.isSuperLiked else { return }
         let imageName = "btn_superliked_big"
         let image = UIImage(named: imageName)
         self.likeButton.setImage(image, for: .normal)
     }
 
-    func setIsMatch(_ isMatch: Bool) {
-        self.likeButton.isEnabled = !isMatch
+    private func setIsMatch() {
+        self.likeButton.isEnabled = !self.viewModel.isMatch
     }
 }

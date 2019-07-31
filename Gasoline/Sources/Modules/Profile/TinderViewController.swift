@@ -192,8 +192,9 @@ class TinderViewController: GASViewController {
 
         let alert = SCLAlertView()
         alert.addButton("Sim") { [weak self] in
-            PersistenceManager.delete(tinderID: self?.viewModel.tinderID ?? "")
-            self?.close()
+            self?.hero.dismissViewController(completion: {
+                PersistenceManager.delete(tinderID: self?.viewModel.tinderID ?? "")
+            })
         }
 
         alert.showTitle("Cuidado",
@@ -216,18 +217,21 @@ class TinderViewController: GASViewController {
     }
 
     @IBAction func didTapLikeButton(_ sender: Any) {
-        self.viewModel.likeButtonTapped()
-        self.close()
+        hero.dismissViewController {
+            self.viewModel.likeButtonTapped()
+        }
     }
 
     @IBAction func didTapDislikeButton(_ sender: Any) {
-        self.viewModel.disLikeButtonTapped()
-        self.close()
+        hero.dismissViewController {
+            self.viewModel.disLikeButtonTapped()
+        }
     }
 
     @IBAction func didTapSuperlikeButton(_ sender: Any) {
-        self.viewModel.superLikeButtonTapped()
-        self.close()
+        hero.dismissViewController {
+            self.viewModel.superLikeButtonTapped()
+        }
     }
 }
 

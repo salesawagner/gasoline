@@ -11,34 +11,30 @@ import Alamofire
 
 extension UIImageView {
 
-    @discardableResult
-	func setPhoto(photoID: String, completion: @escaping Completion) -> DataRequest? {
+	func setPhoto(photoID: String, completion: @escaping Completion) {
 
-		guard let photo = GASPhoto.findById(id: photoID) else {
-			Log.e("Photo not found")
-			return nil
+        guard let photo = GASPhoto.findById(id: photoID), let url = URL(string: photo.url) else {
+            completion()
+            return
 		}
 
-		return AlamoFireJSONClient.requestImage(url: photo.url) { image in
-			guard let image = image else {
-				Log.e("Load photo")
-				completion()
-				return
-			}
+        self.af_setImage(withURL: url,
+                         placeholderImage: UIImage(named: "Artboard"),
+                         progressQueue: DispatchQueue.main,
+                         imageTransition: UIImageView.ImageTransition.crossDissolve(0.25),
+                         runImageTransitionIfCached: false) { response in
 
-            Log.i(photo.url)
-			GASPhoto.nsfw(photoID: photoID, image: image)
+                            defer {
+                                completion()
+                            }
 
-			DispatchQueue.main.async { [weak self] in
-                guard let imageView = self else { return }
+                            guard let image = response.value else {
+                                return
+                            }
 
-                UIView.transition(with: imageView,
-                                  duration: 0.25,
-                                  options: .transitionCrossDissolve,
-                                  animations: { imageView.image = image },
-                                  completion: { completed in if completed { completion() } })
+                            GASPhoto.nsfw(photoID: photoID, image: image)
+        }
 
-			}
-		}
+        return
 	}
 }

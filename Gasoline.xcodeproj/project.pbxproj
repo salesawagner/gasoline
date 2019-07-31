@@ -19,6 +19,7 @@
 		6FC0F43222E7723A0084C42A /* TinderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0F43122E7723A0084C42A /* TinderCollectionCell.xib */; };
 		6FDE25CE22E22358004863D9 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CD22E22358004863D9 /* ResponseError.swift */; };
 		6FDE25D022E34522004863D9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE25CF22E34522004863D9 /* CardView.swift */; };
+		6FEBC14022F0F81F00E6889C /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEBC13F22F0F81F00E6889C /* PhotoCell.swift */; };
 		6FFE8C2D22EE177000B09871 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE8C2C22EE177000B09871 /* FlowLayout.swift */; };
 		A7024EA6220B3EFD00A425DC /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7024EA5220B3EFD00A425DC /* MachineLearning.swift */; };
 		A70758AB223C24870006D451 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70758AA223C24870006D451 /* UIImageView+Download.swift */; };
@@ -36,7 +37,6 @@
 		A7BE582B22416A8600DBF26A /* TemplateDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582722416A8600DBF26A /* TemplateDataViewController.swift */; };
 		A7BE582C22416A8600DBF26A /* TemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7BE582822416A8600DBF26A /* TemplateViewController.xib */; };
 		A7BE582D22416A8600DBF26A /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582922416A8600DBF26A /* TemplateViewController.swift */; };
-		A7BE583022416E1400DBF26A /* CollectionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE582F22416E1400DBF26A /* CollectionConfig.swift */; };
 		A7C5F62822125FC8004759AA /* AlamofireEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */; };
 		A7C5F62A2212608E004759AA /* AlamoFireJSONClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */; };
 		A7C5F62C2212612F004759AA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5F62B2212612F004759AA /* NetworkError.swift */; };
@@ -64,11 +64,9 @@
 		A7F10D1820C7593200687F6F /* UIViewController+Visible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF020C7593200687F6F /* UIViewController+Visible.swift */; };
 		A7F10D1920C7593200687F6F /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF120C7593200687F6F /* UIViewController+Utils.swift */; };
 		A7F10D1A20C7593200687F6F /* ImageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF320C7593200687F6F /* ImageDecoder.swift */; };
-		A7F10D1B20C7593200687F6F /* AttributedTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF420C7593200687F6F /* AttributedTextNode.swift */; };
 		A7F10D1C20C7593200687F6F /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF520C7593200687F6F /* Definitions.swift */; };
 		A7F10D1D20C7593200687F6F /* DecodeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF620C7593200687F6F /* DecodeOperation.swift */; };
 		A7F10D1E20C7593200687F6F /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CF720C7593200687F6F /* ImageRequest.swift */; };
-		A7F10D2020C7593200687F6F /* CellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CFB20C7593200687F6F /* CellNode.swift */; };
 		A7F10D2120C7593200687F6F /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CFC20C7593200687F6F /* PhotoCollectionViewCell.swift */; };
 		A7F10D2320C7593200687F6F /* GASViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10CFF20C7593200687F6F /* GASViewController.swift */; };
 		A7F10D2420C7593200687F6F /* MTPTheAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F10D0020C7593200687F6F /* MTPTheAppViewController.swift */; };
@@ -107,6 +105,7 @@
 		6FC0F43122E7723A0084C42A /* TinderCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCollectionCell.xib; sourceTree = "<group>"; };
 		6FDE25CD22E22358004863D9 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		6FDE25CF22E34522004863D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		6FEBC13F22F0F81F00E6889C /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		6FFE8C2C22EE177000B09871 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		864A4C980FDCD5A98160E514 /* Pods_Gasoline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gasoline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7024EA5220B3EFD00A425DC /* MachineLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLearning.swift; sourceTree = "<group>"; };
@@ -457,6 +456,7 @@
 				A7373461221330DA00DE27CB /* SimpleTinderViewModel.swift */,
 				A73734632213379C00DE27CB /* DetailTinderViewModel.swift */,
 				A7373467221353EA00DE27CB /* PhotoViewModel.swift */,
+				6FEBC13F22F0F81F00E6889C /* PhotoCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -740,11 +740,11 @@
 				6F79479422E5842800AEFAAD /* URL+Social.swift in Sources */,
 				A737346A22136D3C00DE27CB /* String+Social.swift in Sources */,
 				A7F10D1820C7593200687F6F /* UIViewController+Visible.swift in Sources */,
+				6FEBC14022F0F81F00E6889C /* PhotoCell.swift in Sources */,
 				A7F10D1E20C7593200687F6F /* ImageRequest.swift in Sources */,
 				6F9949C122E8079600F3D21A /* TinderCollectionCell.swift in Sources */,
 				A7F10D1920C7593200687F6F /* UIViewController+Utils.swift in Sources */,
 				A7F10D1420C7593200687F6F /* GASTinder.swift in Sources */,
-				A7F10D1B20C7593200687F6F /* AttributedTextNode.swift in Sources */,
 				A7EEF202220CE18E00B0681B /* UIImage+Coreml.swift in Sources */,
 				A7BE582B22416A8600DBF26A /* TemplateDataViewController.swift in Sources */,
 				A7373462221330DA00DE27CB /* SimpleTinderViewModel.swift in Sources */,
@@ -769,14 +769,12 @@
 				A7F10D2420C7593200687F6F /* MTPTheAppViewController.swift in Sources */,
 				6F05C62F22EA225C00D9650C /* UICollection+Reactive.swift in Sources */,
 				6F1BDD7222E6A2A0003737B2 /* TinderCollectionViewController.swift in Sources */,
-				A7F10D2020C7593200687F6F /* CellNode.swift in Sources */,
 				A7F10D2520C7593200687F6F /* TinderViewController.swift in Sources */,
 				A71FFCAD20C84EFB007BFECD /* OnboardingViewController.swift in Sources */,
 				A7C5F63622127B35004759AA /* AlamofireLogger.swift in Sources */,
 				A7F10D0C20C7593200687F6F /* AuthManager.swift in Sources */,
 				A7F10D0820C7593200687F6F /* GASLayoutKit.swift in Sources */,
 				6FFE8C2D22EE177000B09871 /* FlowLayout.swift in Sources */,
-				A7BE583022416E1400DBF26A /* CollectionConfig.swift in Sources */,
 				A7F10D2120C7593200687F6F /* PhotoCollectionViewCell.swift in Sources */,
 				6F0EFCA922E8C28200C09459 /* UICollectionViewFlowLayout+Cards.swift in Sources */,
 				A7F10D0E20C7593200687F6F /* Localized.swift in Sources */,

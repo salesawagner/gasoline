@@ -30,15 +30,6 @@ class TinderCollectionViewController: GASViewController {
         self.setups()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-//        self.view.layoutIfNeeded()
-
-//        self.collectionView.transform = CGAffineTransform.init(rotationAngle: (-(CGFloat)(Double.pi)))
-
-    }
-
     // MARK: - Private Cicle
 
     private func setups() {
@@ -59,11 +50,15 @@ class TinderCollectionViewController: GASViewController {
         self.token = self.viewModel.dataSource.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
                 case .initial: self?.collectionView.reloadData()
-                case .update(_, let deletions, let insertions, _):
+                case .update(_, let deletions, let insertions, let updates):
 
                     self?.collectionView.performBatchUpdates({
                         self?.collectionView.insertItems(at: insertions.map { IndexPath(row: $0, section: 0) })
                         self?.collectionView.deleteItems(at: deletions.map { IndexPath(row: $0, section: 0) })
+                        updates.forEach {
+                            let indePath = IndexPath(row: $0, section: 0)
+                            self?.updates(indexPath: indePath)
+                        }
                     }, completion: { completed in
                         guard completed, self?.viewModel.dataSource.count == 0 else { return }
                         self?.startLoading()
@@ -72,14 +67,20 @@ class TinderCollectionViewController: GASViewController {
                         }
                     })
 
-                case .error(let error): fatalError("\(error)")
+                case .error(let error): Log.i(error)
             }
         }
     }
 
+    func updates(indexPath: IndexPath) {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? TinderCollectionCell else { return }
+        cell.viewModel.setupTinder()
+        cell.setupTinder(updatePhoto: false)
+    }
+
     override func setupUI() {
         super.setupUI()
-        self.setupTitle(title: self.viewModel.collection.title)
+        self.setupTitle(title: self.viewModel.title)
     }
 
     override func setupNavigation() {
@@ -123,6 +124,8 @@ class TinderCollectionViewController: GASViewController {
         collection.register(cellNib, forCellWithReuseIdentifier: TinderCollectionCell.ID)
         collection.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         collection.collectionViewLayout = UICollectionViewFlowLayout.cards
+
+        collection.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
     }
 
     private func showCollectionView() {
@@ -141,9 +144,8 @@ extension TinderCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TinderCollectionCell.ID, for: indexPath) as! TinderCollectionCell
         let tinder = self.viewModel.dataSource[indexPath.row]
-        let viewModel = SimpleTinderViewModel(delegate: cell, tinderID: tinder.id)
+        let viewModel = SimpleTinderViewModel(tinderID: tinder.id)
         cell.setup(viewModel: viewModel)
-//        cell.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         return cell
     }
 }
@@ -151,10 +153,6 @@ extension TinderCollectionViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension TinderCollectionViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, cellHeightAt indexPath: IndexPath) -> CGFloat {
-        return self.collectionView.frame.width / 2 * 1.5
-    }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let tinder = self.viewModel.dataSource[indexPath.row]
@@ -167,10 +165,6 @@ extension TinderCollectionViewController: UICollectionViewDelegate {
         navigationController.hero.isEnabled = true
 
         self.present(navigationController, animated: true, completion: nil)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        cell.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
     }
 }
 

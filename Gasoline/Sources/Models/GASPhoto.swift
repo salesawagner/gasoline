@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import SwiftyJSON
+import AlamofireImage
 
 class GASPhoto: Object {
 
@@ -99,8 +100,15 @@ extension GASPhoto {
 
 	class func nsfw(photoID: String?, image: UIImage, completion: Completion? = nil) {
 
-        guard let photoID = photoID, #available(iOS 12.0, *) else {
-            Log.e("Machine Learning iOS version")
+        guard
+            let photoID = photoID,
+            let photo = GASPhoto.findById(id: photoID) else {
+                Log.e("Photo not found")
+                return
+        }
+
+        guard photo.nsfw == 0 else {
+            Log.e("nsfw != 0")
             return
         }
 
@@ -171,4 +179,20 @@ extension GASPhoto {
 			}
 		}
 	}
+
+    static func teste(photoID: String) { // FIXME:
+        guard let photo = GASPhoto.findById(id: photoID), let url = URL(string: photo.url) else {
+            return
+        }
+
+        let downloader = ImageDownloader(downloadPrioritization: .lifo)
+        downloader.download(URLRequest(url: url)) { response in
+            guard let image = response.value else {
+                return
+            }
+
+            GASPhoto.nsfw(photoID: photoID, image: image)
+        }
+
+    }
 }

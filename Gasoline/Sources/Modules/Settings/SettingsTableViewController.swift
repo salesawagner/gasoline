@@ -75,20 +75,6 @@ class SettingsTableViewController: UITableViewController {
 		}
 		
 		var viewController: UIViewController!
-		
-		switch row {
-			case 0: viewController = CollectionConfig.all.createViewController()
-			case 1: viewController = CollectionConfig.superLiked.createViewController()
-			case 2: viewController = CollectionConfig.disliked.createViewController()
-			case 3: viewController = CollectionConfig.blocks.createViewController()
-			case 4: viewController = CollectionConfig.removed.createViewController()
-			case 5: viewController = CollectionConfig.instagram.createViewController()
-			case 6: viewController = CollectionConfig.instagram.createViewController()
-			case 7: viewController = CollectionConfig.hot.createViewController()
-			default: viewController = CollectionConfig.browser.createViewController()
-		}
-
-		navigationController.pushViewController(viewController, animated: true)
 	}
 	
 	private func deleteCollection(row: Int) {

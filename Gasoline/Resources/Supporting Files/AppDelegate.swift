@@ -29,10 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Realm migration
 		self.realmMigration()
 
-//        let storyboard = UIStoryboard(name: "TinderCollectionViewController", bundle: nil)
-//        let viewController = UIViewController.collection()
-//        let rootViewController = UINavigationController(rootViewController: viewController)
-//        rootViewController.hero.isEnabled = true // FIXME: - remove?
         // Set root view controller
         var rootViewController: UIViewController
         if User.logged() == nil {

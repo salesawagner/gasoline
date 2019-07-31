@@ -59,7 +59,6 @@ class GASTinderManager: NSObject {
 //			}
 //		}
 	}
-
 }
 
 // MARK: - Actions

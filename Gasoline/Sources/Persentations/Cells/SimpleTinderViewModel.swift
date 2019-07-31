@@ -11,8 +11,6 @@ import RealmSwift
 
 @objc protocol TinderDelegate: class {
 
-
-
     func setIsInstagram(_ isInstagram: Bool)
     func setIsFavorite(_ isFavorite: Bool)
     func setIsHot(_ isHot: Bool)
@@ -29,7 +27,7 @@ class SimpleTinderViewModel: NSObject {
 	// MARK: - Properties
 
     // FIXME: Achar solucao para herança e inacessível na view
-    weak var delegate: TinderDelegate!
+    weak var delegate: TinderDelegate? = nil
     var tinder: GASTinder!
 
     private(set) var tinderID: String = ""
@@ -40,37 +38,37 @@ class SimpleTinderViewModel: NSObject {
 
     private(set) var instagram: String = "" {
         didSet {
-            self.delegate.setIsInstagram(!self.instagram.isEmpty)
+            self.delegate?.setIsInstagram(!self.instagram.isEmpty)
         }
     }
 
     private(set) var isLiked: Bool = false {
         didSet {
-            self.delegate.setIsLiked?(self.tinder.isLiked)
+            self.delegate?.setIsLiked?(self.tinder.isLiked)
         }
     }
 
     private(set) var isSuperLiked: Bool = false {
         didSet {
-            self.delegate.setIsSuperLiked?(self.isSuperLiked)
+            self.delegate?.setIsSuperLiked?(self.isSuperLiked)
         }
     }
 
     private(set) var isMatch: Bool = false {
         didSet {
-            self.delegate.setIsMatch?(self.tinder.isMatch)
+            self.delegate?.setIsMatch?(self.tinder.isMatch)
         }
     }
 
     private(set) var isHot: Bool = false {
         didSet {
-            self.delegate.setIsHot(self.tinder.isNsfw)
+            self.delegate?.setIsHot(self.tinder.isNsfw)
         }
     }
 
     private(set) var isFavorited: Bool = false {
         didSet {
-            self.delegate.setIsFavorite(self.tinder.isFavorited)
+            self.delegate?.setIsFavorite(self.tinder.isFavorited)
         }
     }
 
@@ -78,7 +76,7 @@ class SimpleTinderViewModel: NSObject {
 
 	// MARK: - Constructors
 
-	init(delegate: TinderDelegate, tinderID: String) {
+	init(delegate: TinderDelegate? = nil, tinderID: String) {
 		super.init()
 
 		guard let tinder = GASTinder.findById(id: tinderID) else {
