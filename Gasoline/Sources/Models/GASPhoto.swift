@@ -108,7 +108,6 @@ extension GASPhoto {
         }
 
         guard photo.nsfw == 0 else {
-            Log.e("nsfw != 0")
             return
         }
 

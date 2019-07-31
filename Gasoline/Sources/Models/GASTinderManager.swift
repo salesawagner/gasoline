@@ -33,17 +33,17 @@ class GASTinderManager: NSObject {
 	}
 	
 	class func updates() {
-//        TinderJSONClient.updates { result in
-//            switch result {
-//                case .success(let json): do {
-//                    let matches = GASTinder.arrayFromMatches(json)
-//                    PersistenceManager.add(matches)
-//                }
-//                case .failure(let error): do {
-//                    Log.e(error.localizedDescription)
-//                }
-//            }
-//        }
+        TinderJSONClient.updates { result in
+            switch result {
+                case .success(let json): do {
+                    let matches = GASTinder.arrayFromMatches(json)
+                    PersistenceManager.add(matches)
+                }
+                case .failure(let error): do {
+                    Log.e(error.localizedDescription)
+                }
+            }
+        }
 	}
 
 	class func topPicks() { // FIXME: remove
@@ -113,7 +113,7 @@ extension GASTinderManager {
 				}
 				case .failure(let error): do {
 					Log.e(error.localizedDescription)
-					tinder.setError()
+                    tinder.setError()
 				}
 			}
 		}

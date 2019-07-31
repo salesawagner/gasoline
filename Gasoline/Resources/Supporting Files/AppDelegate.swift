@@ -29,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Realm migration
 		self.realmMigration()
 
+        // Updates
+        GASTinderManager.updates()
+
         // Set root view controller
         var rootViewController: UIViewController
         if User.logged() == nil {

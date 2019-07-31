@@ -128,7 +128,6 @@
 		A7BE582722416A8600DBF26A /* TemplateDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateDataViewController.swift; sourceTree = "<group>"; };
 		A7BE582822416A8600DBF26A /* TemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateViewController.xib; sourceTree = "<group>"; };
 		A7BE582922416A8600DBF26A /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
-		A7BE582F22416E1400DBF26A /* CollectionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConfig.swift; sourceTree = "<group>"; };
 		A7C5F62722125FC8004759AA /* AlamofireEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireEndPoint.swift; sourceTree = "<group>"; };
 		A7C5F6292212608E004759AA /* AlamoFireJSONClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoFireJSONClient.swift; sourceTree = "<group>"; };
 		A7C5F62B2212612F004759AA /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -166,7 +165,6 @@
 		A7F10D0020C7593200687F6F /* MTPTheAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTPTheAppViewController.swift; sourceTree = "<group>"; };
 		A7F10D0120C7593200687F6F /* TinderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderViewController.swift; sourceTree = "<group>"; };
 		A7F10D0220C7593200687F6F /* GASTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GASTabBarController.swift; sourceTree = "<group>"; };
-		A7F10D0320C7593200687F6F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		A7F10D2920C75DE100687F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F10D3A20C75DE100687F6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A7F10D3B20C75DE100687F6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				6F9949BF22E8074700F3D21A /* TinderCollection */,
-				A7BE582E22416B5600DBF26A /* Collection */,
 				A7BE582522416A8600DBF26A /* TemplateViewController */,
 				A7A0BDA220CC8C2E00230F1E /* Profile */,
 				A7D7009B20CB2A3A00942A46 /* Settings */,
@@ -297,15 +294,6 @@
 				A7BE582922416A8600DBF26A /* TemplateViewController.swift */,
 			);
 			path = TemplateViewController;
-			sourceTree = "<group>";
-		};
-		A7BE582E22416B5600DBF26A /* Collection */ = {
-			isa = PBXGroup;
-			children = (
-				A7F10D0320C7593200687F6F /* CollectionViewController.swift */,
-				A7BE582F22416E1400DBF26A /* CollectionConfig.swift */,
-			);
-			path = Collection;
 			sourceTree = "<group>";
 		};
 		A7D7009B20CB2A3A00942A46 /* Settings */ = {

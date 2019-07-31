@@ -14,6 +14,9 @@
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TinderCollectionCell" id="lpj-W9-o7L" customClass="TinderCollectionCell" customModule="Gasoline" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="187.5" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <userGuides>
+                <userLayoutGuide location="179" affinity="minX"/>
+            </userGuides>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -85,7 +88,11 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mG-KD-F2o">
-                        <rect key="frame" x="155.5" y="8" width="24" height="24"/>
+                        <rect key="frame" x="139.5" y="0.0" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="0Xk-xu-BUA"/>
+                            <constraint firstAttribute="width" constant="48" id="5XX-EF-AJs"/>
+                        </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="btn-close"/>
                         <connections>
@@ -106,8 +113,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="rtF-MX-hpG" secondAttribute="bottom" id="Flk-sm-R42"/>
-                <constraint firstAttribute="trailing" secondItem="3mG-KD-F2o" secondAttribute="trailing" constant="8" id="G6t-V5-D9C"/>
-                <constraint firstItem="3mG-KD-F2o" firstAttribute="top" secondItem="lpj-W9-o7L" secondAttribute="top" constant="8" id="GIk-9N-S3u"/>
+                <constraint firstAttribute="trailing" secondItem="3mG-KD-F2o" secondAttribute="trailing" id="G6t-V5-D9C"/>
+                <constraint firstItem="3mG-KD-F2o" firstAttribute="top" secondItem="lpj-W9-o7L" secondAttribute="top" id="GIk-9N-S3u"/>
                 <constraint firstAttribute="trailing" secondItem="y4r-Fk-TXK" secondAttribute="trailing" constant="8" id="KvL-4O-xc7"/>
                 <constraint firstItem="rtF-MX-hpG" firstAttribute="top" secondItem="lpj-W9-o7L" secondAttribute="top" id="LyB-R7-g9A"/>
                 <constraint firstItem="k8m-0i-2dN" firstAttribute="centerX" secondItem="lpj-W9-o7L" secondAttribute="centerX" id="Wo9-kB-w5w"/>

@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
 
 class CollectionViewModel: NSObject {
 
@@ -50,7 +51,10 @@ class CollectionViewModel: NSObject {
 	func load(_ completion: @escaping CompletionSuccess) {
 		GASTinderManager.recs { (_, success) in
 			completion(success)
-            GASPhotosManager.shared.nsfwAll()
+
+            if NetworkReachabilityManager()?.isReachableOnEthernetOrWiFi ?? false {
+                GASPhotosManager.shared.nsfwAll()
+            }
 		}
 	}
 

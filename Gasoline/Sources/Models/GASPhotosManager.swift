@@ -44,9 +44,8 @@ extension GASPhotosManager {
                     return
                 }
 
-                let test = URLRequest(url: url)
                 let downloader = GASPhotosManager.shared.downloader
-                downloader.download(test) { response in
+                downloader.download(URLRequest(url: url)) { response in
                     guard let image = response.value else {
                         return
                     }

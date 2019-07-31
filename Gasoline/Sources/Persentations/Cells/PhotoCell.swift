@@ -26,7 +26,6 @@ class PhotoCell: MDCCardCollectionCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupIndicator()
-        self.resetValues()
     }
 
     override func prepareForReuse() {
@@ -53,6 +52,8 @@ class PhotoCell: MDCCardCollectionCell {
 
     func resetValues() {
         self.imageView.af_cancelImageRequest()
+        self.imageView.layer.removeAllAnimations()
+        self.imageView.image = UIImage(named: "Artboard")
         self.stopAnimating()
     }
 
