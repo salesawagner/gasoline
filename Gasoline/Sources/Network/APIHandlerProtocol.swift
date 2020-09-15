@@ -9,12 +9,12 @@
 import Foundation
 import Alamofire
 
-typealias APICompletionHandler = (Result<[String: Any]>) -> ()
+//typealias APICompletionHandler = (Result<[String: Any]>) -> ()
 
 let baseURL = "https://api.gotinder.com"
 
 protocol APIHandlerProtocol {
-	static func handle(result: Result<Any>, completionHandler: APICompletionHandler)
+	static func handle(result: Resultzz, completionHandler: APICompletionHandler)
 	static func handleSuccessfulAPICall(for json: Any, completionHandler: APICompletionHandler)
 	static func handleFailedAPICall(for error: Error, completionHandler: APICompletionHandler)
 }

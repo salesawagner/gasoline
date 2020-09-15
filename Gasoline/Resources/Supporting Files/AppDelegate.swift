@@ -67,18 +67,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func realmMigration() {
-		let config = Realm.Configuration(
-			// Set the new schema version. This must be greater than the previously used
-			// version (if you've never set a schema version before, the version is 0).
-			schemaVersion: 217,
-			// Set the block which will be called automatically when opening a Realm with
-			// a schema version lower than the one set above
-			migrationBlock: { migration, oldSchemaVersion in
-			// We haven’t migrated anything yet, so oldSchemaVersion == 0
-			if (oldSchemaVersion < 202) { }
-		})
-
-		Realm.Configuration.defaultConfiguration = config
-		Log.i(config.fileURL ?? "")
+//
+//		let config = Realm.Configuration(
+//			// Set the new schema version. This must be greater than the previously used
+//			// version (if you've never set a schema version before, the version is 0).
+//			schemaVersion: 1,
+//			// Set the block which will be called automatically when opening a Realm with
+//			// a schema version lower than the one set above
+//			migrationBlock: { migration, oldSchemaVersion in
+//			// We haven’t migrated anything yet, so oldSchemaVersion == 0
+//			if (oldSchemaVersion < 2) { }
+//		})
+//
+//		Realm.Configuration.defaultConfiguration = config
+//		Log.i(config.fileURL ?? "")
 	}
 }

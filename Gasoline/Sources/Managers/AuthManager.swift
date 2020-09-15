@@ -29,6 +29,7 @@ class AuthManager: NSObject {
 	class func loginFace(_ viewcontroller: UIViewController, completion: @escaping CompletionSuccess) {
 		let permissions = ["public_profile"]
 		let login = FBSDKLoginManager()
+        login.loginBehavior = FBSDKLoginBehavior.web
 		login.logIn(withReadPermissions: permissions, from: viewcontroller) { (result, _) in
 			guard let result = result, result.isCancelled == false else {
 				completion(false)

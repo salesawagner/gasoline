@@ -26,8 +26,8 @@ target 'Gasoline' do
 	pod 'SwiftyJSON'
 
   # Facebook
-	pod 'FBSDKCoreKit'
-	pod 'FBSDKLoginKit'
+	pod 'FBSDKCoreKit', '4.40.0'
+	pod 'FBSDKLoginKit', '4.40.0'
 
   # Personal
 	pod 'WASKit', '0.2.1'
